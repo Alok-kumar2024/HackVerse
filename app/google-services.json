@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "58905753036",
+    "project_id": "hackverse-c1ae2",
+    "storage_bucket": "hackverse-c1ae2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58905753036:android:078f363bb7da737f51d969",
+        "android_client_info": {
+          "package_name": "com.example.hackverse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVM8Fvu1rnucn2sMG0lKrk59kF5HNQqHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

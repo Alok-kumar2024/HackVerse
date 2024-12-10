@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Primary Colors -->
+    <color name="primary">#6200EE</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC5</color>
+    <color name="secondary_variant">#018786</color>
+
+    <!-- Accent Colors -->
+    <color name="accent">#FF4081</color>
+    <color name="accent_dark">#C51162</color>
+    <color name="accent_light">#FF80AB</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#000000</color>
+
+    <!-- Background Colors -->
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#B00020</color>
+
+    <!-- Shades of Gray -->
+    <color name="gray_light">#E0E0E0</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="gray_dark">#616161</color>
+    <color name="gray_darker">#424242</color>
+
+    <!-- Blue Tones -->
+    <color name="blue_light">#81D4FA</color>
+    <color name="blue">#2196F3</color>
+    <color name="blue_dark">#1565C0</color>
+
+    <!-- Green Tones -->
+    <color name="green_light">#A5D6A7</color>
+    <color name="green">#4CAF50</color>
+    <color name="green_dark">#2E7D32</color>
+
+    <!-- Red Tones -->
+    <color name="red_light">#EF9A9A</color>
+    <color name="red">#F44336</color>
+    <color name="red_dark">#D32F2F</color>
+
+    <!-- Yellow Tones -->
+    <color name="yellow_light">#FFF59D</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="yellow_dark">#FBC02D</color>
+
+    <!-- Purple Tones -->
+    <color name="purple_light">#CE93D8</color>
+    <color name="purple">#9C27B0</color>
+    <color name="purple_dark">#7B1FA2</color>
+
+    <!-- Orange Tones -->
+    <color name="orange_light">#FFCC80</color>
+    <color name="orange">#FF9800</color>
+    <color name="orange_dark">#F57C00</color>
+</resources>
