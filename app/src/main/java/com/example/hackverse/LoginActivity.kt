@@ -27,17 +27,6 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        val lottieAnimationView = findViewById<LottieAnimationView>(R.id.animationView)
-        lottieAnimationView.setAnimation(R.raw.login)
-        lottieAnimationView.loop(true)
-        lottieAnimationView.playAnimation()
-
-        LottieCompositionFactory.fromRawRes(this, R.raw.login).addListener { composition ->
-            lottieAnimationView.setComposition(composition)
-            lottieAnimationView.playAnimation()
-        }
-
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -56,13 +45,12 @@ class LoginActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
-
         }
 
     binding.GoToRegisterActivity.setOnClickListener{

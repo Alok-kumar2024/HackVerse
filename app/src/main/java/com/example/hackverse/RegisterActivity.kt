@@ -27,15 +27,6 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val lottieAnimationView = findViewById<LottieAnimationView>(R.id.animationView)
-        lottieAnimationView.setAnimation(R.raw.login)
-        lottieAnimationView.loop(true)
-        lottieAnimationView.playAnimation()
-
-        LottieCompositionFactory.fromRawRes(this, R.raw.login).addListener { composition ->
-            lottieAnimationView.setComposition(composition)
-            lottieAnimationView.playAnimation()
-        }
 
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -76,6 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                             if (it.isSuccessful) {
                                 val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
+                                finish()
                             } else {
                                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
                                     .show()
@@ -86,7 +78,6 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, "Password does not match.", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
 
         binding.LoginRedirectText.setOnClickListener{

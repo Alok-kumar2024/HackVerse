@@ -1,155 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:background="@color/black"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@color/black">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="412dp"
-        android:layout_height="700dp"
-        android:layout_marginBottom="192dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/login" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/name"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="528dp"-->
-<!--        android:background="@drawable/writearea"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="Full Name"-->
-<!--        android:inputType="text"-->
-<!--        android:textSize="17sp"-->
-<!--        android:textColorHint="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/animationView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.445"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/animationView"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-
-    <EditText
-        android:id="@+id/email"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="528dp"
-        android:background="@drawable/writearea"
-        android:gravity="center"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/animationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/animationView"
-        app:layout_constraintVertical_bias="0.04"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/Login"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.0"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/white"
-        app:hintEnabled="false"
-        app:hintAnimationEnabled="true">
+        tools:context=".RegisterActivity"
+        tools:ignore="MissingClass"
+        android:background="@drawable/registeractivitybackground">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/writearea"
-            android:gravity="center"
-            android:padding="8dp"
-            android:textColorHint="@color/white"
-            android:textSize="17sp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/confirm_password"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        tools:layout_editor_absoluteX="146dp"-->
-<!--        tools:layout_editor_absoluteY="560dp"-->
-<!--        app:passwordToggleEnabled="true"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/password"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/animationView"-->
-<!--        android:textColorHint="@color/white"-->
-<!--        app:hintEnabled="false"-->
-<!--        app:hintAnimationEnabled="true">-->
-
-
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
+        <!--        <EditText-->
+<!--            android:id="@+id/name"-->
+<!--            android:layout_width="350dp"-->
+<!--            android:layout_height="48dp"-->
 <!--            android:background="@drawable/writearea"-->
 <!--            android:gravity="center"-->
-<!--            android:padding="8dp"-->
+<!--            android:hint="Full Name"-->
+<!--            android:inputType="text"-->
 <!--            android:textColorHint="@color/white"-->
 <!--            android:textSize="17sp"-->
-<!--            android:hint="@string/confirm_password"-->
-<!--            android:inputType="textPassword"-->
-<!--            />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+<!--            app:layout_constraintBottom_toTopOf="@id/email"-->
+<!--            app:layout_constraintHorizontal_bias="0.493"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.957"-->
+<!--            tools:ignore="MissingConstraints" />-->
 
-    <Button
-        android:id="@+id/Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
-        android:layout_marginBottom="44dp"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.239" />
+        <TextView
+            android:id="@+id/WelcomeMessage"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:shadowColor="@color/red"
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="10"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/email"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.554"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:id="@+id/GoToRegisterActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Not Yet Registered ? Click Here"
-        android:background="@drawable/writearea"
-        android:textColor="@color/red"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Login"
-        app:layout_constraintVertical_bias="0.375" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="276dp"
+            android:background="@drawable/writearea"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.098"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toTopOf="@id/Login"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            app:layout_constraintVertical_bias="0.2"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            android:gravity="center">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/writearea"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColorHint="@color/white"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/confirm_password"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:layout_editor_absoluteX="146dp"-->
+<!--            tools:layout_editor_absoluteY="560dp"-->
+<!--            app:passwordToggleEnabled="true"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/password"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/Register"-->
+<!--            android:textColorHint="@color/white"-->
+<!--            app:passwordToggleTint="@color/white"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:hintAnimationEnabled="true"-->
+<!--            android:gravity="center">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="350dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/writearea"-->
+<!--                android:gravity="center"-->
+<!--                android:hint="@string/confirm_password"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:padding="8dp"-->
+<!--                android:textColorHint="@color/white"-->
+<!--                android:textSize="17sp"-->
+<!--                tools:layout_editor_absoluteX="2dp"-->
+<!--                tools:layout_editor_absoluteY="616dp" />-->
+
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <Button
+            android:id="@+id/Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="51dp"
+            android:layout_marginBottom="44dp"
+            android:text="@string/login"
+            android:backgroundTint="@color/orange_dark"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/GoToRegisterActivity"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/GoToRegisterActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@color/black"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/create_an_account"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Login"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
