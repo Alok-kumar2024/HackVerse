@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="" >
+
+        <menu>
+            <item
+                android:id="@+id/home"
+                android:title="Home" />
+
+
+            <item
+                android:id="@+id/favourite"
+                android:title="Favourite" />
+
+            <item
+                android:id="@+id/my_hackathons"
+                android:title="My Hackathons" />
+
+        </menu>
+    </item>
+
+    <item android:title="">
+
+        <menu>
+
+            <item
+                android:id="@+id/friends"
+                android:title="Friends"/>
+
+            <item
+                android:id="@+id/my_profile"
+                android:title="My Profile" />
+
+        </menu>
+
+    </item>
+
+    <item android:title="">
+
+        <menu>
+
+            <item
+                android:id="@+id/share"
+                android:title="Share" />
+
+            <item
+                android:id="@+id/feedback"
+                android:title="Feedback" />
+
+            <item
+                android:id="@+id/rate_us"
+                android:title="Rate Us" />
+
+        </menu>
+
+    </item>
+  
+</menu>
