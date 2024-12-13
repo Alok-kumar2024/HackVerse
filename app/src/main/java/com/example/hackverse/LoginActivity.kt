@@ -2,15 +2,16 @@ package com.example.hackverse
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieCompositionFactory
 import com.example.hackverse.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,12 +31,15 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.Login.setOnClickListener{
 
+
             val email = binding.email.text.toString()
             val password =binding.password.editText?.text.toString()
+
 
             if(email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
@@ -43,6 +47,9 @@ class LoginActivity : AppCompatActivity() {
             else {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
+
+                        binding.progressBar.visibility = View.VISIBLE
+
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()

@@ -74,7 +74,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098"
+            app:layout_constraintVertical_bias="0.034"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,15 +145,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="51dp"
             android:layout_marginBottom="44dp"
-            android:text="@string/login"
             android:backgroundTint="@color/orange_dark"
             android:fontFamily="sans-serif-condensed"
+            android:text="@string/login"
             android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@id/GoToRegisterActivity"
-            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email"
+            app:layout_constraintTop_toBottomOf="@+id/GoToRegisterActivity"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -161,18 +160,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:background="@color/black"
+            android:background="@color/transparent"
             android:fontFamily="sans-serif-condensed"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="@string/create_an_account"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="23sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Login"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.648" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Login"
+            app:layout_constraintVertical_bias="0.129" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

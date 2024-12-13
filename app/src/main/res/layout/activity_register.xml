@@ -163,18 +163,32 @@
             android:id="@+id/LoginRedirectText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="@string/click_here_to_login"
             android:textColor="@color/white"
-            android:fontFamily="sans-serif-condensed"
-            android:background="@color/black"
-            android:textSize="30sp"
+            android:textSize="20sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.534"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Register"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/LoginRedirectText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Register"
+            android:background="@color/white"
+            android:visibility="invisible"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

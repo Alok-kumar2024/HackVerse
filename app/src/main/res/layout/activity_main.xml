@@ -9,31 +9,40 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
 
     <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/toolbar_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024">
 
         <ImageButton
             android:id="@+id/menu_button"
             android:layout_width="60dp"
             android:layout_height="48dp"
-            android:src="@drawable/arrow_forward"
-            android:padding="10dp"
-
+            android:layout_gravity="start"
             android:background="@color/transparent"
-            android:layout_gravity="start" />
+
+            android:padding="10dp"
+            android:src="@drawable/arrow_forward" />
 
     </Toolbar>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -41,7 +50,9 @@
         app:dividerInsetStart="30dp"
         app:headerLayout="@layout/drawer_layout"
         app:menu="@menu/menu_drawer"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:itemTextColor="@color/white"/>
 
+
 </androidx.drawerlayout.widget.DrawerLayout>
+

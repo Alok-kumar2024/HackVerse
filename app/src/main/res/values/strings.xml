@@ -4,8 +4,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="create_an_account">Create An Account</string>
+    <string name="create_an_account"><u>Create An Account</u></string>
     <string name="full_name">Full Name</string>
     <string name="register">Register</string>
-    <string name="click_here_to_login">Click Here To Login</string>
+    <string name="click_here_to_login"><u>Click Here To Login</u></string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.hackverse
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +13,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieCompositionFactory
 import com.example.hackverse.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var database : DatabaseReference
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -31,6 +36,8 @@ class RegisterActivity : AppCompatActivity() {
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        database = FirebaseDatabase.getInstance().reference
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -52,9 +59,14 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.Register.setOnClickListener{
 
+
+            val fullname = binding.name.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.editText?.text.toString()
             val confirm_password = binding.confirmPassword.editText?.text.toString()
+
+            val UserID = database.push().key
+            val user = coders(name = fullname , email = email , password = password)
 
             if(email.isEmpty() || password.isEmpty() || confirm_password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
@@ -65,6 +77,14 @@ class RegisterActivity : AppCompatActivity() {
                         .addOnCompleteListener {
 
                             if (it.isSuccessful) {
+
+                                binding.progressBar.visibility = View.VISIBLE
+
+                                if(UserID!= null) {
+
+                                    database.child("USERS").child(UserID).setValue(user)
+
+                                }
                                 val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
