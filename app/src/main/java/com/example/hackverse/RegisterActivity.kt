@@ -41,22 +41,6 @@ class RegisterActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-//        binding.password.setOnFocusChangeListener { _, hasFocus ->
-//            if (!hasFocus && binding.password.text.isNullOrEmpty()) {
-//                binding.password.error = "password cannot be empty"
-//            } else {
-//                binding.password.error = null
-//            }
-//        }
-//
-//        binding.confirmPassword.setOnFocusChangeListener { _, hasFocus ->
-//            if (!hasFocus && binding.confirmPassword.editText?.text.isNullOrEmpty()) {
-//                binding.confirmPassword.error = "Confirm Password cannot be empty"
-//            } else {
-//                binding.confirmPassword.error = null
-//            }
-//        }
-
         binding.Register.setOnClickListener{
 
 
@@ -65,8 +49,22 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.password.editText?.text.toString()
             val confirm_password = binding.confirmPassword.editText?.text.toString()
 
-            val UserID = database.push().key
-            val user = coders(name = fullname , email = email , password = password)
+
+            //val UserID = database.push().key
+            //val user = coders(name = fullname , email = email , password = password)
+
+
+//            binding.confirmPassword.setOnFocusChangeListener { _, hasFocus ->
+//
+//                if(hasFocus)
+//                {
+//                    binding.scrollview.post{
+//                        binding.scrollview.smoothScrollTo(0,binding.password.bottom)
+//                    }
+//                }
+//
+//            }
+
 
             if(email.isEmpty() || password.isEmpty() || confirm_password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
@@ -80,12 +78,16 @@ class RegisterActivity : AppCompatActivity() {
 
                                 binding.progressBar.visibility = View.VISIBLE
 
-                                if(UserID!= null) {
+                                Coders_Data.name = fullname
+                                Coders_Data.email =  email
+                                Coders_Data.password = password
 
-                                    database.child("USERS").child(UserID).setValue(user)
-
-                                }
-                                val intent = Intent(this, MainActivity::class.java)
+//                                if(UserID!= null) {
+//
+//                                    database.child("USERS").child(UserID).setValue(user)
+//
+//                                }
+                                val intent = Intent(this, Username::class.java)
                                 startActivity(intent)
                                 finish()
                             } else {

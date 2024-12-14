@@ -2,11 +2,12 @@
 
 <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/black"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:id="@+id/scrollview">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -138,7 +139,8 @@
                 android:textColorHint="@color/white"
                 android:textSize="20sp"
                 tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="616dp" />
+                tools:layout_editor_absoluteY="616dp"
+                android:imeOptions="actionDone"/>
 
 
         </com.google.android.material.textfield.TextInputLayout>
