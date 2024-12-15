@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -46,7 +47,30 @@ class MainActivity : AppCompatActivity() {
 
 
         val getshared = getSharedPreferences("MyUsersUserID", MODE_PRIVATE)
+       // val checkRegister = getshared.getString("CheckRegister",null).toString()
         val UserID =getshared.getString("CodersUserID",null).toString()
+
+
+       // val getToActivityMainFromLogin = getSharedPreferences("SourceLogin", MODE_PRIVATE)
+
+
+       // val checkLogin = getToActivityMainFromLogin.getString("CheckLogin",null).toString()
+
+        val checkLogin = intent.getStringExtra("ShareLoginToMain") ?: "Unknow"
+        Log.d("CheckLogin","The value of CheckLogin is $checkLogin")
+
+        val checkRegister = intent.getStringExtra("ShareRegisterToMain") ?: "Unknow"
+        Log.d("CheckRegister","The value of CheckRegister is $checkRegister")
+
+        val getSharedLogin = getSharedPreferences("ShareLogin",MODE_PRIVATE)
+//        val checkLogin = getSharedLogin.getString("CheckLogin",null).toString()
+        val loginUserId =getSharedLogin.getString("LoginUserID",null) ?: "N/A"
+        val loginUserName =getSharedLogin.getString("LoginUserName",null) ?: "N/A"
+        val loginEmailID =getSharedLogin.getString("LoginEmailID",null) ?: "N/A"
+
+        Log.d(
+            "CheckingDataFromLogin",
+            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ")
 
 
         val menuButtonOut: ImageButton = findViewById<ImageButton>(R.id.menu_button)
@@ -59,40 +83,79 @@ class MainActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
 
-        if(UserID.isEmpty()) {
+        if(UserID.isEmpty() || loginUserId.isEmpty() || UserID =="null" || loginUserId == "null" || loginUserId == "N/A") {
 
             HeaderUser.text = "N/A"
             HeaderEmail.text = "N/A"
             HeaderUserID.text = "Not found"
 
-        }
+        }else {
+
+            database.child(UserID).get().addOnSuccessListener { snapshot ->
+                if (snapshot.exists()) {
+                    val Username = snapshot.child("name").value.toString()
+                    val EmailId = snapshot.child("email").value.toString()
+
+                    Log.d(
+                        "CheckingDataFromRegister",
+                        "Username: $Username , UserEmail: $EmailId , UserID: $UserID - Data got from Register..."
+                    )
 
 
-        database.child(UserID).get().addOnSuccessListener { snapshot ->
-            if (snapshot.exists()) {
-                val Username = snapshot.child("name").value.toString()
-                val EmailId = snapshot.child("email").value.toString()
+                    if (checkLogin == "SourceLogin") {
+                        HeaderUser.text = "$str2$loginUserName"
+                        HeaderEmail.text = "$str3$loginEmailID"
+                        HeaderUserID.text = "$str1$loginUserId"
 
-                HeaderUser.text = "$str2$Username"
-                HeaderEmail.text = "$str3$EmailId"
+                        Log.d(
+                            "DataFromLogin",
+                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
+                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
+                        )
 
-                HeaderUserID.text = "$str1$UserID"
+                    } else if (checkRegister == "SourceRegister") {
 
-                Log.d("FetchDataFromRealTime","SnapShot ${snapshot.value}")
-                Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
-            }else{
+                        HeaderUser.text = "$str2$Username"
+                        HeaderEmail.text = "$str3$EmailId"
 
-                HeaderUser.text = "N/A"
-                HeaderEmail.text = "N/A"
-                HeaderUserID.text = "N/A"
-                Log.e("FetchDataFromRealTimeError","Error ${snapshot.value}")
+                        HeaderUserID.text = "$str1$UserID"
 
+                        Log.d(
+                            "DataFromRegister",
+                            "Username: $Username , UserEmail: $EmailId , UserID: $UserID - Data got from Register..." +
+                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
+                        )
+                    } else {
+                        HeaderUser.text = "Not found"
+                        HeaderEmail.text = "Not Found"
+
+                        HeaderUserID.text = "Not Found"
+                    }
+
+
+//                HeaderUser.text = "$str2$Username"
+//                HeaderEmail.text = "$str3$EmailId"
+//
+//                HeaderUserID.text = "$str1$UserID"
+
+                    Log.d("FetchDataFromRealTime", "SnapShot ${snapshot.value}")
+                    Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
+                } else {
+
+                    HeaderUser.text = "N/A"
+                    HeaderEmail.text = "N/A"
+                    HeaderUserID.text = "N/A"
+                    Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
+
+                }
             }
         }
 
 
 
         menuButtonOut.setOnClickListener {
+
+//            Toast.makeText(this," checklogin is$checkLogin",Toast.LENGTH_SHORT).show()
 
             if(drawerLayout.isDrawerOpen(GravityCompat.START))
             {
@@ -105,6 +168,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         menuButonIn.setOnClickListener {
+
+//            Toast.makeText(this," checkRegister is$checkRegister",Toast.LENGTH_SHORT).show()
 
             if(drawerLayout.isDrawerOpen((GravityCompat.START)))
             {

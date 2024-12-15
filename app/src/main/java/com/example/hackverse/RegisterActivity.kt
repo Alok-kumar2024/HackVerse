@@ -45,8 +45,8 @@ class RegisterActivity : AppCompatActivity() {
 
 
             val fullname = binding.name.text.toString()
-            val email = binding.email.text.toString()
-            val password = binding.password.editText?.text.toString()
+            val email = binding.email.text.toString().lowercase().trim()
+            val password = binding.password.editText?.text.toString().trimStart().trimEnd()
             val confirm_password = binding.confirmPassword.editText?.text.toString()
 
 

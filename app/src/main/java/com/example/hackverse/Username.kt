@@ -81,16 +81,23 @@ class Username : AppCompatActivity() {
 
                     return@setOnClickListener
 
-                }   else{
+                }   else {
 
 
                     database.child("USERS").child(UserID).setValue(user)
 
                     val sharetoactivity = getSharedPreferences("MyUsersUserID", MODE_PRIVATE)
                     val editor = sharetoactivity.edit()
+//                    editor.putString("CheckRegister","SourceRegister").apply()
                     editor.putString("CodersUserID", UserID).apply()
 
+//                    val sharetoactivityMain = getSharedPreferences("Source", MODE_PRIVATE)
+//                    val editorRegister = sharetoactivityMain.edit()
+//                    editorRegister.putString("Check","SourceRegister").apply()
+
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("ShareRegisterToMain", "SourceRegister")
+
                     startActivity(intent)
                     finish()
 
