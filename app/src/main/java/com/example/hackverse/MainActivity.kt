@@ -2,6 +2,7 @@ package com.example.hackverse
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -11,11 +12,14 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
+
+    private var sendUserID : String = ""
 
     private lateinit var  drawerLayout: DrawerLayout
     private lateinit var navigation : NavigationView
@@ -40,15 +44,34 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
+//        fun replaceFragment(fragment : Fragment, title : String) {
+//
+//            supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment)
+//                .commit()
+//            drawerLayout.closeDrawer(GravityCompat.START)
+//
+//            setTitle(title)
+//
+//
+//        }
+
+        if(savedInstanceState == null)
+        {
+            replaceFragment(HomeFragment(),"Home")
+            navigation.setCheckedItem(R.id.home)
+        }
+
 
         val str1 : String = "UserID -> "
         val str2 : String = "UserName -> "
         val str3 : String = "UserEmail -> "
 
 
-        val getshared = getSharedPreferences("MyUsersUserID", MODE_PRIVATE)
-       // val checkRegister = getshared.getString("CheckRegister",null).toString()
-        val UserID =getshared.getString("CodersUserID",null).toString()
+//        val getshared = getSharedPreferences("MyUsersUserID", MODE_PRIVATE)
+//       // val checkRegister = getshared.getString("CheckRegister",null).toString()
+//        val UserID =getshared.getString("CodersUserID",null).toString()
+
+        val UserID = intent.getStringExtra("RegisterUserID") ?: "Not_Got"
 
 
        // val getToActivityMainFromLogin = getSharedPreferences("SourceLogin", MODE_PRIVATE)
@@ -83,14 +106,14 @@ class MainActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
 
-        if(UserID.isEmpty() || loginUserId.isEmpty() || UserID =="null" || loginUserId == "null" || loginUserId == "N/A") {
+        if(UserID.isEmpty() || loginUserId.isEmpty() ) {
 
             HeaderUser.text = "N/A"
             HeaderEmail.text = "N/A"
             HeaderUserID.text = "Not found"
 
         }else {
-
+            if(UserID !="Not_Got"){
             database.child(UserID).get().addOnSuccessListener { snapshot ->
                 if (snapshot.exists()) {
                     val Username = snapshot.child("name").value.toString()
@@ -101,19 +124,21 @@ class MainActivity : AppCompatActivity() {
                         "Username: $Username , UserEmail: $EmailId , UserID: $UserID - Data got from Register..."
                     )
 
+                    sendUserID = UserID
 
-                    if (checkLogin == "SourceLogin") {
-                        HeaderUser.text = "$str2$loginUserName"
-                        HeaderEmail.text = "$str3$loginEmailID"
-                        HeaderUserID.text = "$str1$loginUserId"
 
-                        Log.d(
-                            "DataFromLogin",
-                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
-                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
-                        )
-
-                    } else if (checkRegister == "SourceRegister") {
+//                    if (checkLogin =="SourceLogin") {
+//                        HeaderUser.text = "$str2$loginUserName"
+//                        HeaderEmail.text = "$str3$loginEmailID"
+//                        HeaderUserID.text = "$str1$loginUserId"
+//
+//                        Log.d(
+//                            "DataFromLogin",
+//                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
+//                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
+//                        )
+//                    }
+                    if (checkRegister == "SourceRegister") {
 
                         HeaderUser.text = "$str2$Username"
                         HeaderEmail.text = "$str3$EmailId"
@@ -126,10 +151,10 @@ class MainActivity : AppCompatActivity() {
                                     "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
                         )
                     } else {
-                        HeaderUser.text = "Not found"
-                        HeaderEmail.text = "Not Found"
+                        HeaderUser.text = "Not found_Register"
+                        HeaderEmail.text = "Not Found_Register"
 
-                        HeaderUserID.text = "Not Found"
+                        HeaderUserID.text = "Not Found_Register"
                     }
 
 
@@ -142,14 +167,68 @@ class MainActivity : AppCompatActivity() {
                     Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
                 } else {
 
-                    HeaderUser.text = "N/A"
-                    HeaderEmail.text = "N/A"
-                    HeaderUserID.text = "N/A"
-                    Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
+//                    if (checkLogin =="SourceLogin") {
+//                        HeaderUser.text = "$str2$loginUserName"
+//                        HeaderEmail.text = "$str3$loginEmailID"
+//                        HeaderUserID.text = "$str1$loginUserId"
+//
+//                        Log.d(
+//                            "DataFromLogin",
+//                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
+//                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
+//                        )
+//                    }else {
+//
+//                        HeaderUser.text = "N/A_Login"
+//                        HeaderEmail.text = "N/A_Login"
+//                        HeaderUserID.text = "N/A_Login"
+//                        Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
+//                    }
+
+                    Log.e("FetchDatafromRealtime_register", "Error ${snapshot.value}")
+
+                }
+            }
+        }else{
+            database.child(loginUserId).get().addOnSuccessListener { snapshot ->
+                if(snapshot.exists())
+                {
+                    val loginUsername2 = snapshot.child("name").value.toString()
+                    val loginEmailId2 = snapshot.child("email").value.toString()
+
+                    if (checkLogin =="SourceLogin") {
+                        HeaderUser.text = "$str2$loginUsername2"
+                        HeaderEmail.text = "$str3$loginEmailId2"
+                        HeaderUserID.text = "$str1$loginUserId"
+
+                        Log.d(
+                            "DataFromLogin",
+                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
+                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
+                        )
+
+                        sendUserID = loginUserId
+                    }else {
+
+                        HeaderUser.text = "N/A_Login"
+                        HeaderEmail.text = "N/A_Login"
+                        HeaderUserID.text = "N/A_Login"
+                        Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
+                    }
 
                 }
             }
         }
+
+
+
+
+        }
+
+
+        val shareToProfile =getSharedPreferences("SendToProfile", MODE_PRIVATE)
+        val editorProfile = shareToProfile.edit()
+        editorProfile.putString("SendUserIDToProfile",HeaderUserID.text.toString()).apply()
 
 
 
@@ -175,6 +254,7 @@ class MainActivity : AppCompatActivity() {
             {
                 drawerLayout.closeDrawer((GravityCompat.START))
 
+
             }
             else
             {
@@ -183,7 +263,45 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        navigation.setNavigationItemSelectedListener { menuitem ->
+
+            menuitem.isChecked = true
+
+            when(menuitem.itemId)
+            {
+                R.id.home -> replaceFragment(HomeFragment(),menuitem.title.toString())
+                R.id.favourite -> replaceFragment(FavouriteFragment(),menuitem.title.toString())
+
+                R.id.my_profile -> replaceFragment(ProfileFragment(),menuitem.title.toString())
+                R.id.friends -> replaceFragment(FriendsFragment(),menuitem.title.toString())
+
+
+            }
+            true
+        }
+
 
 
     }
+
+    private fun replaceFragment(fragment : Fragment, title : String) {
+
+            val sendid = sendUserID
+
+        val bundle = Bundle()
+        bundle.putString("UserId",sendid)
+        fragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment)
+                .commit()
+
+
+            drawerLayout.closeDrawer(GravityCompat.START)
+
+            setTitle(title)
+
+
+        }
+
+
 }

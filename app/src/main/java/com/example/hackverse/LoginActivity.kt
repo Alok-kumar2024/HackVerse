@@ -242,7 +242,9 @@ class LoginActivity : AppCompatActivity() {
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                     intent.putExtra("ShareLoginToMain", "SourceLogin")
 
+
                                     startActivity(intent)
+                                    Toast.makeText(this@LoginActivity,"Welcome $username !!",Toast.LENGTH_SHORT).show()
                                     finish()
                                 } else {
                                     Toast.makeText(this@LoginActivity, "Authentication Failed.", Toast.LENGTH_SHORT).show()

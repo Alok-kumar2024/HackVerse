@@ -8,4 +8,12 @@
     <string name="full_name">Full Name</string>
     <string name="register">Register</string>
     <string name="click_here_to_login"><u>Click Here To Login</u></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_profile"><u><i><b>My Profile</b></i></u></string>
+    <string name="userid"><u><i><b>UserID</b></i></u></string>
+    <string name="username"><u><i><b>UserName</b></i></u></string>
+    <string name="fullname"><u><i><b>Full Name</b></i></u></string>
+    <string name="emailprofile"><u><i><b>Email</b></i></u></string>
+    <string name="changepassword"><u><i><b>Change Password</b></i></u></string>
 </resources>

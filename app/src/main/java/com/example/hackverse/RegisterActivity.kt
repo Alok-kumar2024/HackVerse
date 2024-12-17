@@ -91,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finish()
                             } else {
-                                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
+                                Toast.makeText(this, "Email Already Registered.Try login page.", Toast.LENGTH_SHORT)
                                     .show()
                             }
 

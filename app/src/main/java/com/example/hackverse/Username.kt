@@ -97,6 +97,7 @@ class Username : AppCompatActivity() {
 
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("ShareRegisterToMain", "SourceRegister")
+                    intent.putExtra("RegisterUserID",UserID)
 
                     startActivity(intent)
                     finish()
