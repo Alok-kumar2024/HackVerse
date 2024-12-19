@@ -242,11 +242,12 @@
             />
 
         <Button
+            android:id="@+id/profile_changepassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
             android:backgroundTint="@color/white"
-            android:text="Change Password"
+            android:text="Reset Password"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/Edit_button"

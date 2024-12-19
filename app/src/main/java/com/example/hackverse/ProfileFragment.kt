@@ -1,11 +1,13 @@
 package com.example.hackverse
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.google.firebase.database.DatabaseReference
@@ -81,13 +83,20 @@ class ProfileFragment : Fragment() {
             }
         }
 
+            val changepassbtn = view.findViewById<Button>(R.id.profile_changepassword)
+
+            changepassbtn.setOnClickListener {
+
+                val intent = Intent(activity,PasswordChange::class.java)
+                intent.putExtra("UserIDFromProfile",getuserid)
+                startActivity(intent)
+            }
 
 
 
 
         return view
     }
-
 
 
 }

@@ -20,6 +20,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="30dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <FrameLayout
+        android:id="@+id/Logout_container_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="invisible" />
+
+
+</androidx.cardview.widget.CardView>
+
     <Toolbar
         android:id="@+id/toolbar_forward"
         android:layout_width="wrap_content"

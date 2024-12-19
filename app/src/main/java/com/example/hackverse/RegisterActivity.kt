@@ -3,6 +3,7 @@ package com.example.hackverse
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -15,6 +16,8 @@ import com.example.hackverse.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import org.apache.commons.validator.routines.EmailValidator
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -22,6 +25,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private fun CheckEmail(checkEmail : String) : Boolean{
+        val validator = EmailValidator.getInstance()
+
+        return validator.isValid(checkEmail)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,34 +79,46 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
             }
             else{
-                if (password == confirm_password) {
-                    firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener {
+                if (!CheckEmail(email)){
+                    Toast.makeText(this,"Check your Email Format..",Toast.LENGTH_SHORT).show()
+                }
+                else if (password.length<6){
+                    Toast.makeText(this,"Password Must atleast contains 6 characters",Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    if (password == confirm_password) {
+                        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener {
 
-                            if (it.isSuccessful) {
+                                if (it.isSuccessful) {
 
-                                binding.progressBar.visibility = View.VISIBLE
+                                    binding.progressBar.visibility = View.VISIBLE
 
-                                Coders_Data.name = fullname
-                                Coders_Data.email =  email
-                                Coders_Data.password = password
+                                    Coders_Data.name = fullname
+                                    Coders_Data.email = email
+                                    Coders_Data.password = password
 
 //                                if(UserID!= null) {
 //
 //                                    database.child("USERS").child(UserID).setValue(user)
 //
 //                                }
-                                val intent = Intent(this, Username::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(this, "Email Already Registered.Try login page.", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                                    val intent = Intent(this, Username::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "Email Already Registered.Try login page.",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
 
-                        }
-                } else {
-                    Toast.makeText(this, "Password does not match.", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        Toast.makeText(this, "Password does not match.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

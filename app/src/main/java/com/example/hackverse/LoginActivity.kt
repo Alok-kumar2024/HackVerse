@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import org.apache.commons.validator.routines.EmailValidator
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
@@ -29,6 +31,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
     private lateinit var navigation : NavigationView
+
+    private fun CheckEmail(checkEmail : String) : Boolean {
+
+        val validator = EmailValidator.getInstance()
+
+        return validator.isValid(checkEmail)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -189,7 +198,12 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
-            } else {
+            }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            {
+                Toast.makeText(this,"Check your Email Format..",Toast.LENGTH_SHORT).show()
+            }
+
+            else {
                 val queryData = database.orderByChild("email").equalTo(email)
 
                 Log.d("LoginActivity", "Query: database.orderByChild('email').equalTo('$email')")
@@ -261,6 +275,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, "Query cancelled: ${error.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
+
             }
 
 

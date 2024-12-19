@@ -15,5 +15,9 @@
     <string name="username"><u><i><b>UserName</b></i></u></string>
     <string name="fullname"><u><i><b>Full Name</b></i></u></string>
     <string name="emailprofile"><u><i><b>Email</b></i></u></string>
-    <string name="changepassword"><u><i><b>Change Password</b></i></u></string>
+    <string name="changepassword"><u><i><b>Reset Password</b></i></u></string>
+    <string name="Enter_New_Password"><u><i><b>Enter New Password</b></i></u></string>
+    <string name="Forgot_Password"><u><i><b>Forgot Password</b></i></u></string>
+    <string name="forgot_password"><u><b>Forgot Password</b></u></string>
+    <string name="check_your_email_delivered_reset_password_link"><b><i><u>Check Your Email,Delivered Reset Password Link.</u></i></b></string>
 </resources>

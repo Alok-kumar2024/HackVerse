@@ -1,8 +1,12 @@
 package com.example.hackverse
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -13,7 +17,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -21,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private var sendUserID : String = ""
 
+
+    private lateinit var firebase : FirebaseAuth
     private lateinit var  drawerLayout: DrawerLayout
     private lateinit var navigation : NavigationView
     private lateinit var database : DatabaseReference
@@ -54,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //        }
+
+        firebase = FirebaseAuth.getInstance()
 
         if(savedInstanceState == null)
         {
@@ -263,6 +273,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         navigation.setNavigationItemSelectedListener { menuitem ->
 
             menuitem.isChecked = true
@@ -274,6 +285,8 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.my_profile -> replaceFragment(ProfileFragment(),menuitem.title.toString())
                 R.id.friends -> replaceFragment(FriendsFragment(),menuitem.title.toString())
+                R.id.logout -> Logout(LogOutFragment())
+
 
 
             }
@@ -282,8 +295,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     }
 
+
+
+    @SuppressLint("SuspiciousIndentation")
     private fun replaceFragment(fragment : Fragment, title : String) {
 
             val sendid = sendUserID
@@ -302,6 +319,20 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+    private fun Logout(fragment1 : Fragment){
+
+        val FRAME = findViewById<FrameLayout>(R.id.Logout_container_main)
+
+        supportFragmentManager.beginTransaction().replace(R.id.Logout_container_main,fragment1)
+            .addToBackStack(null).commit()
+
+        drawerLayout.closeDrawer(GravityCompat.START)
+
+        FRAME.visibility = View.VISIBLE
+
+
+    }
 
 
 }

@@ -53,5 +53,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
     implementation (libs.material.v190)
+    implementation (libs.commons.validator)
 
 }
