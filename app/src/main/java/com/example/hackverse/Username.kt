@@ -99,6 +99,7 @@ class Username : AppCompatActivity() {
                     intent.putExtra("ShareRegisterToMain", "SourceRegister")
                     intent.putExtra("RegisterUserID",UserID)
 
+                    Toast.makeText(this,"Successfully Registered ,You can now log in with your credentials.",Toast.LENGTH_LONG).show()
                     startActivity(intent)
                     finish()
 

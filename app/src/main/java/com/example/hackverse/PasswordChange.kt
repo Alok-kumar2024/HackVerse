@@ -29,11 +29,25 @@ class PasswordChange : AppCompatActivity() {
         binding = ActivityPasswordChangeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.PasswordChange)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+//        val data = intent.getBooleanExtra("value",false)
+//
+//        if (data)
+//        {
+//            binding.TextviewChangePassword.visibility =View.VISIBLE
+//            binding.currentPassword.visibility = View.VISIBLE
+//
+//            binding.cancel.visibility = View.VISIBLE
+//           binding.confirm.visibility = View.VISIBLE
+//            binding.forgotpassword.visibility = View.VISIBLE
+//
+//            binding.FrameContainerForForgotPassword.visibility = View.INVISIBLE
+//        }
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
 
@@ -41,6 +55,7 @@ class PasswordChange : AppCompatActivity() {
         Log.d("useridprofile","The UserID I got from profile is $useridfromprofile" )
 
         val confirmbtn = binding.confirm
+
 
         binding.cancel.setOnClickListener {
 

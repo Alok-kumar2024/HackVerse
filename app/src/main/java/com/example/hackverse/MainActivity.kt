@@ -42,6 +42,32 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+
+        val getLoggedInDetails = getSharedPreferences("LoggedIN", MODE_PRIVATE)
+
+        val isLoggedInUser = getLoggedInDetails.getBoolean("isLoggedIn",false)
+        Log.d("LoggedInBoolean","The Logged In value is $isLoggedInUser")
+
+        val checkLogin = getLoggedInDetails.getString("ShareLoginToMain",null) ?: "Unknow"
+        Log.d("CheckLogin","The value of CheckLogin is $checkLogin")
+
+        if (!isLoggedInUser)
+        {
+            //user is not logged in
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+
+            //user is Logged in
+
+
+            setContentView(R.layout.activity_main)
+        }
+
+
         //finding navigation view...
         navigation = findViewById(R.id.navigation_view)
 
@@ -62,6 +88,7 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //        }
+
 
         firebase = FirebaseAuth.getInstance()
 
@@ -89,14 +116,19 @@ class MainActivity : AppCompatActivity() {
 
        // val checkLogin = getToActivityMainFromLogin.getString("CheckLogin",null).toString()
 
-        val checkLogin = intent.getStringExtra("ShareLoginToMain") ?: "Unknow"
-        Log.d("CheckLogin","The value of CheckLogin is $checkLogin")
+//        val checkLogin = intent.getStringExtra("ShareLoginToMain") ?: "Unknow"
+//        Log.d("CheckLogin","The value of CheckLogin is $checkLogin")
 
         val checkRegister = intent.getStringExtra("ShareRegisterToMain") ?: "Unknow"
         Log.d("CheckRegister","The value of CheckRegister is $checkRegister")
 
-        val getSharedLogin = getSharedPreferences("ShareLogin",MODE_PRIVATE)
+          val getSharedLogin = getSharedPreferences("ShareLogin",MODE_PRIVATE)
 //        val checkLogin = getSharedLogin.getString("CheckLogin",null).toString()
+//
+//        isLoggedInUser = getSharedLogin.getBoolean("isLoggedIn",false)
+//        Log.d("LoggedInBoolean","The Logged In value is $isLoggedInUser")
+
+
         val loginUserId =getSharedLogin.getString("LoginUserID",null) ?: "N/A"
         val loginUserName =getSharedLogin.getString("LoginUserName",null) ?: "N/A"
         val loginEmailID =getSharedLogin.getString("LoginEmailID",null) ?: "N/A"
@@ -297,7 +329,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
 
     @SuppressLint("SuspiciousIndentation")

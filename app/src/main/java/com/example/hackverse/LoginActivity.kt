@@ -238,12 +238,26 @@ class LoginActivity : AppCompatActivity() {
 //                                    headerUser.text = "UserName -> $username"
 //                                    headerEmail.text = "UserEmail -> $emailId"
 //                                    headerUserID.text = "UserID -> $userID"
+                                    val mapofforgotpassword = mapOf(
+                                        "password" to password
+                                    )
+
+                                    database.child(userID).updateChildren(mapofforgotpassword)
+
+                                    val sharedLoggedIn = getSharedPreferences("LoggedIN",
+                                        MODE_PRIVATE)
+                                    val editorLoggedIn = sharedLoggedIn.edit()
+                                    editorLoggedIn.putBoolean("isLoggedIn",true)
+                                    editorLoggedIn.putString("ShareLoginToMain","SourceLogin")
+                                    editorLoggedIn.apply()
+
 
 
                                     val shareToMainByLogin =
                                         getSharedPreferences("ShareLogin", MODE_PRIVATE)
                                     val editor = shareToMainByLogin.edit()
 //                                    editor.putString("CheckLogin","SourceLogin")
+//                                    editor.putBoolean("isLoggedIn",true)
                                     editor.putString("LoginUserID", userID).apply()
                                     editor.putString("LoginUserName", username).apply()
                                     editor.putString("LoginEmailID", emailId).apply()
@@ -254,7 +268,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                    intent.putExtra("ShareLoginToMain", "SourceLogin")
+//                                    intent.putExtra("ShareLoginToMain", "SourceLogin")
 
 
                                     startActivity(intent)

@@ -6,9 +6,12 @@
     <item android:title="" >
 
         <menu>
+            <group android:checkableBehavior="single">
+
             <item
                 android:id="@+id/home"
-                android:title="Home" />
+                android:title="Home"
+                android:checked="true"/>
 
 
             <item
@@ -19,12 +22,16 @@
                 android:id="@+id/my_hackathons"
                 android:title="My Hackathons" />
 
+            </group>
+
         </menu>
     </item>
 
     <item android:title="">
 
         <menu>
+
+            <group android:checkableBehavior="single">
 
             <item
                 android:id="@+id/friends"
@@ -34,9 +41,13 @@
                 android:id="@+id/my_profile"
                 android:title="My Profile" />
 
+            </group>
+
             <item
                 android:id="@+id/logout"
                 android:title="Log Out" />
+
+
 
         </menu>
 
@@ -45,6 +56,8 @@
     <item android:title="">
 
         <menu>
+
+            <group android:checkableBehavior="single" >
 
             <item
                 android:id="@+id/share"
@@ -57,6 +70,8 @@
             <item
                 android:id="@+id/rate_us"
                 android:title="Rate Us" />
+
+            </group>
 
         </menu>
 
