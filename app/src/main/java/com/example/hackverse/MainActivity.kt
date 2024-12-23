@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -145,6 +147,7 @@ class MainActivity : AppCompatActivity() {
         val HeaderUser : TextView = headerfile.findViewById(R.id.headerUser)
         val HeaderEmail : TextView = headerfile.findViewById(R.id.headerEmail)
         val HeaderUserID : TextView = headerfile.findViewById(R.id.headerUserID)
+        val HeaderImageView : ImageView = headerfile.findViewById(R.id.ProfileImageOfMain)
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
 
@@ -237,11 +240,18 @@ class MainActivity : AppCompatActivity() {
                 {
                     val loginUsername2 = snapshot.child("name").value.toString()
                     val loginEmailId2 = snapshot.child("email").value.toString()
+                    val urlFromRealDatabase = snapshot.child("url").value.toString()
 
                     if (checkLogin =="SourceLogin") {
                         HeaderUser.text = "$str2$loginUsername2"
                         HeaderEmail.text = "$str3$loginEmailId2"
                         HeaderUserID.text = "$str1$loginUserId"
+
+                        Glide.with(this)
+                            .load(urlFromRealDatabase)
+                            .placeholder(R.drawable.default_profile_pic_vector)
+                            .error(R.drawable.default_image_of_profile)
+                            .into(HeaderImageView)
 
                         Log.d(
                             "DataFromLogin",

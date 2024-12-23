@@ -9,16 +9,19 @@
             <group android:checkableBehavior="single">
 
             <item
+                android:icon="@drawable/home_menu"
                 android:id="@+id/home"
                 android:title="Home"
                 android:checked="true"/>
 
 
             <item
+                android:icon="@drawable/favourite_menu"
                 android:id="@+id/favourite"
                 android:title="Favourite" />
 
             <item
+                android:icon="@drawable/hackathons_menu"
                 android:id="@+id/my_hackathons"
                 android:title="My Hackathons" />
 
@@ -34,16 +37,19 @@
             <group android:checkableBehavior="single">
 
             <item
+                android:icon="@drawable/friends_menu"
                 android:id="@+id/friends"
                 android:title="Friends"/>
 
             <item
+                android:icon="@drawable/profile_menu"
                 android:id="@+id/my_profile"
                 android:title="My Profile" />
 
             </group>
 
             <item
+                android:icon="@drawable/logout_vector"
                 android:id="@+id/logout"
                 android:title="Log Out" />
 
@@ -60,16 +66,15 @@
             <group android:checkableBehavior="single" >
 
             <item
+                android:icon="@drawable/share_menu"
                 android:id="@+id/share"
                 android:title="Share" />
 
             <item
+                android:icon="@drawable/feedback_menu"
                 android:id="@+id/feedback"
                 android:title="Feedback" />
 
-            <item
-                android:id="@+id/rate_us"
-                android:title="Rate Us" />
 
             </group>
 

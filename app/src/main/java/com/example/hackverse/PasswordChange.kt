@@ -22,6 +22,7 @@ class PasswordChange : AppCompatActivity() {
     private var senduseridtonewpassword : String = ""
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -65,12 +66,12 @@ class PasswordChange : AppCompatActivity() {
         binding.forgotpassword.setOnClickListener{
 
 
-            binding.TextviewChangePassword.visibility =View.INVISIBLE
-            binding.currentPassword.visibility = View.INVISIBLE
-
-            binding.cancel.visibility = View.INVISIBLE
-            confirmbtn.visibility = View.INVISIBLE
-            binding.forgotpassword.visibility = View.INVISIBLE
+//            binding.TextviewChangePassword.visibility =View.INVISIBLE
+//            binding.currentPassword.visibility = View.INVISIBLE
+//
+//            binding.cancel.visibility = View.INVISIBLE
+//            confirmbtn.visibility = View.INVISIBLE
+//            binding.forgotpassword.visibility = View.INVISIBLE
 
             binding.FrameContainerForForgotPassword.visibility = View.VISIBLE
 
@@ -107,12 +108,13 @@ class PasswordChange : AppCompatActivity() {
 
                                 senduseridtonewpassword = useridfromprofile
 
-                                binding.TextviewChangePassword.visibility =View.INVISIBLE
-                                binding.currentPassword.visibility = View.INVISIBLE
+//                                binding.TextviewChangePassword.visibility =View.INVISIBLE
+//                                binding.currentPassword.visibility = View.INVISIBLE
+//
+//                                binding.cancel.visibility = View.INVISIBLE
+                                confirmbtn.visibility = View.GONE
+                                binding.forgotpassword.visibility = View.GONE
 
-                                binding.cancel.visibility = View.INVISIBLE
-                                confirmbtn.visibility = View.INVISIBLE
-                                binding.forgotpassword.visibility = View.INVISIBLE
                                 binding.FrameContainerOfProfile.visibility = View.VISIBLE
                                 replaceFragment(NewPassword())
 
@@ -135,6 +137,13 @@ class PasswordChange : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.forgotpassword.visibility = View.VISIBLE
+        binding.FrameContainerOfProfile.visibility = View.GONE
+    }
+
     private fun replaceFragment(fragment : Fragment) {
 
         val sendid = senduseridtonewpassword
@@ -149,4 +158,5 @@ class PasswordChange : AppCompatActivity() {
             .commit()
 
     }
+
 }

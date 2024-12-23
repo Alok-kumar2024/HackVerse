@@ -50,6 +50,8 @@
             android:gravity="center"
             android:hint="@string/full_name"
             android:inputType="text"
+            android:drawableLeft="@drawable/fullname_register"
+            android:paddingStart="15dp"
             android:textColorHint="@color/white"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
@@ -69,6 +71,8 @@
             android:background="@drawable/writearea"
             android:gravity="center"
             android:hint="@string/email"
+            android:drawableLeft="@drawable/email_vector"
+            android:paddingStart="15dp"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/white"
             android:fontFamily="sans-serif-condensed"
@@ -95,6 +99,7 @@
             app:layout_constraintVertical_bias="0.0"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/white"
+            app:startIconDrawable="@drawable/password_lock"
             android:gravity="center">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -125,6 +130,7 @@
             app:passwordToggleTint="@color/white"
             app:hintEnabled="false"
             app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/password_lock"
             android:gravity="center">
 
             <com.google.android.material.textfield.TextInputEditText

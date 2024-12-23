@@ -42,6 +42,7 @@ class Username : AppCompatActivity() {
         val name = Coders_Data.name.toString()
         val email = Coders_Data.email.toString()
         val password = Coders_Data.password.toString()
+        val url = "https://www.shutterstock.com/image-vector/minimal-user-profile-account-web-600nw-2003245964.jpg"
 
 
 
@@ -69,7 +70,7 @@ class Username : AppCompatActivity() {
             }
 
             val UserID = generateKey()
-            val user = coders(username,name,email,password)
+            val user = coders(username,name,email,password,url)
 
             if(UserID.isNotEmpty() && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
             {

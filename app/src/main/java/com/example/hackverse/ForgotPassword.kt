@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import com.example.hackverse.databinding.FragmentForgotPasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -39,6 +40,14 @@ class ForgotPassword : Fragment() {
         val valiator = EmailValidator.getInstance()
 
         return valiator.isValid(checkEmail)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        view?.background = null
+
     }
 
 
@@ -51,6 +60,10 @@ class ForgotPassword : Fragment() {
 
 //        val additionalLayout = inflater.inflate(R.layout.activity_password_change,null)
 
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().finish()
+        }
 
 
         firebase = FirebaseAuth.getInstance()

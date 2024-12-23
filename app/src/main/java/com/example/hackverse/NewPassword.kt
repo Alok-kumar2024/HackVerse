@@ -10,7 +10,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.hackverse.databinding.FragmentNewPasswordBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -38,6 +43,22 @@ class NewPassword : Fragment() {
 
         firebase = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().getReference("USERS")
+
+        val changepassword = requireActivity().findViewById<ConstraintLayout>(R.id.ResetPasswordConstraintLayout)
+
+        val forgotpasswordtext = changepassword.findViewById<TextView>(R.id.forgotpassword)
+        val verifypassword = changepassword.findViewById<Button>(R.id.confirm)
+        val back = changepassword.findViewById<Button>(R.id.cancel)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner)
+        {
+            forgotpasswordtext.visibility = View.VISIBLE
+            verifypassword.visibility = View.VISIBLE
+            back.visibility = View.VISIBLE
+            binding.FrameLayoutNewpassword.visibility = View.GONE
+
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
         binding.buttonConfimPassword.setOnClickListener {
 

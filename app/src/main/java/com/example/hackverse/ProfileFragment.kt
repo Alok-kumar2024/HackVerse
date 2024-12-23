@@ -8,12 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.flow.combine
 
 class ProfileFragment : Fragment() {
+
+    private var getuserid : String = ""
 
     private lateinit var database : DatabaseReference
 
@@ -22,6 +28,13 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val editbutton = view.findViewById<ImageButton>(R.id.Edit_button)
+
+        editbutton.setOnClickListener {
+            edit()
+
+        }
 
         val userid = view.findViewById<TextView>(R.id.UserId)
         val useridShow = view.findViewById<TextView>(R.id.UserID_show)
@@ -34,9 +47,10 @@ class ProfileFragment : Fragment() {
 
         val emailid = view.findViewById<TextView>(R.id.emailid)
         val emailidShow = view.findViewById<TextView>(R.id.email_show)
+        val ImageView = view.findViewById<ImageView>(R.id.ProfileImageOfMyProfile)
 
 
-        val getuserid = arguments?.getString("UserId").toString()
+         getuserid = arguments?.getString("UserId").toString()
         Log.d("GetUserID","UserId i got from main header is $getuserid")
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
@@ -59,6 +73,13 @@ class ProfileFragment : Fragment() {
                     usernameShow.text = snapshot.child("username").value.toString()
                     fullnameShow.text = snapshot.child("name").value.toString()
                     emailidShow.text = snapshot.child("email").value.toString()
+                    val urlGet = snapshot.child("url").value.toString()
+
+                    Glide.with(this)
+                        .load(urlGet)
+                        .placeholder(R.drawable.default_profile_pic_vector)
+                        .error(R.drawable.default_image_of_profile)
+                        .into(ImageView)
 
                     Log.d("Fetched Data","useridshow after fetching $useridShow" +
                             "usernameshow after fetching $usernameShow" +
@@ -96,6 +117,16 @@ class ProfileFragment : Fragment() {
 
 
         return view
+    }
+
+    private fun edit(){
+
+        val shareuserid = requireActivity().getSharedPreferences("SharingToEditActivity", MODE_PRIVATE)
+        val editor = shareuserid.edit()
+        editor.putString("UseridFromProfileToEditProfile",getuserid).apply()
+
+        val intent= Intent(requireContext(),EditProfile::class.java)
+        startActivity(intent)
     }
 
 

@@ -5,4 +5,5 @@ object Coders_Data {
     var name : String? = null
     var email : String? = null
     var password : String? = null
+    var url : String? = null
 }

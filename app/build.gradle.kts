@@ -55,5 +55,6 @@ dependencies {
     implementation(libs.lottie)
     implementation (libs.material.v190)
     implementation (libs.commons.validator)
+    implementation (libs.glide)
 
 }

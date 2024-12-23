@@ -58,7 +58,7 @@
             android:background="@color/transparent"
 
             android:padding="10dp"
-            android:src="@drawable/arrow_forward" />
+            android:src="@drawable/menu_button2" />
 
     </Toolbar>
 

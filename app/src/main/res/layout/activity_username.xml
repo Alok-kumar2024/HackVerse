@@ -17,6 +17,8 @@
         android:background="@drawable/writearea"
         android:gravity="center"
         android:hint="          UserName           "
+        android:drawableLeft="@drawable/username_vector"
+        android:paddingStart="15dp"
         android:padding="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"

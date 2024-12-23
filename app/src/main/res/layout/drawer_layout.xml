@@ -29,7 +29,7 @@
                 android:background="@color/blue"
 
                 android:padding="5dp"
-                android:src="@drawable/arrow_back" />
+                android:src="@drawable/menu_close" />
 
 
         </Toolbar>
@@ -37,15 +37,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:cardCornerRadius="30dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="40dp"
         android:layout_marginLeft="20dp">
 
         <ImageView
+            android:id="@+id/ProfileImageOfMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/orange"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_profile_pic_vector"/>
 
     </androidx.cardview.widget.CardView>
 
