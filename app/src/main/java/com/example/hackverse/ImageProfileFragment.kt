@@ -16,8 +16,11 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.hackverse.databinding.FragmentImageProfileBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class ImageProfileFragment : Fragment() {
@@ -57,7 +60,7 @@ class ImageProfileFragment : Fragment() {
 //        val getUserIDFromEditprofile = arguments?.getString("UserIDFromEditProfile") ?: "Not Fetched"
         val getsharedata = requireActivity().getSharedPreferences("USERIDFROMEDITPROFILE", MODE_PRIVATE)
         val getUserIDFromEditprofile = getsharedata.getString("UserIDFromEditProfile",null) ?: "Not Fetched"
-        Log.d("UserIDForImage","The userid got from edity profile for update profile image is $getUserIDFromEditprofile .")
+        Log.d("UserIDForImage","The userid got from edit profile for update profile image is $getUserIDFromEditprofile .")
 
         val URLedit = binding.EnterURLForImage
 
@@ -99,26 +102,41 @@ class ImageProfileFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        database.child(getUserIDFromEditprofile).get().addOnSuccessListener { snapshot ->
+        database.child(getUserIDFromEditprofile).addValueEventListener(object  : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists())
+                {
+                    val urlFromDatabase = snapshot.child("url").value.toString()
 
-            if (snapshot.exists())
-            {
-                val urlFromDatabase = snapshot.child("url").value.toString()
+                    Log.d("URLFromBaseImage","The url from realtime database is $urlFromDatabase")
 
-                URLedit.setText(urlFromDatabase)
+                    URLedit.setText(urlFromDatabase)
+                }
+                else{
+                    Toast.makeText(requireContext(),"Unable to Fetch data.",Toast.LENGTH_SHORT).show()
+                }
             }
-            else{
-                Toast.makeText(requireContext(),"Unable to Fetch data.",Toast.LENGTH_SHORT).show()
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(),"Somne Error occurred.",Toast.LENGTH_SHORT).show()
             }
-        }
+
+        })
+
+
+
 
         binding.buttonConfirmProfileImage.setOnClickListener {
 
              URLForImage = binding.EnterURLForImage.text.toString()
 
+            Log.d("URLinImageFrag","The url is $URLForImage ")
+
 //            val updateURl = mapOf(
 //                "url" to URLForImage
 //            )
+
+            Log.d("URL i put","The URL user put is $URLForImage")
 
             if (!isValidURL(URLForImage))
             {
@@ -156,8 +174,24 @@ class ImageProfileFragment : Fragment() {
 
                 binding.ImageFragment.visibility = View.GONE
 
-                requireActivity().supportFragmentManager.popBackStack()g
-                returnToActivity()
+                val uploadURLToRealTimeDatabase = mapOf(
+                    "url" to URLForImage
+                )
+                database.child(getUserIDFromEditprofile).updateChildren(uploadURLToRealTimeDatabase).addOnSuccessListener {
+
+                    Toast.makeText(requireContext(),"SuccessFully Updated your Profile Image.",Toast.LENGTH_LONG).show()
+
+                    requireActivity().finish()
+
+
+
+                }.addOnFailureListener {
+
+                    Toast.makeText(requireContext(),"Some Error Occurred, Couldn't update your information.",Toast.LENGTH_SHORT).show()
+                }
+
+            //    requireActivity().supportFragmentManager.popBackStack()
+
 
             }
         }
@@ -165,13 +199,6 @@ class ImageProfileFragment : Fragment() {
         return binding.root
     }
 
-    private fun returnToActivity() {
-        val resultBundle = Bundle().apply {
-            putString("URL_From_ImageFragment", URLForImage)
-        }
-        requireActivity().supportFragmentManager.setFragmentResult("ImageFragmentResult", resultBundle)
-        requireActivity().supportFragmentManager.popBackStack()
-    }
 
     private fun isValidURL(url :String) : Boolean {
 

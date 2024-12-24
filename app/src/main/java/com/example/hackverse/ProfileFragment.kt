@@ -11,10 +11,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.combine
 
 class ProfileFragment : Fragment() {
@@ -65,43 +69,54 @@ class ProfileFragment : Fragment() {
         }
         else{
 
-            database.child(getuserid).get().addOnSuccessListener { snapshot ->
+            database.child(getuserid).addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                if(snapshot.exists())
-                {
-                    useridShow.text = getuserid
-                    usernameShow.text = snapshot.child("username").value.toString()
-                    fullnameShow.text = snapshot.child("name").value.toString()
-                    emailidShow.text = snapshot.child("email").value.toString()
-                    val urlGet = snapshot.child("url").value.toString()
+                    if(snapshot.exists())
+                    {
+                        useridShow.text = getuserid
+                        usernameShow.text = snapshot.child("username").value.toString()
+                        fullnameShow.text = snapshot.child("name").value.toString()
+                        emailidShow.text = snapshot.child("email").value.toString()
+                        val urlGet = snapshot.child("url").value.toString()
 
-                    Glide.with(this)
-                        .load(urlGet)
-                        .placeholder(R.drawable.default_profile_pic_vector)
-                        .error(R.drawable.default_image_of_profile)
-                        .into(ImageView)
+                        Glide.with(requireContext())
+                            .load(urlGet)
+                            .placeholder(R.drawable.loading_for_image_vector)
+                            .error(R.drawable.default_image_of_profile)
+                            .into(ImageView)
 
-                    Log.d("Fetched Data","useridshow after fetching $useridShow" +
-                            "usernameshow after fetching $usernameShow" +
-                            "full name after fetching $fullnameShow" +
-                            "emailid after fetching $emailidShow")
-
-
-                }else{
+                        Log.d("Fetched Data","useridshow after fetching $useridShow" +
+                                "usernameshow after fetching $usernameShow" +
+                                "full name after fetching $fullnameShow" +
+                                "emailid after fetching $emailidShow" +
+                                "URL fetched is $urlGet")
 
 
-                    useridShow.text = "Does not Exists"
-                    usernameShow.text = "Does not Exists"
-                    fullnameShow.text = "Does not Exists"
-                    emailidShow.text = "Does not Exists"
+                    }else{
 
-                    Log.e("Not exists","Error of not exsiting is ${snapshot.value}")
 
+                        useridShow.text = "Does not Exists"
+                        usernameShow.text = "Does not Exists"
+                        fullnameShow.text = "Does not Exists"
+                        emailidShow.text = "Does not Exists"
+
+                        Log.e("Not exists","Error of not exsiting is ${snapshot.value}")
+
+                    }
                 }
 
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(),"Failed To show users Details",Toast.LENGTH_SHORT).show()
+                }
+
+            })
 
 
-            }
+
+
+
+
         }
 
             val changepassbtn = view.findViewById<Button>(R.id.profile_changepassword)

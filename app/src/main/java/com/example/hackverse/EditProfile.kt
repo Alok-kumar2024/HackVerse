@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
@@ -14,16 +17,22 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.hackverse.databinding.ActivityEditProfileBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class EditProfile : AppCompatActivity() {
 
     private lateinit var database : DatabaseReference
     private lateinit var binding : ActivityEditProfileBinding
 
-    private  var urlInEdit = ""
-    private var geturl =""
+    private lateinit var imageview : ImageView
+    private lateinit var useridEdit : TextView
+    private lateinit var usernameEdit : EditText
+    private lateinit var fullnameEdit :EditText
+    private lateinit var emailIDEdit : TextView
 
 
     @SuppressLint("CheckResult")
@@ -47,24 +56,13 @@ class EditProfile : AppCompatActivity() {
 
         Log.d("UseridGotFromProfile","The userId from profile is $userIDfromProfile")
 
-        var check : Boolean = true
+
         //val check = intent.getBooleanExtra("FromImageFragment",false)
 
-        supportFragmentManager.setFragmentResultListener("ImageFragmentResult",this){_, bundle ->
-             check = bundle.getBoolean("FromImageFragment",false)
-            geturl = bundle.getString("URL_From_ImageFragment",null)?: "No URL"
-        }
 
 
 
-        Log.d("InfoFromImageFragment","The check is $check "+
-                "The url i get is $geturl")
 
-        if (check)
-        {
-            binding.ConstraintLayoutEditData.visibility = View.VISIBLE
-            binding.ConstraintLayoutEditDataImage.visibility = View.GONE
-        }
 
         if(userIDfromProfile == "Not Got" || userIDfromProfile.isEmpty())
         {
@@ -76,9 +74,7 @@ class EditProfile : AppCompatActivity() {
 
 
 
-
-
-        val imageview = binding.ImageForProfile
+         imageview = binding.ImageForProfile
 
 
         binding.BackToMyProfileButton.setOnClickListener {
@@ -126,101 +122,196 @@ class EditProfile : AppCompatActivity() {
 
 
 
-        val useridEdit = binding.UserIDShowEdit
-        val usernameEdit = binding.UsernameShowEdit
-        val fullnameEdit = binding.fullnameShowEdit
-        val emailIDEdit = binding.emailShowEdit
+         useridEdit = binding.UserIDShowEdit
+         usernameEdit = binding.UsernameShowEdit
+         fullnameEdit = binding.fullnameShowEdit
+         emailIDEdit = binding.emailShowEdit
 
-        database.child(userIDfromProfile).get().addOnSuccessListener { snaphshot ->
+        binding.UserIDShowEdit.setOnClickListener{
 
-            if(snaphshot.exists())
-            {
-               // URL_Profile= snaphshot.child("url").value
+            Toast.makeText(this@EditProfile, "Cannot Edit this Field.",Toast.LENGTH_SHORT).show()
+        }
+        binding.emailShowEdit.setOnClickListener{
 
-                useridEdit.text = snaphshot.key.toString()
-                val usernameFromDatabase = snaphshot.child("username").value.toString()
-                val fullnameFromDatabase = snaphshot.child("name").value.toString()
-                val emailFromRealTimeDatabase = snaphshot.child("email").value.toString()
+            Toast.makeText(this@EditProfile,"Cannot Edit this Field.",Toast.LENGTH_SHORT).show()
+        }
 
-                if (geturl == "No URL" || geturl == ""){
+//        database.child(userIDfromProfile).addValueEventListener(object : ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists())
+//                {
+//                    // URL_Profile= snaphshot.child("url").value
+//
+//                    useridEdit.text = snapshot.key.toString()
+//                    val usernameFromDatabase = snapshot.child("username").value.toString()
+//                    val fullnameFromDatabase = snapshot.child("name").value.toString()
+//                    val emailFromRealTimeDatabase = snapshot.child("email").value.toString()
+//
+//                    if (geturl == "No URL" || geturl == ""){
+//
+//                        Glide.with(this@EditProfile)
+//                            .load(R.drawable.profile_menu)
+//                            .into(imageview)
+//
+//                    }else{
+//
+//                        if (check)
+//                        {
+//                            urlInEdit = geturl
+//                        }else{
+//                            urlInEdit = snapshot.child("url").value.toString()
+//                        }
+//
+//                        Glide.with(this@EditProfile)
+//                            .load(urlInEdit)
+//                            .placeholder(R.drawable.loading_for_image_vector)
+//                            .error(R.drawable.profile_menu)
+//                            .into(imageview)
+//
+//                    }
+//
+//
+//                    Log.d("ImageData Fetched From Realtime database","The userID ${useridEdit.text} " +
+//                            " The username $usernameFromDatabase " +
+//                            "The full name $fullnameFromDatabase " +
+//                            "The email $emailFromRealTimeDatabase " +
+//                            "The URL is $urlInEdit")
+//
+//                    usernameEdit.setText(usernameFromDatabase)
+//                    fullnameEdit.setText(fullnameFromDatabase)
+//                    emailIDEdit.setText(emailFromRealTimeDatabase)
 
-                    Glide.with(this)
-                        .load(R.drawable.profile_menu)
-                        .into(imageview)
+        LoadUserProfile(userIDfromProfile)
 
-                }else{
 
-                if (check)
-                {
-                    urlInEdit = geturl
-                }else{
-                    urlInEdit = snaphshot.child("url").value.toString()
-                }
+                    binding.profileSavechanges.setOnClickListener {
 
-                Glide.with(this)
-                    .load(urlInEdit)
-                    .placeholder(R.drawable.loading_for_image_vector)
-                    .error(R.drawable.profile_menu)
-                    .into(imageview)
+//                        val changedUserName= binding.UsernameShowEdit.text.toString()
+//                        val changedFullName = binding.fullnameShowEdit.text.toString()
+//
+//                        val updateInfoProfile = mapOf(
+//                            "username" to changedUserName,
+//                            "name" to changedFullName,
+//                            "url" to urlInEdit
+//                        )
+//
+//                        Log.d("Data in Edit box at clicking save ","The username $changedUserName" +
+//                                "The Full name $changedFullName .")
+//
+//                        database.child(userIDfromProfile).updateChildren(updateInfoProfile).addOnSuccessListener {
+//
+//                            Toast.makeText(this@EditProfile,"SuccessFully Updated your information.",Toast.LENGTH_SHORT).show()
+//
+//                            finish()
+//                        }.addOnFailureListener {
+//
+//                            Toast.makeText(this@EditProfile,"Some Error Occurred, Couldn't update your information.",Toast.LENGTH_SHORT).show()
+//                        }
+//
+//
+
+                        SaveUserProfile(userIDfromProfile)
+
 
                     }
 
 
-                Log.d("Data Fetched From Realtime database","The userID ${useridEdit.text} " +
-                        " The username $usernameFromDatabase " +
-                        "The full name $fullnameFromDatabase " +
-                        "The email $emailFromRealTimeDatabase " +
-                        "The URL is $urlInEdit")
+//                }
+//            }
 
-                usernameEdit.setText(usernameFromDatabase)
-                fullnameEdit.setText(fullnameFromDatabase)
-                emailIDEdit.setText(emailFromRealTimeDatabase)
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(this@EditProfile,"Due to some error fetching get cancelled.",Toast.LENGTH_SHORT).show()
+//            }
+//
+//        })
 
-                binding.UserIDShowEdit.setOnClickListener{
 
-                    Toast.makeText(this, "Cannot Edit this Field.",Toast.LENGTH_SHORT).show()
-                }
-                binding.emailShowEdit.setOnClickListener{
+    }
 
-                    Toast.makeText(this,"Cannot Edit this Field.",Toast.LENGTH_SHORT).show()
-                }
+    private fun SaveUserProfile(userIDfromProfile: String) {
 
-                binding.profileSavechanges.setOnClickListener {
+        val changedUserName= binding.UsernameShowEdit.text.toString()
+        val changedFullName = binding.fullnameShowEdit.text.toString()
 
-                    val changedUserName= binding.UsernameShowEdit.text.toString()
-                    val changedFullName = binding.fullnameShowEdit.text.toString()
+        val updateInfoProfile = mapOf(
+            "username" to changedUserName,
+            "name" to changedFullName,
+        )
+        if (changedUserName.isEmpty() || changedFullName.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields.", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-                    val updateInfoProfile = mapOf(
-                        "username" to changedUserName,
-                        "name" to changedFullName,
-                        "url" to urlInEdit
+        Log.d("Data in Edit box at clicking save ","The username $changedUserName" +
+                "The Full name $changedFullName .")
+
+        database.child(userIDfromProfile).updateChildren(updateInfoProfile).addOnSuccessListener {
+
+            Toast.makeText(this@EditProfile,"SuccessFully Updated your information.",Toast.LENGTH_SHORT).show()
+
+            finish()
+        }.addOnFailureListener {
+
+            Toast.makeText(this@EditProfile,"Some Error Occurred, Couldn't update your information.",Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
+    }
+
+    private fun LoadUserProfile(userIDfromProfile: String) {
+
+        database.child(userIDfromProfile).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    // URL_Profile= snaphshot.child("url").value
+
+                    useridEdit.text = snapshot.key.toString()
+                    val usernameFromDatabase = snapshot.child("username").value.toString()
+                    val fullnameFromDatabase = snapshot.child("name").value.toString()
+                    val emailFromRealTimeDatabase = snapshot.child("email").value.toString()
+                    val urlFromRealTimeDatabase = snapshot.child("url").value.toString()
+
+                    if (urlFromRealTimeDatabase.isEmpty()) {
+
+                        Glide.with(this@EditProfile)
+                            .load(R.drawable.profile_menu)
+                            .into(imageview)
+
+                    } else {
+
+                        Glide.with(this@EditProfile)
+                            .load(urlFromRealTimeDatabase)
+                            .placeholder(R.drawable.loading_for_image_vector)
+                            .error(R.drawable.profile_menu)
+                            .into(imageview)
+
+                    }
+
+
+                    Log.d(
+                        "ImageData Fetched From Realtime database",
+                        "The userID ${useridEdit.text} " +
+                                " The username $usernameFromDatabase " +
+                                "The full name $fullnameFromDatabase " +
+                                "The email $emailFromRealTimeDatabase "
                     )
 
-                    Log.d("Data in Edit box at clicking save ","The username $changedUserName" +
-                            "The Full name $changedFullName .")
-
-                    database.child(userIDfromProfile).updateChildren(updateInfoProfile).addOnSuccessListener {
-
-                        Toast.makeText(this,"SuccessFully Updated your information.",Toast.LENGTH_SHORT).show()
-
-                        finish()
-                    }.addOnFailureListener {
-
-                        Log.e("Error updating Edited information","Error is ${snaphshot.value}")
-                        Toast.makeText(this,"Some Error Occurred, Couldn't update your information.",Toast.LENGTH_SHORT).show()
-                    }
-
-
-
+                    usernameEdit.setText(usernameFromDatabase)
+                    fullnameEdit.setText(fullnameFromDatabase)
+                    emailIDEdit.setText(emailFromRealTimeDatabase)
 
                 }
 
 
             }
 
-        }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
 
     }
-
 }
