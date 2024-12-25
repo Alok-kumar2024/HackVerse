@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.Hackverse" parent="Base.Theme.Hackverse" />
+
+    <style name="SearchButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="cardCornerRadius">15dp</item>
+    </style>
 </resources>

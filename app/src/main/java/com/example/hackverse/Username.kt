@@ -42,7 +42,7 @@ class Username : AppCompatActivity() {
         val name = Coders_Data.name.toString()
         val email = Coders_Data.email.toString()
         val password = Coders_Data.password.toString()
-        val url = "https://www.shutterstock.com/image-vector/minimal-user-profile-account-web-600nw-2003245964.jpg"
+        val url = ""
 
 
 
@@ -50,7 +50,7 @@ class Username : AppCompatActivity() {
 
             val username = binding.coderUserName.text.toString()
 
-            Log.d("UserDataFromRegisterActivity", "UserName: $username, Name: $name , Email: $email , Password: $password")
+            Log.d("UserDataFromRegisterActivity", "UserName: $username, Name: $name , Email: $email , Password: $password ")
 
             //Creating custom keys
             fun generateKey():String{
