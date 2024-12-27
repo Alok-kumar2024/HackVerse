@@ -1,11 +1,13 @@
 package com.example.hackverse
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,17 +26,20 @@ class FriendsFragment : Fragment() {
     private var _binding : FragmentFriendsBinding? = null
     private val binding get() = _binding!!
     private lateinit var database : DatabaseReference
+    private lateinit var RemoveDatabase : DatabaseReference
 
     private lateinit var recyclerviewFriends : RecyclerView
+    private lateinit var recyclerviewFriends_Adapter : Friends_Adaptar
     private var Friends_Add_Array  = arrayListOf<Friends_Recycler>()
 
     private lateinit var recyclerviewFriendsSearch : RecyclerView
+    private lateinit var recyclerviewFriendsSearch_Adapter : Friends_Adaptar
     private var Friends_Search_Array  = arrayListOf<Friends_Recycler>()
 
     private lateinit var getuseridforfriends : String
-    private var userFriendAdded : Map<String,Boolean> ? =null
-    private lateinit var addedUserID : List<String>
-    private lateinit var addedChecks : List<Boolean>
+    private lateinit var EnteredUserID : String
+
+    private var Added_friend_list = mutableListOf<String>()
 
 
     override fun onCreateView(
@@ -45,62 +50,306 @@ class FriendsFragment : Fragment() {
 
         _binding = FragmentFriendsBinding.inflate(inflater,container,false)
 
-        database = FirebaseDatabase.getInstance().getReference("USERS")
-
-
         getuseridforfriends = arguments?.getString("UserId").toString()
         Log.d("Friend_GetUserID","UserId i got from main header is $getuseridforfriends")
 
-//        val Friends_Add_Array = arrayListOf<Friends_Recycler>()
 
-        database.child(getuseridforfriends).addValueEventListener(object : ValueEventListener{
+         database = FirebaseDatabase.getInstance().getReference("USERS").child(getuseridforfriends).child("friends")
+
+
+        database.orderByChild("status").equalTo("added").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                if (snapshot.exists())
-                {
-                    val users = snapshot.getValue(coders::class.java)
-                    var flag = false
+//                val Added_friend_list = mutableListOf<String>()
 
-                     userFriendAdded = users?.friends?.added
-                    if (userFriendAdded == null)
+                snapshot.children.forEach { friendSnaphot ->
+
+                    val friendID = friendSnaphot.key ?: "Not Found FriendID"
+                    Log.d("FriendIDKey","The FriendID for ADDED status is $friendID")
+
+                    if (friendID != "Not Found FriendID")
                     {
-                        Toast.makeText(requireContext(),"No Friends Added Yet",Toast.LENGTH_SHORT).show()
-                    }else{
+                        Added_friend_list.add(friendID)
+                        Log.d("AddToarray","Successfully added $friendID to Added friend list")
+                    }
 
-                        addedUserID = userFriendAdded?.keys?.toList()!!
+                }
 
-                        addedChecks = userFriendAdded?.values?.toList()!!
+                if (Added_friend_list.isEmpty())
+                {
+                    Toast.makeText(requireContext(),"No Friends Added Yet.",Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.TextNoFriends.visibility = View.GONE
 
-                        for(index in addedChecks.indices) {
+                    for (index in Added_friend_list.indices){
 
-                            if (addedChecks[index])
-                            {
+                        val AddedfriendIDs = Added_friend_list[index]
+                        Log.d("ValueFrom Array","Value AddedFriendIDs -> $AddedfriendIDs" +
+                                "value Added_Friend_list[index] -> $Added_friend_list[index]")
+                        val AddedSearch = FirebaseDatabase.getInstance()
+//                        var Check : String = "Start"
+//                        Log.d("Check at start","The value of check at start is Check $Check")
 
-                                flag= true
+                        val Check_Added = mutableListOf<String>()
+                        AddedSearch.getReference("USERS").child(AddedfriendIDs).child("friends").orderByChild("status").equalTo("Added")
+                            .addListenerForSingleValueEvent(object : ValueEventListener{
+                                override fun onDataChange(snapshot: DataSnapshot) {
 
-                                recyclerviewFriends = binding.RecyclerViewForShowingUsersAdded
-                                recyclerviewFriends.layoutManager = LinearLayoutManager(requireContext())
+                                    snapshot.children.forEach { CheckSnapshot ->
+                                        val Check_ID = CheckSnapshot.key.toString()
+                                        Log.d("Chek_ID","Check_ID of AddedFriendsID is $Check_ID")
+                                        if (Check_ID.isNotEmpty()) {
+                                            Check_Added.add(Check_ID)
+                                        }
+                                    }
 
-                                database.child(addedUserID[index]).addValueEventListener(object : ValueEventListener{
+//                                    recyclerviewFriends = binding.RecyclerViewForShowingUsersAdded
+//                                    recyclerviewFriends.layoutManager = LinearLayoutManager(requireContext())
+
+                                    AddedSearch.getReference("USERS").child(AddedfriendIDs).addListenerForSingleValueEvent(object : ValueEventListener{
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            val urlFriend = snapshot.child("url").value.toString()
+                                            val usernameFriend = snapshot.child("username").value.toString()
+
+                                            val data_addedFriend = Friends_Recycler(urlFriend,AddedfriendIDs,usernameFriend,"added")
+
+                                            Friends_Add_Array.add(data_addedFriend)
+
+                                            if(Friends_Add_Array.size == Added_friend_list.size){
+                                                setRecyclerView(Friends_Add_Array)
+                                            }
+
+//                                            recyclerviewFriends_Adapter = Friends_Adaptar(Friends_Add_Array,
+//                                                onRemoveClick = { friend ->
+//                                                    removeFriend(friend)
+//                                                }
+//                                            )
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            TODO("Not yet implemented")
+                                        }
+
+                                    })
+
+
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
+//                        for (i in Check_Added.indices)
+//                        {
+//                            if (getuseridforfriends == Check_Added[i])
+//                            {
+//                                Check = "Found"
+//                                break
+//                            }
+//                        }
+//                        Log.d("Check at end","The value of check at start is Check $Check")
+//                        if (Check == "Found")
+//                        {
+//                            recyclerviewFriends = binding.RecyclerViewForShowingUsersAdded
+//                            recyclerviewFriends.layoutManager = LinearLayoutManager(requireContext())
+//
+//                            AddedSearch.getReference("USERS").child(AddedfriendIDs).addValueEventListener(object : ValueEventListener{
+//                                override fun onDataChange(snapshot: DataSnapshot) {
+//                                    val urlFriend = snapshot.child("url").value.toString()
+//                                    val usernameFriend = snapshot.child("username").value.toString()
+//
+//                                    val data_addedFriend = Friends_Recycler(urlFriend,AddedfriendIDs,usernameFriend,"added")
+//
+//                                    Friends_Add_Array.add(data_addedFriend)
+//                                }
+//
+//                                override fun onCancelled(error: DatabaseError) {
+//                                    TODO("Not yet implemented")
+//                                }
+//
+//                            })
+//                        }else{
+//                            Toast.makeText(requireContext(),"Couldn't find friend",Toast.LENGTH_SHORT).show()
+//                        }
+
+
+                    }
+
+//                    recyclerviewFriends_Adapter = Friends_Adaptar(Friends_Add_Array,
+//                        onRemoveClick = { friend ->
+//                            removeFriend(friend)
+//                        }
+//                    )
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+//        if (Added_friend_list.isEmpty())
+//        {
+//            Toast.makeText(requireContext(),"No Friends Added Yet.",Toast.LENGTH_SHORT).show()
+//        }else{
+//            binding.TextNoFriends.visibility = View.GONE
+//
+//            for (index in Added_friend_list.indices){
+//
+//                val AddedfriendIDs = Added_friend_list[index]
+//                val AddedSearch = FirebaseDatabase.getInstance()
+//                var Check : String = "Start"
+//                Log.d("Check at start","The value of check at start is Check $Check")
+//
+//                val Check_Added = mutableListOf<String>()
+//                AddedSearch.getReference("USERS").child(AddedfriendIDs).child("friends").orderByChild("status").equalTo("Added")
+//                    .addValueEventListener(object : ValueEventListener{
+//                        override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                            snapshot.children.forEach { CheckSnapshot ->
+//                                val Check_ID = CheckSnapshot.key.toString()
+//                                if (Check_ID.isNotEmpty()) {
+//                                    Check_Added.add(Check_ID)
+//                                }
+//                            }
+//                        }
+//
+//                        override fun onCancelled(error: DatabaseError) {
+//                            TODO("Not yet implemented")
+//                        }
+//
+//                    })
+//                for (i in Check_Added.indices)
+//                {
+//                    if (getuseridforfriends == Check_Added[i])
+//                    {
+//                        Check = "Found"
+//                        break
+//                    }
+//                }
+//                Log.d("Check at end","The value of check at start is Check $Check")
+//                if (Check == "Found")
+//                {
+//                    recyclerviewFriends = binding.RecyclerViewForShowingUsersAdded
+//                    recyclerviewFriends.layoutManager = LinearLayoutManager(requireContext())
+//
+//                    AddedSearch.getReference("USERS").child(AddedfriendIDs).addValueEventListener(object : ValueEventListener{
+//                        override fun onDataChange(snapshot: DataSnapshot) {
+//                           val urlFriend = snapshot.child("url").value.toString()
+//                            val usernameFriend = snapshot.child("username").value.toString()
+//
+//                            val data_addedFriend = Friends_Recycler(urlFriend,AddedfriendIDs,usernameFriend,"added")
+//
+//                            Friends_Add_Array.add(data_addedFriend)
+//                        }
+//
+//                        override fun onCancelled(error: DatabaseError) {
+//                            TODO("Not yet implemented")
+//                        }
+//
+//                    })
+//                }else{
+//                    Toast.makeText(requireContext(),"Couldn't find friend",Toast.LENGTH_SHORT).show()
+//                }
+//
+//
+//            }
+//
+//            recyclerviewFriends_Adapter = Friends_Adaptar(Friends_Add_Array,
+//                onRemoveClick = { friend ->
+//                    removeFriend(friend)
+//                }
+//            )
+//        }
+
+        binding.SearchIDButton.setOnClickListener {
+
+            binding.TextNoFriends.visibility = View.GONE
+
+            EnteredUserID = binding.SearchID.text.toString()
+            Log.d("EnteredUSERID","The USERID Entered is $EnteredUserID")
+
+            lateinit var searchInDatabase : DatabaseReference
+
+            var statusSearchCurrentuser = "None"
+//            lateinit var statusSearchFriend : String
+
+            if (EnteredUserID.isEmpty())
+            {
+                Toast.makeText(requireContext(),"This field cannot be Empty , if you wish to search someone",Toast.LENGTH_SHORT).show()
+            }else{
+                searchInDatabase = FirebaseDatabase.getInstance().getReference("USERS")
+
+                searchInDatabase.orderByKey().equalTo(EnteredUserID).addListenerForSingleValueEvent(object : ValueEventListener{
+                    @SuppressLint("NotifyDataSetChanged")
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists())
+                        {
+                            binding.TextNoUserExists.visibility = View.GONE
+                            lateinit var urlSearch : String
+                            lateinit var usernameSearch : String
+
+                            for (userSnapshot in snapshot.children) {
+
+                                val DataOfEnteredUserID = userSnapshot.getValue(coders::class.java)
+
+                                 urlSearch = DataOfEnteredUserID?.url.toString()
+                                 usernameSearch = DataOfEnteredUserID?.username.toString()
+                            }
+                            Log.d("Data from Search","The url is $urlSearch" +
+                                    "The username is $usernameSearch")
+
+
+                          // Now about the value of status , i will check it in the current user , that the search id , has whih
+                        // satus in current user database, if i like i would double check that status in the entered userid
+
+                            Log.d("GetuserIDforfriends","Checking for userid in searching one $getuseridforfriends")
+                            searchInDatabase.child(getuseridforfriends).child("friends").child(EnteredUserID)
+                                .addValueEventListener(object : ValueEventListener{
                                     override fun onDataChange(snapshot: DataSnapshot) {
-                                       if (snapshot.exists())
-                                       {
-                                           val urlFriend = snapshot.child("url").value.toString()
-                                           val useridFriend = snapshot.key.toString()
-                                           val usernameFriend = snapshot.child("username").value.toString()
+                                        Log.d("Debug", "Listener triggered")
+                                        if (snapshot.exists()) {
+                                            Log.d("Debuginside", "Snapshot exists: ${snapshot.value}")
 
-                                           Log.d("FriendsData for users","The data is for $addedUserID[index]" +
-                                                   "UserID -> $useridFriend" +
-                                                   "UserName -> $usernameFriend" +
-                                                   "ProfilePicURL -> $urlFriend")
+                                            statusSearchCurrentuser = (snapshot.child("status").value ?: "None").toString()
+                                            Log.d("Valueinside of status from function","The value of status for current user is $statusSearchCurrentuser")
 
-                                           if (urlFriend.isNotEmpty())
-                                           {
-                                              val data = Friends_Recycler(urlFriend,useridFriend,usernameFriend)
+                                            val isAlreadyAdded = Friends_Search_Array.any { it.userID_search == EnteredUserID }
 
-                                               Friends_Add_Array.add(data)
-                                           }
-                                       }
+                                            if (!isAlreadyAdded) {
+                                                val StoreData = Friends_Recycler(
+                                                    urlSearch,
+                                                    EnteredUserID,
+                                                    usernameSearch,
+                                                    statusSearchCurrentuser
+                                                )
+                                                Friends_Search_Array.add(StoreData)
+
+
+                                            }else{
+                                                Log.d("Duplicate Check", "User already in the list")
+                                            }
+                                        }else{
+
+                                            statusSearchCurrentuser = "None"
+                                            Log.d("ElseValueinside of status from function","The value of status for current user is $statusSearchCurrentuser")
+
+                                            val isAlreadyAdded = Friends_Search_Array.any { it.userID_search == EnteredUserID }
+
+                                            if (!isAlreadyAdded) {
+                                                val StoreData = Friends_Recycler(
+                                                    urlSearch,
+                                                    EnteredUserID,
+                                                    usernameSearch,
+                                                    statusSearchCurrentuser
+                                                )
+                                                Friends_Search_Array.add(StoreData)
+                                            }
+
+                                        }
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
@@ -109,138 +358,49 @@ class FriendsFragment : Fragment() {
 
                                 })
 
+//                            Log.d("Value of status from function","The value of status for current user is $statusSearchCurrentuser")
+
+//                            statusSearchFriend = ValueStatus(EnteredUserID,getuseridforfriends)
+//                            Log.d("Value of status from function","The value of status for Friend user is $statusSearchFriend")
+
+//                            Friends_Search_Array.clear()
+//                            val StoreData = Friends_Recycler(urlSearch,EnteredUserID,usernameSearch,statusSearchCurrentuser)
+//                            Friends_Search_Array.add(StoreData)
+                            (binding.RecyclerViewForShowingUsersAdded.adapter as? Friends_Adaptar)?.notifyDataSetChanged()
+                            binding.RecyclerViewForShowingUsersAdded.visibility = View.GONE
+
+                            recyclerviewFriendsSearch = binding.RecyclerViewForShowingUsersSearch
+                            recyclerviewFriendsSearch.layoutManager = LinearLayoutManager(requireContext())
+
+                            recyclerviewFriendsSearch_Adapter = Friends_Adaptar(Friends_Search_Array,
+                                onAcceptClick = {friends ->  AcceptFriend(friends) } ,
+                                onRejectClick = {friends -> RejectFriend(friends)} ,
+                                onAddClick = {friends -> AddFriend(friends) } ,
+                                onRemoveClick = {friends -> removeFriend(friends) } ,
+                                onCancelClick = {friends -> CancelFriend(friends) } ,
+                            )
+                            binding.RecyclerViewForShowingUsersSearch.visibility = View.VISIBLE
+                            recyclerviewFriendsSearch.adapter = recyclerviewFriendsSearch_Adapter
 
 
-                            }
 
 
+                        }else{
+                            (binding.RecyclerViewForShowingUsersSearch.adapter as? Friends_Adaptar)?.notifyDataSetChanged()
+                            binding.RecyclerViewForShowingUsersSearch.visibility = View.GONE
+
+                            binding.TextNoUserExists.visibility = View.VISIBLE
+                            Toast.makeText(requireContext(),"No Such User Exists.",Toast.LENGTH_SHORT).show()
                         }
-//                            Log.d("ValueOfFlag","The Flag is $flag")
-//                        if (flag) {
-//                            binding.TextNoFriends.visibility = View.VISIBLE
-//                        }
-                        recyclerviewFriends.visibility =View.VISIBLE
-                        recyclerviewFriends.adapter = Friends_Adaptar(Friends_Add_Array)
-
-
-
                     }
-                    Log.d("ValueOfFlag","The Flag is $flag")
-                    if (flag) {
-                        binding.TextNoFriends.visibility = View.GONE
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
                     }
 
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                })
 
 
-        })
-
-        binding.SearchIDButton.setOnClickListener {
-
-//            recyclerviewFriends.visibility =View.GONE
-
-            val EnteredUserID = binding.SearchID.text.toString()
-            Log.d("EnteredUSERID","The USERID Entered is $EnteredUserID")
-
-//            database.child(EnteredUserID).addValueEventListener(object : ValueEventListener{
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                    if (snapshot.exists())
-//                    {
-//                        val urlFromEnteredUserID = snapshot.child("url").value.toString()
-//                        val userNameFromEnteredUserID = snapshot.child("username").value.toString()
-//
-//                        recyclerviewFriendsSearch = binding.RecyclerViewForShowingUsersSearch
-//                        recyclerviewFriendsSearch.layoutManager = LinearLayoutManager(requireContext())
-//
-//                        val dataSearch = Friends_Recycler(urlFromEnteredUserID,EnteredUserID,userNameFromEnteredUserID)
-//
-//                        Friends_Search_Array.add(dataSearch)
-//
-//                        recyclerviewFriendsSearch.adapter = Friends_Adaptar(Friends_Search_Array)
-//
-//
-//
-//                    }else{
-//                        Toast.makeText(requireContext(),"No user of UserId $EnteredUserID exists.",Toast.LENGTH_SHORT).show()
-//                        binding.TextNoUserExists.visibility = View.VISIBLE
-//                    }
-//
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-//                }
-//
-//            })
-
-            if(EnteredUserID.isEmpty())
-            {
-                Toast.makeText(requireContext(),"This Field Cannot be Empty",Toast.LENGTH_SHORT).show()
-            }else {
-
-                val Search = database.orderByKey().equalTo(EnteredUserID)
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-
-                        override fun onDataChange(snapshot: DataSnapshot) {
-//
-                            if (snapshot.exists()) {
-                                lateinit var urlFromEnteredUserID: String
-                                lateinit var userNameFromEnteredUserID: String
-
-                                for (userSnapshot in snapshot.children) {
-                                    val dataWhenEntered = userSnapshot.getValue(coders::class.java)
-
-                                    urlFromEnteredUserID = dataWhenEntered?.url.toString()
-                                    userNameFromEnteredUserID = dataWhenEntered?.username.toString()
-                                }
-
-                                recyclerviewFriendsSearch =
-                                    binding.RecyclerViewForShowingUsersSearch
-                                recyclerviewFriendsSearch.layoutManager =
-                                    LinearLayoutManager(requireContext())
-
-                                val dataSearch = Friends_Recycler(
-                                    urlFromEnteredUserID,
-                                    EnteredUserID,
-                                    userNameFromEnteredUserID
-                                )
-
-                                Friends_Search_Array.add(dataSearch)
-
-                                binding.TextNoUserExists.visibility = View.GONE
-                                binding.TextNoFriends.visibility = View.GONE
-                                recyclerviewFriendsSearch.visibility = View.VISIBLE
-
-                                recyclerviewFriendsSearch.adapter =
-                                    Friends_Adaptar(Friends_Search_Array)
-
-
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "No user of UserId $EnteredUserID exists.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                                binding.TextNoFriends.visibility = View.GONE
-//                                recyclerviewFriendsSearch.visibility = View.GONE
-
-                                binding.TextNoUserExists.visibility = View.VISIBLE
-                            }
-
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
-                        }
-
-                    })
             }
 
         }
@@ -249,4 +409,195 @@ class FriendsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setRecyclerView(friendsAddArray: ArrayList<Friends_Recycler>) {
+
+        (binding.RecyclerViewForShowingUsersSearch.adapter as? Friends_Adaptar)?.notifyDataSetChanged()
+        binding.RecyclerViewForShowingUsersSearch.visibility = View.GONE
+
+        binding.RecyclerViewForShowingUsersAdded.visibility = View.VISIBLE
+        recyclerviewFriends = binding.RecyclerViewForShowingUsersAdded
+        recyclerviewFriends.layoutManager = LinearLayoutManager(requireContext())
+
+        recyclerviewFriends_Adapter = Friends_Adaptar(friendsAddArray,
+            onRemoveClick = { friend ->
+                removeFriend(friend)
+            }
+        )
+
+        recyclerviewFriends.adapter = recyclerviewFriends_Adapter
+
+
+    }
+
+    private fun CancelFriend(friends: Friends_Recycler) {
+
+        DataRemoveRealTimeDatabase(getuseridforfriends,friends.userID_search!!)
+        DataRemoveRealTimeDatabase(friends.userID_search, getuseridforfriends)
+
+        Toast.makeText(requireContext(),"Successfully Cancelled Friend Request",Toast.LENGTH_SHORT).show()
+
+
+
+    }
+
+    private fun AddFriend(friends: Friends_Recycler) {
+
+       val AddDatabase = FirebaseDatabase.getInstance().getReference("USERS")
+        val mapOFFriendData = mutableMapOf(
+            "urlOfFriend " to "" ,
+            "userNameOfFriend" to "" ,
+            "status" to ""
+        )
+        val mapOFCurrentUserData = mutableMapOf(
+            "urlOfFriend" to "" ,
+            "userNameOfFriend" to "" ,
+            "status" to ""
+        )
+
+        AddDatabase.child(EnteredUserID).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists())
+                {
+                    mapOFFriendData["urlOfFriend"] = snapshot.child("url").value.toString()
+                    mapOFFriendData["userNameOfFriend"] = snapshot.child("username").value.toString()
+                    mapOFFriendData["status"] = "outcoming"
+
+
+                    AddDatabase.child(getuseridforfriends).addListenerForSingleValueEvent(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+
+                            if (snapshot.exists())
+                            {
+                                mapOFCurrentUserData["urlOfFriend"] = snapshot.child("url").value.toString()
+                                mapOFCurrentUserData["userNameOfFriend"] = snapshot.child("username").value.toString()
+                                mapOFCurrentUserData["status"] = "incoming"
+
+                                AddDatabase.child(getuseridforfriends).child("friends").child(EnteredUserID).setValue(mapOFFriendData)
+                                AddDatabase.child(EnteredUserID).child("friends").child(getuseridforfriends).setValue(mapOFCurrentUserData).addOnCompleteListener {
+                                    if(it.isSuccessful)
+                                    {
+                                        Toast.makeText(requireContext(),"Successfully send friend request.",Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                            }else{
+                                Log.e("AcceptFriend","couldn't map current users data")
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+
+                }else{
+                    Log.e("AcceptFriend","couldn't map friends data")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun RejectFriend(friends: Friends_Recycler) {
+        val mapofStatus = mapOf(
+            "status" to ""
+        )
+        DataRemoveRealTimeDatabase(getuseridforfriends,friends.userID_search!!)
+        DataRemoveRealTimeDatabase(friends.userID_search, getuseridforfriends)
+
+        Toast.makeText(requireContext(),"Successfully Reject Friend Request",Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun AcceptFriend(friends: Friends_Recycler) {
+
+        val mapofStatus = mapOf(
+            "status" to "added"
+        )
+        FirebaseDatabase.getInstance().getReference("USERS").child(getuseridforfriends).child("friends").child(EnteredUserID)
+            .updateChildren(mapofStatus).addOnCompleteListener { Accept ->
+                if (Accept.isSuccessful)
+                {
+                    Toast.makeText(requireContext(),"Successfuly Accepted FriendRequest.",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(requireContext(),"Some error occurred , so couldn't perform the command",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        FirebaseDatabase.getInstance().getReference("USERS").child(EnteredUserID).child("friends").child(getuseridforfriends)
+            .updateChildren(mapofStatus).addOnCompleteListener { Accept ->
+                if (Accept.isSuccessful)
+                {
+                    Log.d("Accept status -> Added","Successfully changed status to added for friend")
+                }else{
+                    Log.e("Accept status -> Added","couldn't changed status to added for friend")
+                }
+            }
+
+    }
+
+//    private fun ValueStatus(UserID: String, FriendID: String): String {
+//
+//        val GetStatus = FirebaseDatabase.getInstance()
+//        lateinit var status : String
+//
+//        GetStatus.getReference("USERS").child(UserID).child("friends").orderByKey().equalTo(FriendID)
+//            .addListenerForSingleValueEvent(object : ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if (snapshot.exists()) {
+//                         status = snapshot.child("status").value.toString()
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//
+//            })
+//
+//        return status
+//    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun removeFriend(friends: Friends_Recycler) {
+
+        DataRemoveRealTimeDatabase(getuseridforfriends,friends.userID_search!!)
+        DataRemoveRealTimeDatabase(friends.userID_search, getuseridforfriends)
+
+        Friends_Add_Array.remove(friends)
+        recyclerviewFriends_Adapter.notifyDataSetChanged()
+        Toast.makeText(requireContext(),"Successfully Removed Friend.",Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun DataRemoveRealTimeDatabase(UserID: String, FriendID: String) {
+
+        RemoveDatabase = FirebaseDatabase.getInstance().getReference("USERS").child(UserID).child("friends").child(FriendID)
+
+        RemoveDatabase.removeValue().addOnCompleteListener { task ->
+
+            if (task.isSuccessful)
+            {
+                Log.d("RemoveFirebase", "Friend $FriendID removed successfully.")
+
+            }else{
+                Log.d("FailedRemoveFirebase","Failed To Remove $FriendID from firebase",task.exception)
+            }
+        }
+
+    }
+
 }
+
+

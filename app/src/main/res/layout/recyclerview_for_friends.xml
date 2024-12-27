@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="UserID ->"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -78,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="UserName ->"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -110,11 +112,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
-        app:layout_constraintVertical_bias="0.042"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
-        android:id="@+id/buttoAddFriend"
+        android:id="@+id/buttonAddFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
@@ -126,8 +127,7 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toEndOf="@+id/buttonRemoveFriend"
         app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
-        app:layout_constraintVertical_bias="0.042"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
         android:id="@+id/buttonCancelFriend"
@@ -136,18 +136,17 @@
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/default_image_of_profile"
-        android:text="Remove Friend"
+        android:text="Cancel Request"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
-        app:layout_constraintVertical_bias="0.042"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
-        android:id="@+id/buttoAddedFriend"
+        android:id="@+id/buttonAddedFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/profileedittext"
@@ -159,8 +158,7 @@
         app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toEndOf="@+id/buttonRemoveFriend"
         app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
-        app:layout_constraintVertical_bias="0.042"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
         android:id="@+id/buttonRejectFriend"
@@ -169,15 +167,14 @@
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/default_image_of_profile"
-        android:text="Reject Request"
+        android:text="Reject"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
-        app:layout_constraintVertical_bias="0.042"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
         android:id="@+id/buttonAccecptFriend"
@@ -185,14 +182,13 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
         android:drawableEnd="@drawable/added_friend_vector"
-        android:text="Accecpt Request"
+        android:text="Accecpt"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.896"
         app:layout_constraintStart_toEndOf="@+id/buttonRemoveFriend"
         app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
-        app:layout_constraintVertical_bias="1.0"
-        android:visibility="gone"/>
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
