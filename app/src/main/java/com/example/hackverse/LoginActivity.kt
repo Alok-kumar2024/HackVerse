@@ -190,6 +190,7 @@ class LoginActivity : AppCompatActivity() {
 ////                }
 //            }
 
+            binding.progressBar.visibility = View.VISIBLE
 
             val email = binding.email.text.toString().lowercase().trim()
             val password = binding.password.editText?.text.toString().trim()
@@ -231,9 +232,16 @@ class LoginActivity : AppCompatActivity() {
 //                            val headerEmail: TextView = headerfile.findViewById(R.id.headerEmail)
 //                            val headerUserID: TextView = headerfile.findViewById(R.id.headerUserID)
 
+                            val startTime = System.currentTimeMillis()
+                            binding.Login.isEnabled = false
+
                             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                                binding.Login.isEnabled = true
+
+                                val endTime = System.currentTimeMillis()
+                                Log.d("Performance", "Authentication took: ${endTime - startTime}ms")
                                 if (it.isSuccessful) {
-                                    binding.progressBar.visibility = View.VISIBLE
+//                                    binding.progressBar.visibility = View.VISIBLE
 
 //                                    headerUser.text = "UserName -> $username"
 //                                    headerEmail.text = "UserEmail -> $emailId"

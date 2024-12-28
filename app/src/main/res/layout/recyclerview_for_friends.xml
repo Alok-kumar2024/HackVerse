@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/LinearLayoutUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -138,12 +139,12 @@
         android:drawableLeft="@drawable/default_image_of_profile"
         android:text="Cancel Request"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/LinearLayoutOfStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonAddedFriend"
@@ -186,9 +187,39 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.738"
         app:layout_constraintStart_toEndOf="@+id/buttonRemoveFriend"
         app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.029" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutOfStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
+        app:layout_constraintVertical_bias="1.0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status ->"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom"/>
+
+                <TextView
+                    android:id="@+id/ShowStatusCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="Will Show status"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,7 @@ class Friends_Adaptar (
         val profileImage : ImageView = itemView.findViewById(R.id.ProfileImageRecycler)
         val userIdRecycler : TextView = itemView.findViewById(R.id.UserIdRecyclerShow)
         val  userNameRecycyler : TextView =  itemView.findViewById(R.id.UserNameRecyclerShow)
+        val statusConditon : TextView = itemView.findViewById(R.id.ShowStatusCondition)
 
         val addedbutton = itemView.findViewById<Button>(R.id.buttonAddedFriend)
         val removebutton = itemView.findViewById<Button>(R.id.buttonRemoveFriend)
@@ -56,6 +57,7 @@ class Friends_Adaptar (
         val user = FriendsList[position]
         holder.userIdRecycler.text = user.userID_search ?: " No ID"
         holder.userNameRecycyler.text = user.userName_search ?: " No Name"
+        holder.statusConditon.text = user.status ?: "None"
 
         Glide.with(holder.itemView.context)
             .load(user.profileImg)

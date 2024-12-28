@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FriendsFragment"
-    android:background="@color/yellow">
+    android:background="@color/yellow"
+    android:id="@+id/FragmentFriend">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraitLayoutForFriendFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/profilebox"
@@ -66,7 +68,8 @@
             android:id="@+id/SearchIDButton"
             android:layout_width="60dp"
             android:layout_height="50dp"
-            android:background="@color/blue"
+            android:background="@drawable/buttonshape"
+            android:backgroundTint="@color/blue"
             android:src="@drawable/search_for_friend_vector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,6 +132,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SearchID"
             app:layout_constraintVertical_bias="0.064" />
+
+        <FrameLayout
+            android:id="@+id/FrameLayoutOfNotification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="213dp"
+            tools:layout_editor_absoluteY="82dp"
+            android:visibility="gone"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

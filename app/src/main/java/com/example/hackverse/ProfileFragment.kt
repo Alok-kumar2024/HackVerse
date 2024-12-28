@@ -80,11 +80,14 @@ class ProfileFragment : Fragment() {
                         emailidShow.text = snapshot.child("email").value.toString()
                         val urlGet = snapshot.child("url").value.toString()
 
-                        Glide.with(requireContext())
-                            .load(urlGet)
-                            .placeholder(R.drawable.loading_for_image_vector)
-                            .error(R.drawable.default_image_of_profile)
-                            .into(ImageView)
+
+                        if (isAdded && !isRemoving && view != null) {
+                            Glide.with(this@ProfileFragment)
+                                .load(urlGet)
+                                .placeholder(R.drawable.loading_for_image_vector)
+                                .error(R.drawable.default_image_of_profile)
+                                .into(ImageView)
+                        }
 
                         Log.d("Fetched Data","useridshow after fetching $useridShow" +
                                 "usernameshow after fetching $usernameShow" +

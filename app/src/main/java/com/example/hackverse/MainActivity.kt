@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState == null)
         {
-            replaceFragment(HomeFragment(),"Home")
+            replaceFragment(HomeFragment(),"Home","Home")
             navigation.setCheckedItem(R.id.home)
         }
 
@@ -351,11 +351,11 @@ class MainActivity : AppCompatActivity() {
 
             when(menuitem.itemId)
             {
-                R.id.home -> replaceFragment(HomeFragment(),menuitem.title.toString())
-                R.id.favourite -> replaceFragment(FavouriteFragment(),menuitem.title.toString())
+                R.id.home -> replaceFragment(HomeFragment(),menuitem.title.toString(),"Home")
+                R.id.favourite -> replaceFragment(FavouriteFragment(),menuitem.title.toString(),"Favourite")
 
-                R.id.my_profile -> replaceFragment(ProfileFragment(),menuitem.title.toString())
-                R.id.friends -> replaceFragment(FriendsFragment(),menuitem.title.toString())
+                R.id.my_profile -> replaceFragment(ProfileFragment(),menuitem.title.toString(),"My_Profie")
+                R.id.friends -> replaceFragment(FriendsFragment(),menuitem.title.toString(),"Friends")
                 R.id.logout -> Logout(LogOutFragment())
 
 
@@ -384,11 +384,14 @@ class MainActivity : AppCompatActivity() {
                         HeaderEmail.text = "$str3$loginEmailId2"
                         HeaderUserID.text = "$str1$loginUserId"
 
-                        Glide.with(this@MainActivity)
-                            .load(urlFromRealDatabase)
-                            .placeholder(R.drawable.loading_for_image_vector)
-                            .error(R.drawable.default_image_of_profile)
-                            .into(HeaderImageView)
+                        val activity = this@MainActivity // or `context` if used in a Fragment
+                        if (!activity.isDestroyed && !activity.isFinishing) {
+                            Glide.with(activity)
+                                .load(urlFromRealDatabase)
+                                .placeholder(R.drawable.loading_for_image_vector)
+                                .error(R.drawable.default_image_of_profile)
+                                .into(HeaderImageView)
+                        }
 
                         Log.d(
                             "DataFromLogin",
@@ -418,7 +421,7 @@ class MainActivity : AppCompatActivity() {
 
 
     @SuppressLint("SuspiciousIndentation")
-    private fun replaceFragment(fragment : Fragment, title : String) {
+    private fun replaceFragment(fragment : Fragment, title : String , tags : String) {
 
             val sendid = sendUserID
 
@@ -426,7 +429,7 @@ class MainActivity : AppCompatActivity() {
         bundle.putString("UserId",sendid)
         fragment.arguments = bundle
 
-            supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment)
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment,tags)
                 .commit()
 
 
