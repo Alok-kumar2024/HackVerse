@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+
+    <item
+        android:id="@+id/Menu_All_Hackathons"
+        android:title="All"
+        android:checkable="true"/>
+
+
+    <item
+        android:id="@+id/Menu_Created_Hackathons"
+        android:title="Created"
+        android:checkable="true"/>
+
+
+    <item
+        android:id="@+id/Menu_Registered_Hackathons"
+        android:title="Registered"
+        android:checkable="true"/>
+
+
+</menu>

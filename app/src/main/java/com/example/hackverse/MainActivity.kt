@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity() {
             {
                 R.id.home -> replaceFragment(HomeFragment(),menuitem.title.toString(),"Home")
                 R.id.favourite -> replaceFragment(FavouriteFragment(),menuitem.title.toString(),"Favourite")
-
+                R.id.my_hackathons -> replaceFragment(My_HackathonsFragment(),menuitem.title.toString(),"My_Hackathons")
                 R.id.my_profile -> replaceFragment(ProfileFragment(),menuitem.title.toString(),"My_Profie")
                 R.id.friends -> replaceFragment(FriendsFragment(),menuitem.title.toString(),"Friends")
                 R.id.logout -> Logout(LogOutFragment())
