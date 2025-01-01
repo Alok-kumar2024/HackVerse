@@ -61,6 +61,7 @@
             app:layout_constraintVertical_bias="0.175" />
 
         <ImageButton
+            android:id="@+id/buttonSearchHackathon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

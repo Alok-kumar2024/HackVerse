@@ -164,7 +164,7 @@ class CreateHackathon : AppCompatActivity() {
                         HostedBy = HostName ,
                         Prize = prize ,
                         CreatedBy = CurrentUerID,
-                        status = "Created" ,
+                        status = "Active" ,
                         description = description ,
                         Time = time(
                             ActiveDate = startDate ,

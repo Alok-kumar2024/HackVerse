@@ -473,7 +473,7 @@ class FriendsFragment : Fragment() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun removeFriend(friends: Friends_Recycler) {
+    private fun removeFriend(friends: Friends_Recycler ) {
 
 //        DataRemoveRealTimeDatabase(getuseridforfriends,friends.userID_search!!)
 //        DataRemoveRealTimeDatabase(friends.userID_search, getuseridforfriends)

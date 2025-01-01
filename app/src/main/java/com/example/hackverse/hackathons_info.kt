@@ -5,8 +5,8 @@ data class hackathons_info(
     val EventName : String? = null ,
     val HostedBy : String? = null ,
     val Prize : String? = null ,
-    val CreatedBy : String?= null ,
-    val BookMark : String? = null ,
+    val CreatedBy : String? = null ,
+    val BookMark : Map<String,String> = mapOf() ,
     val status : String? = null ,
     val description : String? = null ,
     val comment : Map<String,String> = mapOf() ,
@@ -15,7 +15,7 @@ data class hackathons_info(
 )
 
 data class Vote(
-
+    val upvoted : Map<String,String> = mapOf() ,
     val upvotes : Int = 0 ,
     val downvotes : Int = 0
 

@@ -15,11 +15,13 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackverse.Hackathon_Adapter.UserHackathonViewHolder
 import com.example.hackverse.databinding.FragmentMyHackathonsBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 
 
@@ -32,11 +34,11 @@ class My_HackathonsFragment : Fragment() {
     private var Hackathons_listAll = arrayListOf<Hackathon_Recycler>()
 
    // private lateinit var recyclerViewHackathonsCreated : Hackathon_Recycler
-    private lateinit var recyclerViewHackathons_adapterCreated : Hackathon_Adapter
+//    private lateinit var recyclerViewHackathons_adapterCreated : Hackathon_Adapter
     private var Hackathons_listCreated = arrayListOf<Hackathon_Recycler>()
 
   //  private lateinit var recyclerViewHackathonsRegistered : Hackathon_Recycler
-    private lateinit var recyclerViewHackathons_adapterRegistered : Hackathon_Adapter
+//    private lateinit var recyclerViewHackathons_adapterRegistered : Hackathon_Adapter
     private var Hackathons_listRegistered = arrayListOf<Hackathon_Recycler>()
 
 
@@ -71,6 +73,8 @@ class My_HackathonsFragment : Fragment() {
             intent.putExtra("CurrentUserID",CurrentuseridforMyHackathon)
             startActivity(intent)
         }
+
+        LoadEvent(SelectItemText)
 
         database = FirebaseDatabase.getInstance().getReference("HACKATHON")
 
@@ -161,6 +165,9 @@ class My_HackathonsFragment : Fragment() {
                        Toast.makeText(requireContext(),"No Hackathons created yet",Toast.LENGTH_SHORT).show()
                    }else{
 
+                       Hackathons_listAll.clear()
+                       Hackathons_listCreated.clear()
+
                        for (index in Created_Hackathon_list.indices)
                        {
                            val createdHackathonId = Created_Hackathon_list[index]
@@ -174,27 +181,39 @@ class My_HackathonsFragment : Fragment() {
                                    if (snapshot.exists())
                                    {
                                        Log.d("InsideHackathon","Yes")
-                                       val Eventinfo = snapshot.getValue(hackathons_info::class.java)
 
                                        val eventname = snapshot.child("eventName").value.toString()
                                        val bannerURL = snapshot.child("bannerUrl").value.toString()
                                        val host = snapshot.child("hostedBy").value.toString()
                                        val prize = snapshot.child("prize").value.toString()
-                                       val bookmark = snapshot.child("bookMark").value.toString()
 
-                                                       val status = "Created"
+//                                       SearchCreateDatabase.getReference("HACKATHON").child(createdHackathonId).child("BookMark")
+//                                           .child(CurrentuseridforMyHackathon).addListenerForSingleValueEvent(object : ValueEventListener{
+//
 
-                                                       val information_event = Hackathon_Recycler(bannerURL,createdHackathonId,eventname,host,prize,bookmark,status)
+                                       val bookmark = snapshot.child("BookMark").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "None"
 
+                                       val VotedText = snapshot.child("votes").child("upvoted").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "none"
+
+                                       val status = snapshot.child("status").value.toString()
+                                       val information_event = Hackathon_Recycler(bannerURL,createdHackathonId,eventname,host,prize,bookmark,VotedText,status)
                                        Log.d("HackathonIDData","EventName -> $eventname" +
                                                "bannerurl -> $bannerURL" +
                                                "host -> $host" +
                                                "Prize -> $prize" +
-                                               "bookmark -> $bookmark")
+                                               "bookmark -> $bookmark" +
+                                               "Voted -> $VotedText")
 
-                                       Hackathons_listAll.add(information_event)
-                                       Hackathons_listCreated.add(information_event)
-
+                                       if (!Hackathons_listAll.contains(information_event))
+                                       {
+                                           Hackathons_listAll.add(information_event)
+                                       }
+                                       if (!Hackathons_listCreated.contains(information_event)) {
+                                           Hackathons_listCreated.add(
+                                               information_event
+                                           )
+                                       }
+                                       refreshAdapter("All")
 
                                    }else{
                                        Toast.makeText(requireContext(),"Could not find the Event.",Toast.LENGTH_SHORT).show()
@@ -260,12 +279,34 @@ class My_HackathonsFragment : Fragment() {
                                             val bannerURL = Eventinfo?.bannerUrl.toString()
                                             val host = Eventinfo?.HostedBy.toString()
                                             val prize = Eventinfo?.Prize.toString()
-                                            val bookmark = Eventinfo?.BookMark.toString()
-                                            val status ="Registered"
-                                            Log.d("ValueStatus","Value of status for event is $status")
-                                            val information_event = Hackathon_Recycler(bannerURL,RegisteredHackathonID,eventname,host,prize,bookmark,status)
-                                            Hackathons_listAll.add(information_event)
-                                            Hackathons_listRegistered.add(information_event)
+
+                                            SearchRegisteredDatabase.getReference("HACKATHON").child(RegisteredHackathonID).child("BookMark")
+                                                .child(CurrentuseridforMyHackathon).addListenerForSingleValueEvent(object : ValueEventListener{
+                                                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                                                        if (snapshot.exists())
+                                                        {
+                                                            val bookmark = snapshot.getValue(String::class.java)
+                                                            val status ="Registered"
+                                                            Log.d("ValueStatus","Value of status for event is $status")
+                                                            val information_event = Hackathon_Recycler(bannerURL,RegisteredHackathonID,eventname,host,prize,bookmark,status)
+
+                                                            Hackathons_listAll.clear()
+                                                            Hackathons_listRegistered.clear()
+                                                            Hackathons_listAll.add(information_event)
+                                                            Hackathons_listRegistered.add(information_event)
+
+                                                            refreshAdapter("All")
+
+
+                                                        }
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                })
 
 
 
@@ -320,29 +361,38 @@ class My_HackathonsFragment : Fragment() {
 
             }
             "Created" -> {
-                recyclerViewHackathons_adapterCreated = Hackathon_Adapter(
+                recyclerViewHackathons_adapterAll = Hackathon_Adapter(
                     Hackathons_listCreated ,
                     OnBookmarkClickAdd = { hackathon -> BookMarkAdded(hackathon) },
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
                 )
-                recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterCreated
+                recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
             }
             "Registered" -> {
-                recyclerViewHackathons_adapterRegistered = Hackathon_Adapter(
+                recyclerViewHackathons_adapterAll = Hackathon_Adapter(
                     Hackathons_listRegistered ,
                     OnBookmarkClickAdd = { hackathon -> BookMarkAdded(hackathon) },
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
                 )
-                recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterRegistered
+                recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
             }
         }
 
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun refreshAdapter(status: String) {
+        when (status) {
+            "All" -> recyclerViewHackathons_adapterAll.notifyDataSetChanged()
+            "Created" -> recyclerViewHackathons_adapterAll.notifyDataSetChanged()
+            "Registered" -> recyclerViewHackathons_adapterAll.notifyDataSetChanged()
+        }
     }
 
     private fun ItemTitle(selectItemText: String): String {
@@ -356,9 +406,10 @@ class My_HackathonsFragment : Fragment() {
         val HACKATHONID = hackathon.EventId.toString()
 
         val ref = FirebaseDatabase.getInstance().getReference("USERS")
+        val HackathonRef = FirebaseDatabase.getInstance().getReference("HACKATHON")
 
         val update = mapOf(
-            "bookmark" to ""
+            "bookmark" to "Removed"
         )
         ref.child(CurrentuseridforMyHackathon).child("hackathons").child(HACKATHONID).updateChildren(update).addOnSuccessListener {
             Toast.makeText(requireContext(),"Successfully Removed From Bookmark",Toast.LENGTH_SHORT).show()
@@ -368,6 +419,16 @@ class My_HackathonsFragment : Fragment() {
             Toast.makeText(requireContext(),"Error : Couldn't Removed From Bookmark",Toast.LENGTH_SHORT).show()
         }
 
+        val updateBookmark = mapOf(
+            "BookMark/$CurrentuseridforMyHackathon" to ""
+        )
+
+        HackathonRef.child(HACKATHONID).updateChildren(updateBookmark).addOnSuccessListener {
+            Log.d("BookMarkRemoved","Successfully Removed in HACKATHON")
+        }.addOnFailureListener {
+            Log.d("BookMarkNotRemoved","Couldn't  Remove in HACKATHON")
+        }
+
     }
 
     private fun BookMarkAdded(hackathon: Hackathon_Recycler) {
@@ -375,6 +436,7 @@ class My_HackathonsFragment : Fragment() {
         val HACKATHONID = hackathon.EventId.toString()
 
         val ref = FirebaseDatabase.getInstance().getReference("USERS")
+        val HackathonRef = FirebaseDatabase.getInstance().getReference("HACKATHON")
 
         val update = mapOf(
             "bookmark" to "Added"
@@ -384,6 +446,15 @@ class My_HackathonsFragment : Fragment() {
 
         }.addOnFailureListener {
             Toast.makeText(requireContext(),"Error : Couldn't Added To BookMark.",Toast.LENGTH_SHORT).show()
+        }
+        val updateBookmark = mapOf(
+            "BookMark/$CurrentuseridforMyHackathon" to "Added"
+        )
+
+        HackathonRef.child(HACKATHONID).updateChildren(updateBookmark).addOnSuccessListener {
+            Log.d("BookMarkAdded","Successfully added in HACKATHON")
+        }.addOnFailureListener {
+            Log.d("BookMarkNotAdded","Couldn't  add in HACKATHON")
         }
 
     }
@@ -395,6 +466,7 @@ class My_HackathonsFragment : Fragment() {
         val HACKATHONID = hackathon.EventId.toString()
 
         ref.child(HACKATHONID).addListenerForSingleValueEvent(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists())
                 {
@@ -409,6 +481,19 @@ class My_HackathonsFragment : Fragment() {
                     }.addOnFailureListener {
                         Toast.makeText(requireContext(),"Error Couldn't Remove Upvote",Toast.LENGTH_SHORT).show()
                     }
+
+                    val update_voted = mapOf(
+                        "upvoted/$CurrentuseridforMyHackathon" to "no"
+                    )
+
+                    ref.child(HACKATHONID).child("votes").updateChildren(update_voted).addOnSuccessListener {
+
+                        hackathon.Voted = "no"
+                        recyclerViewHackathons_adapterAll.notifyDataSetChanged()
+                        Log.d("votedText","Successfully added 'no' in HACKATHON")
+                    }.addOnFailureListener {
+                        Log.d("votedText","Couldn't added in HACKATHON")
+                    }
                 }
 
             }
@@ -421,12 +506,13 @@ class My_HackathonsFragment : Fragment() {
 
     }
 
-    private fun UpvoteAdd(hackathon: Hackathon_Recycler) {
+    private fun UpvoteAdd(hackathon: Hackathon_Recycler ) {
         val ref = FirebaseDatabase.getInstance().getReference("HACKATHON")
 
         val HACKATHONID = hackathon.EventId.toString()
 
         ref.child(HACKATHONID).addListenerForSingleValueEvent(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                if (snapshot.exists())
                {
@@ -440,6 +526,20 @@ class My_HackathonsFragment : Fragment() {
                        Toast.makeText(requireContext(),"Successfully Upvoted.",Toast.LENGTH_SHORT).show()
                    }.addOnFailureListener {
                        Toast.makeText(requireContext(),"Error Couldn't Upvote",Toast.LENGTH_SHORT).show()
+                   }
+
+                   val update_voted = mapOf(
+                       "upvoted/$CurrentuseridforMyHackathon" to "yes"
+                   )
+
+                   ref.child(HACKATHONID).child("votes").updateChildren(update_voted).addOnSuccessListener {
+
+                       hackathon.Voted = "yes"
+                        recyclerViewHackathons_adapterAll.notifyDataSetChanged()
+
+                       Log.d("votedText","Successfully added 'yes' in HACKATHON")
+                   }.addOnFailureListener {
+                       Log.d("votedText","Couldn't added in HACKATHON")
                    }
                }
 

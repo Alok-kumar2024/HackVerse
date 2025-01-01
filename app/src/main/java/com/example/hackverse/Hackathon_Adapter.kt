@@ -63,37 +63,69 @@ class Hackathon_Adapter(
         holder.BookmarkRemoveButton.visibility = View.GONE
         holder.LikeRemoveButton.visibility = View.GONE
 
-        holder.BookmarkAddButton.setOnClickListener {
-            OnBookmarkClickAdd(hackathon)
-            holder.BookmarkAddButton.visibility = View.GONE
-            holder.BookmarkRemoveButton.visibility = View.VISIBLE
 
+        when(hackathon.BookMark)
+        {
+            "Added" -> {
+
+                holder.BookmarkAddButton.visibility = View.GONE
+                holder.BookmarkRemoveButton.visibility = View.VISIBLE
+
+                holder.BookmarkRemoveButton.setOnClickListener {
+                    OnBookmarkClickRemove(hackathon)
+                }
+
+            }
+            "Removed" -> {
+
+                holder.BookmarkAddButton.setOnClickListener {
+                    OnBookmarkClickAdd(hackathon)
+                    holder.BookmarkAddButton.visibility = View.GONE
+                    holder.BookmarkRemoveButton.visibility = View.VISIBLE
+
+                }
+
+            }
+            else -> {
+                holder.BookmarkAddButton.visibility = View.VISIBLE
+                holder.BookmarkAddButton.setOnClickListener { OnBookmarkClickAdd(hackathon) }
+            }
         }
 
-        holder.BookmarkRemoveButton.setOnClickListener {
-            OnBookmarkClickRemove(hackathon)
-            holder.BookmarkAddButton.visibility = View.VISIBLE
-            holder.BookmarkRemoveButton.visibility = View.GONE
+        when(hackathon.Voted)
+        {
+            "yes" ->{
+
+                holder.LikeAddButton.visibility = View.GONE
+                holder.LikeRemoveButton.visibility = View.VISIBLE
+
+                holder.LikeRemoveButton.setOnClickListener {
+                    OnLikeClickRemove(hackathon)
+
+                }
+            }
+            "no" -> {
+
+                holder.LikeAddButton.visibility = View.VISIBLE
+                holder.LikeRemoveButton.visibility = View.GONE
+
+                holder.LikeAddButton.setOnClickListener {
+
+                    OnLikeClickAdd(hackathon)
+
+
+                }
+
+            }
+            else -> {
+                holder.LikeAddButton.visibility = View.VISIBLE
+                holder.LikeAddButton.setOnClickListener { OnLikeClickAdd(hackathon) }
+            }
         }
 
 
 
-        holder.LikeAddButton.setOnClickListener {
 
-            OnLikeClickAdd(hackathon)
-
-            holder.LikeAddButton.visibility = View.GONE
-            holder.LikeRemoveButton.visibility = View.VISIBLE
-
-        }
-
-        holder.LikeRemoveButton.setOnClickListener {
-
-            OnLikeClickRemove(hackathon)
-
-            holder.LikeAddButton.visibility = View.VISIBLE
-            holder.LikeRemoveButton.visibility = View.GONE
-        }
 
 
     }
