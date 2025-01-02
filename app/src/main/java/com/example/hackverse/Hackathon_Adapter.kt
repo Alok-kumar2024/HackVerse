@@ -20,6 +20,8 @@ class Hackathon_Adapter(
 
 ) : RecyclerView.Adapter<Hackathon_Adapter.UserHackathonViewHolder>() {
 
+
+
     inner class UserHackathonViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         val bannerImage : ImageView = itemView.findViewById(R.id.BannerImageView)

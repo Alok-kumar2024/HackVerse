@@ -180,16 +180,12 @@ class My_HackathonsFragment : Fragment() {
                                override fun onDataChange(snapshot: DataSnapshot) {
                                    if (snapshot.exists())
                                    {
-                                       Log.d("InsideHackathon","Yes")
+                                       Log.d("InsideHackathonCreated","Yes")
 
                                        val eventname = snapshot.child("eventName").value.toString()
                                        val bannerURL = snapshot.child("bannerUrl").value.toString()
                                        val host = snapshot.child("hostedBy").value.toString()
                                        val prize = snapshot.child("prize").value.toString()
-
-//                                       SearchCreateDatabase.getReference("HACKATHON").child(createdHackathonId).child("BookMark")
-//                                           .child(CurrentuseridforMyHackathon).addListenerForSingleValueEvent(object : ValueEventListener{
-//
 
                                        val bookmark = snapshot.child("BookMark").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "None"
 
@@ -260,6 +256,9 @@ class My_HackathonsFragment : Fragment() {
                         Toast.makeText(requireContext(),"Not Registered in any Hackathons Yet.",Toast.LENGTH_SHORT).show()
                     }else{
 
+//                        Hackathons_listAll.clear()
+//                        Hackathons_listRegistered.clear()
+
                         for(index in Registered_Hackathon_list.indices)
                         {
                             val RegisteredHackathonID = Registered_Hackathon_list[index]
@@ -273,40 +272,39 @@ class My_HackathonsFragment : Fragment() {
                                     override fun onDataChange(snapshot: DataSnapshot) {
                                         if (snapshot.exists())
                                         {
-                                            val Eventinfo = snapshot.getValue(hackathons_info::class.java)
+                                            val eventname = snapshot.child("eventName").value.toString()
+                                            val bannerURL = snapshot.child("bannerUrl").value.toString()
+                                            val host = snapshot.child("hostedBy").value.toString()
+                                            val prize = snapshot.child("prize").value.toString()
 
-                                            val eventname = Eventinfo?.EventName.toString()
-                                            val bannerURL = Eventinfo?.bannerUrl.toString()
-                                            val host = Eventinfo?.HostedBy.toString()
-                                            val prize = Eventinfo?.Prize.toString()
+                                            val bookmark = snapshot.child("BookMark").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "None"
 
-                                            SearchRegisteredDatabase.getReference("HACKATHON").child(RegisteredHackathonID).child("BookMark")
-                                                .child(CurrentuseridforMyHackathon).addListenerForSingleValueEvent(object : ValueEventListener{
-                                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                            val VotedText = snapshot.child("votes").child("upvoted").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "none"
 
-                                                        if (snapshot.exists())
-                                                        {
-                                                            val bookmark = snapshot.getValue(String::class.java)
-                                                            val status ="Registered"
-                                                            Log.d("ValueStatus","Value of status for event is $status")
-                                                            val information_event = Hackathon_Recycler(bannerURL,RegisteredHackathonID,eventname,host,prize,bookmark,status)
+                                            val status = snapshot.child("status").value.toString()
 
-                                                            Hackathons_listAll.clear()
-                                                            Hackathons_listRegistered.clear()
-                                                            Hackathons_listAll.add(information_event)
-                                                            Hackathons_listRegistered.add(information_event)
-
-                                                            refreshAdapter("All")
+                                            Log.d("ValueStatus","Value of status for event is $status")
+                                            val information_event = Hackathon_Recycler(bannerURL,RegisteredHackathonID,eventname,host,prize,bookmark,VotedText,status)
+                                            Log.d("HackathonIDData","EventName -> $eventname" +
+                                                    "bannerurl -> $bannerURL" +
+                                                    "host -> $host" +
+                                                    "Prize -> $prize" +
+                                                    "bookmark -> $bookmark" +
+                                                    "Voted -> $VotedText")
 
 
-                                                        }
-                                                    }
 
-                                                    override fun onCancelled(error: DatabaseError) {
-                                                        TODO("Not yet implemented")
-                                                    }
+                                            if (!Hackathons_listAll.contains(information_event))
+                                            {
+                                                Hackathons_listAll.add(information_event)
+                                            }
+                                            if (!Hackathons_listRegistered.contains(information_event)) {
 
-                                                })
+                                                Hackathons_listRegistered.add(information_event)
+                                            }
+
+                                            refreshAdapter("All")
+
 
 
 

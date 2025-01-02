@@ -6,7 +6,7 @@ data class Hackathon_Recycler(
     val EventName : String? = null ,
     val HostedBy : String? = null ,
     val Prize : String? = null ,
-    val BookMark : String? = null , // Added , None
+    var BookMark : String? = null , // Added , None
     var Voted : String? = null ,
     val status : String? = null // All , Registered , Created , Active , Inactive
 )

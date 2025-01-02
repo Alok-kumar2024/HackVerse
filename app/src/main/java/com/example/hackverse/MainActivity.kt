@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
 
-    private var sendUserID : String = ""
+    private lateinit var sendUserID : String
 
 
     private lateinit var firebase : FirebaseAuth
@@ -111,6 +111,8 @@ class MainActivity : AppCompatActivity() {
 
         firebase = FirebaseAuth.getInstance()
 
+        sendUserID = retriveCurrentUserID()
+
         if(savedInstanceState == null)
         {
             replaceFragment(HomeFragment(),"Home","Home")
@@ -171,137 +173,8 @@ class MainActivity : AppCompatActivity() {
             HeaderUserID.text = "Not found"
 
         }else {
-//            if(UserID !="Not_Got"){
-//            database.child(UserID).get().addOnSuccessListener { snapshot ->
-//                if (snapshot.exists()) {
-//                    val Username = snapshot.child("name").value.toString()
-//                    val EmailId = snapshot.child("email").value.toString()
-//
-//                    Log.d(
-//                        "CheckingDataFromRegister",
-//                        "Username: $Username , UserEmail: $EmailId , UserID: $UserID - Data got from Register..."
-//                    )
-//
-//                    sendUserID = UserID
-//
-//
-//                    if (checkLogin =="SourceLogin") {
-//                        HeaderUser.text = "$str2$loginUserName"
-//                        HeaderEmail.text = "$str3$loginEmailID"
-//                        HeaderUserID.text = "$str1$loginUserId"
-//
-//                        Log.d(
-//                            "DataFromLogin",
-//                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
-//                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
-//                        )
-//                    }
-//                    if (checkRegister == "SourceRegister") {
-//
-//                        HeaderUser.text = "$str2$Username"
-//                        HeaderEmail.text = "$str3$EmailId"
-//
-//                        HeaderUserID.text = "$str1$UserID"
-//
-//                        Log.d(
-//                            "DataFromRegister",
-//                            "Username: $Username , UserEmail: $EmailId , UserID: $UserID - Data got from Register..." +
-//                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
-//                        )
-//                    } else {
-//                        HeaderUser.text = "Not found_Register"
-//                        HeaderEmail.text = "Not Found_Register"
-//
-//                        HeaderUserID.text = "Not Found_Register"
-//                    }
-
-
-//                HeaderUser.text = "$str2$Username"
-//                HeaderEmail.text = "$str3$EmailId"
-//
-//                HeaderUserID.text = "$str1$UserID"
-
-//                    Log.d("FetchDataFromRealTime", "SnapShot ${snapshot.value}")
-//                    Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
-//                } else {
-
-//                    if (checkLogin =="SourceLogin") {
-//                        HeaderUser.text = "$str2$loginUserName"
-//                        HeaderEmail.text = "$str3$loginEmailID"
-//                        HeaderUserID.text = "$str1$loginUserId"
-//
-//                        Log.d(
-//                            "DataFromLogin",
-//                            "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
-//                                    "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
-//                        )
-//                    }else {
-//
-//                        HeaderUser.text = "N/A_Login"
-//                        HeaderEmail.text = "N/A_Login"
-//                        HeaderUserID.text = "N/A_Login"
-//                        Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
-////                    }
-//
-//                    Log.e("FetchDatafromRealtime_register", "Error ${snapshot.value}")
-//
-//                }
-//            }
-//        }
-//        else{
-
-            //Important
-
-//            database.child(loginUserId).addValueEventListener(object :
-//                ValueEventListener{
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if(snapshot.exists())
-//                    {
-//                        val loginUsername2 = snapshot.child("name").value.toString()
-//                        val loginEmailId2 = snapshot.child("email").value.toString()
-//                        val urlFromRealDatabase = snapshot.child("url").value.toString()
-//
-//                        if (checkLogin =="SourceLogin") {
-//                            HeaderUser.text = "$str2$loginUsername2"
-//                            HeaderEmail.text = "$str3$loginEmailId2"
-//                            HeaderUserID.text = "$str1$loginUserId"
-//
-//                            Glide.with(this@MainActivity)
-//                                .load(urlFromRealDatabase)
-//                                .placeholder(R.drawable.loading_for_image_vector)
-//                                .error(R.drawable.default_image_of_profile)
-//                                .into(HeaderImageView)
-//
-//                            Log.d(
-//                                "DataFromLogin",
-//                                "Username: $loginUserName , UserEmail: $loginEmailID , UserID: $loginUserId - Data got from login ..." +
-//                                        "Username: $HeaderUser , UserEmail: $HeaderEmail , UserID: $HeaderUserID after putting data from login...."
-//                            )
-//
-//                            sendUserID = loginUserId
-//                        }else {
-//
-//                            HeaderUser.text = "N/A_Login"
-//                            HeaderEmail.text = "N/A_Login"
-//                            HeaderUserID.text = "N/A_Login"
-//                            Log.e("FetchDataFromRealTimeError", "Error ${snapshot.value}")
-//                        }
-//
-//                    }
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Toast.makeText(this@MainActivity,"Failed To Show users Details",Toast.LENGTH_SHORT).show()
-//                }
-//
-//            })
-
 
                 setupRealTimeListner(loginUserId)
-
-//        }
-
-
 
 
         }
@@ -342,6 +215,8 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
+
+
 
 
 
@@ -417,20 +292,24 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+
     }
 
 
-    @SuppressLint("SuspiciousIndentation")
     private fun replaceFragment(fragment : Fragment, title : String , tags : String) {
 
-            val sendid = sendUserID
+        val sendid = sendUserID
+        Log.d("SendUserID","The SendUserId to fragments is $sendUserID")
+
+//        val sendid = "Testing"
 
         val bundle = Bundle()
         bundle.putString("UserId",sendid)
         fragment.arguments = bundle
 
-            supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment,tags)
-                .commit()
+
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment,tags)
+            .commit()
 
 
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -454,5 +333,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun retriveCurrentUserID() : String {
+        val getSharedLoginForSend = getSharedPreferences("ShareLogin",MODE_PRIVATE)
+        return getSharedLoginForSend.getString("LoginUserID",null) ?: "N/A"
+    }
 
 }
