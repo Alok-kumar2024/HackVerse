@@ -81,6 +81,7 @@
             android:background="@drawable/buttonshape"
             android:backgroundTint="@color/yellow"
             android:padding="15dp"
+            android:visibility="gone"
 
             android:src="@drawable/search_for_friend_vector"
             app:layout_constraintBottom_toBottomOf="@+id/butttonSortEventsHome"
