@@ -1,17 +1,18 @@
 package com.example.hackverse
 
 data class hackathons_info(
-    val bannerUrl : String? =null ,
-    val EventName : String? = null ,
-    val HostedBy : String? = null ,
-    val Prize : String? = null ,
-    val CreatedBy : String? = null ,
-    val BookMark : Map<String,String> = mapOf() ,
-    val status : String? = null ,
-    val description : String? = null ,
-    val comment : Map<String,String> = mapOf() ,
-    val votes : Vote = Vote() ,
-    val Time : time = time()
+    val bannerUrl : String? =null,
+    val EventName : String? = null,
+    val HostedBy : String? = null,
+    val Prize : String? = null,
+    val CreatedBy : String? = null,
+    val BookMark : Map<String,String> = mapOf(),
+    val status : String? = null,
+    val description : String? = null,
+    val comment : Comments = Comments(),
+    val votes : Vote = Vote(),
+    val Time : time = time() ,
+    val participants : Participants = Participants()
 )
 
 data class Vote(
@@ -28,4 +29,14 @@ data class time(
     val ClosedDate : String? = null ,
     val CloseTime : String? = null
 
+)
+
+data class Comments(
+    val userIDcomment : String? = null ,
+    val commenttext : String? = null ,
+    val times : Long? = 0
+)
+
+data class Participants(
+    val participationTime : String? = null
 )

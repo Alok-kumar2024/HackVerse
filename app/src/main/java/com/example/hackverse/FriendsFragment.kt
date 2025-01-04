@@ -1,6 +1,7 @@
 package com.example.hackverse
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -77,19 +78,23 @@ class FriendsFragment : Fragment() {
 //            (binding.RecyclerViewForShowingUsersSearch.adapter as? Friends_Adaptar)?.notifyDataSetChanged()
 //            binding.RecyclerViewForShowingUsersSearch.visibility = View.GONE
 
-            binding.FrameLayoutOfNotification.visibility = View.VISIBLE
+//            binding.FrameLayoutOfNotification.visibility = View.VISIBLE
+//
+////            binding.Notification.isEnabled = false
+//
+//            val fragment = FriendRequests()
+//
+//            val bundle = Bundle()
+//            bundle.putString("UserIDFromFriendFrag",getuseridforfriends)
+//            fragment.arguments = bundle
+//
+//            parentFragmentManager.beginTransaction().replace(R.id.FrameLayoutOfNotification,fragment)
+//                .addToBackStack(null)
+//                .commit()
 
-//            binding.Notification.isEnabled = false
-
-            val fragment = FriendRequests()
-
-            val bundle = Bundle()
-            bundle.putString("UserIDFromFriendFrag",getuseridforfriends)
-            fragment.arguments = bundle
-
-            parentFragmentManager.beginTransaction().replace(R.id.FrameLayoutOfNotification,fragment)
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(requireContext(),FriendRequestActivity::class.java)
+            intent.putExtra("CurrentUSERID",getuseridforfriends)
+            startActivity(intent)
 
         }
 
@@ -121,6 +126,7 @@ class FriendsFragment : Fragment() {
                 }else{
                     binding.TextNoFriends.visibility = View.GONE
 
+                    Friends_Add_Array.clear()
                     for (index in Added_friend_list.indices){
 
                         val AddedfriendIDs = Added_friend_list[index]
@@ -131,7 +137,7 @@ class FriendsFragment : Fragment() {
 //                        Log.d("Check at start","The value of check at start is Check $Check")
 
                         val Check_Added = mutableListOf<String>()
-                        AddedSearch.getReference("USERS").child(AddedfriendIDs).child("friends").orderByChild("status").equalTo("Added")
+                        AddedSearch.getReference("USERS").child(AddedfriendIDs).child("friends").orderByChild("status").equalTo("added")
                             .addListenerForSingleValueEvent(object : ValueEventListener{
                                 override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -153,12 +159,14 @@ class FriendsFragment : Fragment() {
 
                                             val data_addedFriend = Friends_Recycler(urlFriend,AddedfriendIDs,usernameFriend,"added")
 
-                                            Friends_Add_Array.add(data_addedFriend)
+                                            if (!Friends_Add_Array.contains(data_addedFriend)) {
+                                                Friends_Add_Array.add(data_addedFriend)
+                                            }
 
                                             if (isAdded) {
-                                                if (Friends_Add_Array.size == Added_friend_list.size) {
+
                                                     setRecyclerView(Friends_Add_Array)
-                                                }
+
                                             }
 
                                         }
@@ -348,11 +356,20 @@ class FriendsFragment : Fragment() {
         recyclerviewFriends_Adapter = Friends_Adaptar(friendsAddArray,
             onRemoveClick = { friend ->
                 removeFriend(friend)
-            }
-        )
+            } ,
+            onClickViewProfile = {friends -> VisitProfile(friends)})
 
         recyclerviewFriends.adapter = recyclerviewFriends_Adapter
 
+
+    }
+
+    private fun VisitProfile(friends: Friends_Recycler) {
+
+        val intent = Intent(requireContext(),ViewProfile::class.java)
+        intent.putExtra("ViewingUserID",friends.userID_search)
+        intent.putExtra("CurrentViewersID",getuseridforfriends)
+        startActivity(intent)
 
     }
 
@@ -390,6 +407,7 @@ class FriendsFragment : Fragment() {
 
 
                     AddDatabase.child(getuseridforfriends).addListenerForSingleValueEvent(object : ValueEventListener{
+                        @SuppressLint("NotifyDataSetChanged")
                         override fun onDataChange(snapshot: DataSnapshot) {
 
                             if (snapshot.exists())
@@ -482,16 +500,19 @@ class FriendsFragment : Fragment() {
         val position = Friends_Add_Array.indexOf(friends)
 
         if (position>=0) {
-
-            Friends_Add_Array.removeAt(position)
-            recyclerviewFriends_Adapter.notifyDataSetChanged()
-
             DataRemoveRealTimeDatabase(getuseridforfriends,friends.userID_search!!)
             DataRemoveRealTimeDatabase(friends.userID_search, getuseridforfriends)
+
+//            Friends_Add_Array.removeAt(position)
+//            recyclerviewFriends_Adapter.notifyItemRemoved(position)
+//            recyclerviewFriends_Adapter.notifyItemRangeChanged(position,Friends_Add_Array.size)
+
+            recyclerviewFriends_Adapter.removeFriend(friends)
 
             Toast.makeText(requireContext(), "Successfully Removed Friend.", Toast.LENGTH_SHORT)
                 .show()
         }
+
 
     }
 

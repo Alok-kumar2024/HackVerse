@@ -197,7 +197,7 @@
                 android:backgroundTint="@color/red"
                 android:drawableLeft="@drawable/reset_password_vector"
                 android:text="Reset Password"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.023"
@@ -222,33 +222,34 @@
 
             <!--            />-->
 
-            <ImageButton
+            <Button
                 android:id="@+id/Edit_button"
-                android:layout_width="57dp"
-                android:layout_height="63dp"
-                android:layout_marginBottom="52dp"
-                android:background="@drawable/edit_photo"
-                android:contentDescription="Edit Profile button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.683"
-                app:layout_constraintStart_toEndOf="@+id/profile_changepassword"
-                app:layout_constraintTop_toTopOf="@+id/profile_changepassword"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="52dp"
+                android:drawableLeft="@drawable/edit_photo"
                 android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_changepassword"
-                app:layout_constraintEnd_toEndOf="@+id/Edit_button"
-                app:layout_constraintHorizontal_bias="0.45"
-                app:layout_constraintStart_toStartOf="@+id/Edit_button"
-                app:layout_constraintTop_toBottomOf="@+id/Edit_button"
-                app:layout_constraintVertical_bias="1.0" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/profile_changepassword"
+                app:layout_constraintTop_toTopOf="@+id/profile_changepassword"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Edit Profile"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/profile_changepassword"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/Edit_button"-->
+<!--                app:layout_constraintHorizontal_bias="0.45"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/Edit_button"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/Edit_button"-->
+<!--                app:layout_constraintVertical_bias="1.0" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

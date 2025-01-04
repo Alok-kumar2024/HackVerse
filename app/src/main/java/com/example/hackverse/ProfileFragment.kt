@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val editbutton = view.findViewById<ImageButton>(R.id.Edit_button)
+        val editbutton = view.findViewById<Button>(R.id.Edit_button)
 
         editbutton.setOnClickListener {
             edit()

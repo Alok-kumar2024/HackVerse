@@ -88,6 +88,9 @@ class ForgotPassword : Fragment() {
 //            }
 
             requireActivity().finish()
+//            parentFragmentManager.beginTransaction()
+//                .remove(this)
+//                .commit()
         }
 
         binding.buttonConfirmForgotPassword.setOnClickListener {

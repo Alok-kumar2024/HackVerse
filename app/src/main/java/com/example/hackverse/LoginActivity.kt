@@ -54,6 +54,12 @@ class LoginActivity : AppCompatActivity() {
 //        lateinit var Username : String
 //        lateinit var EmailId : String
 
+//        binding.TextViewForgotPasswordLogin.setOnClickListener {
+//            val fragment = ForgotPassword()
+//
+//            supportFragmentManager.beginTransaction().replace(R.id.FrameLayoutForgotPassword,fragment).addToBackStack(null).commit()
+//        }
+
         database = FirebaseDatabase.getInstance().reference.child("USERS")
 
         firebaseAuth = FirebaseAuth.getInstance()

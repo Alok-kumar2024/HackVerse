@@ -193,33 +193,67 @@
         app:layout_constraintVertical_bias="0.029" />
 
     <LinearLayout
+        android:id="@+id/LinearLayoutButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler">
+
+        <Button
+            android:id="@+id/ButtonViewProfileFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue"
+            android:text="View Profile"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <!--        <Button-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginStart="30dp"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            android:backgroundTint="@color/green"-->
+        <!--            android:text="Message"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="20sp" />-->
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/LinearLayoutOfStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler"
-        app:layout_constraintVertical_bias="1.0">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Status ->"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="bottom"/>
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutButtons">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status ->"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"/>
 
-                <TextView
-                    android:id="@+id/ShowStatusCondition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Will Show status"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+            <TextView
+                android:id="@+id/ShowStatusCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="Will Show status"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

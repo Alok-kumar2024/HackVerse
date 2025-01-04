@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateHackathon"
+    android:background="#500AC0">
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/imageButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/transparent"-->
+    <!--        android:padding="20dp"-->
+    <!--        android:src="@drawable/back_arrow_black_vector"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/ConstraintLayout_Containing_Views"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout_Containing_Views"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profilebox">
+
+
+        <Button
+            android:id="@+id/buttonBackDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:drawableLeft="@drawable/back_arrow_black_vector"
+            android:text="Back"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonRegisterDetailsHackathon"
+            app:layout_constraintHorizontal_bias="0.269"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
+
+        <Button
+            android:id="@+id/buttonRegisterDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="Register"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.871"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.022" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutShowEventIDDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/buttonBackDetailsHackathon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/BannerCardViewDetailsHackathon">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID -> "
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/EventIDShowDetailsHackathon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Will Show Event ID"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/BannerCardViewDetailsHackathon"
+            android:layout_width="320dp"
+            android:layout_height="180dp"
+            android:backgroundTint="@color/black"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutShowEventIDDetailsHackathon"
+            app:layout_constraintBottom_toTopOf="@+id/LinearLayoutEventNameDetailsHackathon">
+
+            <ImageView
+                android:id="@+id/BannerImageViewDetailsHackathon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEventNameDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/BannerCardViewDetailsHackathon">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name -> "
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/EventNameShowDetailsHackathon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Will show name of event"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginStart="40dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEventHostDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEventNameDetailsHackathon"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hosted By -> "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/EventHostNameDetailHackathon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Will show the name of host"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutPrizeDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEventHostDetailsHackathon"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prize -> "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/EventPrizeShowDetailsHackathon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Will show prize here"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginStart="45dp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/BookMarkAddDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:padding="15dp"
+            android:src="@drawable/bookmark_add_vector"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
+
+        <ImageButton
+            android:id="@+id/BookMarkRemoveDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:padding="15dp"
+            android:src="@drawable/bookmark_remove_vector"
+            app:layout_constraintStart_toEndOf="@+id/BookMarkAddDetailsHackathon"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
+
+        <ImageButton
+            android:id="@+id/ButtonBeforeLikeDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:src="@drawable/like_outline_vector"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
+
+
+
+        <ImageButton
+            android:id="@+id/ButtonAfterLikeDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:src="@drawable/like_vector"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/NumberOfBookMarkedDetailsHackathon"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="112dp"-->
+<!--            android:text="20"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartDateTimeDetailsHackathon"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/NumberOfVotesDetailsHackathon"-->
+<!--            app:layout_constraintHorizontal_bias="0.228"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/LinearLayoutPrizeDetailsHackathon"-->
+<!--            app:layout_constraintVertical_bias="0.0" />-->
+
+        <TextView
+            android:id="@+id/NumberOfVotesDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:text="vote30"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartDateTimeDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.659"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutStartDateTimeDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="136dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
+                            android:text="Start Date - Time ->"/>
+
+                        <TextView
+                            android:id="@+id/ShowStartDateTimeDetailsHackathon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Show Date and Time Start" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEndDateTimeDetailsHackaton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutStartDateTimeDetailsHackathon">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="End Date - Time ->"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:id="@+id/ShowEndDateTimeDetailsHackathon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="Show Date and Time End"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/ButtonParticipantsDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Participants"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/TextViewDescription"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEndDateTimeDetailsHackaton"
+            app:layout_constraintBottom_toTopOf="@+id/ShowDescriptionDetailsHackathon"  />
+
+        <TextView
+            android:id="@+id/TextViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayoutEndDateTimeDetailsHackaton" />
+
+        <TextView
+            android:id="@+id/ShowDescriptionDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:background="@drawable/profileedittext"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextViewDescription" />
+
+
+        <EditText
+            android:id="@+id/EditTextEnterCommentDetailsHackathon"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/profileedittext"
+            android:hint="Enter Your Comments here"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RecyclerViewShowCommentsDetailsHackathon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonSendCommentDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/send_text_vector"
+            android:background="@drawable/buttonshape"
+            android:backgroundTint="@color/blue"
+            app:layout_constraintStart_toEndOf="@id/EditTextEnterCommentDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/EditTextEnterCommentDetailsHackathon"
+            app:layout_constraintTop_toTopOf="@id/EditTextEnterCommentDetailsHackathon"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewShowCommentsDetailsHackathon"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/profileedittext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ShowDescriptionDetailsHackathon"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

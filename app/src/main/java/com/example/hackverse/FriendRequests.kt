@@ -33,7 +33,7 @@ class FriendRequests : Fragment() {
 
     private lateinit var recyclerviewFriendsIncoming : RecyclerView
     private lateinit var recyclerviewFriends_Adapter_Incoming : Friends_Adaptar
-    private lateinit var recyclerviewFriendsOutcoming : RecyclerView
+//    private lateinit var recyclerviewFriendsOutcoming : RecyclerView
     private lateinit var recyclerviewFriends_Adapter_Outcoming : Friends_Adaptar
 
     private var Friends_Incoming_Array  = arrayListOf<Friends_Recycler>()
@@ -91,12 +91,12 @@ class FriendRequests : Fragment() {
         _binding = FragmentFriendRequestsBinding.inflate(inflater,container,false)
 
 
-        val backBtn =  binding.BackToFriendFragmentFromFriendList
-
-           backBtn.setOnClickListener {
-
-                requireActivity().supportFragmentManager.popBackStack()
-            }
+//        val backBtn =  binding.BackToFriendFragmentFromFriendList
+//
+//           backBtn.setOnClickListener {
+//
+//                requireActivity().supportFragmentManager.popBackStack()
+//            }
 
          currentUserIDFromFriend = arguments?.getString("UserIDFromFriendFrag").toString()
         Log.d("UserIdFromFriendFragment","The current user id from friend fragment to friend request fragment is $currentUserIDFromFriend")
@@ -302,14 +302,14 @@ class FriendRequests : Fragment() {
         if (isAdded) {
 
             binding.RecyclerViewOfOutcoming.visibility = View.VISIBLE
-            recyclerviewFriendsOutcoming = binding.RecyclerViewOfOutcoming
-            recyclerviewFriendsOutcoming.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            recyclerviewFriendsIncoming = binding.RecyclerViewOfOutcoming
+            recyclerviewFriendsIncoming.layoutManager = LinearLayoutManager(requireContext())
 
             recyclerviewFriends_Adapter_Outcoming = Friends_Adaptar(friendsOutcomingArray,
                 onCancelClick = { friend -> CancelFriendReq(friend) }
             )
 
-            recyclerviewFriendsOutcoming.adapter = recyclerviewFriends_Adapter_Outcoming
+            recyclerviewFriendsIncoming.adapter = recyclerviewFriends_Adapter_Outcoming
         }else
         {
             Log.e("Fragment Error outcoming", "Fragment outcoming is not attached to an activity.")
@@ -348,9 +348,10 @@ class FriendRequests : Fragment() {
     private fun incomingRecyclerView(friendsIncomingArray: ArrayList<Friends_Recycler>) {
 
         if (isAdded) {
-            binding.RecyclerViewOfIncoming.visibility = View.VISIBLE
-            recyclerviewFriendsIncoming = binding.RecyclerViewOfIncoming
-            recyclerviewFriendsIncoming.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+//            binding.RecyclerViewOfIncoming.visibility = View.VISIBLE
+//            recyclerviewFriendsIncoming = binding.RecyclerViewOfIncoming
+            recyclerviewFriendsIncoming = binding.RecyclerViewOfOutcoming
+            recyclerviewFriendsIncoming.layoutManager = LinearLayoutManager(requireContext())
 
             recyclerviewFriends_Adapter_Incoming = Friends_Adaptar(friendsIncomingArray,
                 onAcceptClick = { friend -> AcceptFriendReq(friend) },
@@ -405,16 +406,30 @@ class FriendRequests : Fragment() {
         val mapofStatus = mapOf(
             "status" to "added"
         )
+//        val updateCurrentUser = FirebaseDatabase.getInstance()
+//            .getReference("USERS")
+//            .child(currentUserIDFromFriend)
+//            .child("friends")
+//            .child(friends.userID_search!!)
+//            .updateChildren(mapofStatus)
+//
+//        val updateFriendUser = FirebaseDatabase.getInstance()
+//            .getReference("USERS")
+//            .child(friends.userID_search)
+//            .child("friends")
+//            .child(currentUserIDFromFriend)
+//            .updateChildren(mapofStatus)
+        val position = Friends_Incoming_Array.indexOf(friends)
+
         FirebaseDatabase.getInstance().getReference("USERS").child(currentUserIDFromFriend).child("friends").child(friends.userID_search!!)
             .updateChildren(mapofStatus).addOnCompleteListener { Accept ->
                 if (Accept.isSuccessful)
                 {
 
-                    val position = Friends_Incoming_Array.indexOf(friends)
-
                     if (position>=0) {
                         Friends_Incoming_Array.removeAt(position)
-                        recyclerviewFriends_Adapter_Incoming.notifyDataSetChanged()
+                        recyclerviewFriends_Adapter_Incoming.notifyItemRemoved(position)
+
                         Toast.makeText(
                             requireContext(),
                             "Successfuly Accepted FriendRequest.",
@@ -437,6 +452,25 @@ class FriendRequests : Fragment() {
                     Log.e("Accept status -> Added","couldn't changed status to added for friend")
                 }
             }
+//        updateCurrentUser.continueWithTask { task1 ->
+//            if (task1.isSuccessful) updateFriendUser
+//            else throw task1.exception ?: Exception("Couldn't Accept Friend request.")
+//        }.addOnCompleteListener { task ->
+//            if (task.isSuccessful)
+//            {
+//                val position = Friends_Incoming_Array.indexOf(friends)
+//                if (position >= 0) {
+//                    Friends_Incoming_Array.removeAt(position)
+//                    recyclerviewFriends_Adapter_Incoming.notifyDataSetChanged()
+//                    Toast.makeText(requireContext(), "Friend request accepted.", Toast.LENGTH_SHORT)
+//                        .show()
+//                } else {
+//                    // Firebase updates failed
+//                    val errorMessage = task.exception?.message ?: "Unknown error occurred."
+//                    Toast.makeText(requireContext(), "Could not accept friend request: $errorMessage",Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
 
 
     }

@@ -350,10 +350,11 @@ class My_HackathonsFragment : Fragment() {
             "All" -> {
                 recyclerViewHackathons_adapterAll = Hackathon_Adapter(
                     Hackathons_listAll ,
-                    OnBookmarkClickAdd = { hackathon -> BookMarkAdded(hackathon) },
-                    OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
-                    OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
-                    OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnBookmarkClickAdd = { hackathon -> BookMarkAdded(hackathon) } ,
+                    OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) } ,
+                    OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) } ,
+                    OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) } ,
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
@@ -365,6 +366,7 @@ class My_HackathonsFragment : Fragment() {
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
@@ -376,11 +378,21 @@ class My_HackathonsFragment : Fragment() {
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
             }
         }
+
+    }
+
+    private fun GoToDetailsActivity(hackathon: Hackathon_Recycler) {
+
+        val intent = Intent(requireContext(),DetailsHackathon::class.java)
+        intent.putExtra("HackathonEventID",hackathon.EventId)
+        intent.putExtra("CurrentUserID",CurrentuseridforMyHackathon)
+        startActivity(intent)
 
     }
 

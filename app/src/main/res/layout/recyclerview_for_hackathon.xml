@@ -169,8 +169,8 @@
 
     <ImageButton
         android:id="@+id/LikeBeforeClick"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="10dp"
         android:background="@color/gray_light"
         android:layout_marginTop="34dp"
@@ -184,8 +184,8 @@
 
     <ImageButton
         android:id="@+id/LikeAfterClick"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="10dp"
         android:background="@color/gray_light"
         android:layout_marginTop="34dp"
@@ -197,19 +197,19 @@
         app:layout_constraintTop_toBottomOf="@+id/PrizeLinearLayout"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="For more Click..."
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PrizeLinearLayout"
-        app:layout_constraintVertical_bias="0.51" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="For more Click..."-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="30sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.497"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/PrizeLinearLayout"-->
+<!--        app:layout_constraintVertical_bias="0.51" />-->
 
 <!--    <ImageButton-->
 <!--        android:layout_width="wrap_content"-->
@@ -224,5 +224,20 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/HostLinarLayout"-->
 <!--        app:layout_constraintVertical_bias="0.675" />-->
 
+    <Button
+        android:id="@+id/ButtonViewDetailsHackathon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="View Details"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PrizeLinearLayout"
+        app:layout_constraintVertical_bias="0.822" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

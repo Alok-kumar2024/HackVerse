@@ -1,6 +1,7 @@
 package com.example.hackverse
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -354,6 +355,15 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun GoToDetailsActivity(hackathon: Hackathon_Recycler) {
+
+        val intent = Intent(requireContext(),DetailsHackathon::class.java)
+        intent.putExtra("HackathonEventID",hackathon.EventId)
+        intent.putExtra("CurrentUserID",CurrentuseridforHome)
+        startActivity(intent)
+
+    }
+
     private fun LoadEvent(status : String){
         recyclerViewHackathonsAll = binding.RecyclerViewEventHomeALL
         recyclerViewHackathonsAll.layoutManager = LinearLayoutManager(context)
@@ -368,6 +378,7 @@ class HomeFragment : Fragment() {
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
@@ -379,6 +390,7 @@ class HomeFragment : Fragment() {
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 
@@ -390,6 +402,7 @@ class HomeFragment : Fragment() {
                     OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) },
                     OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) },
                     OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) },
+                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
                 )
                 recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
 

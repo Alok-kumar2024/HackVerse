@@ -6,45 +6,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Username"
-    android:background="@drawable/codingwallpaper">
+    android:background="@drawable/backgroundusername">
 
 
     <EditText
         android:id="@+id/coderUserName"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="44dp"
         android:background="@drawable/writearea"
+        android:drawableLeft="@drawable/username_vector"
         android:gravity="center"
         android:hint="          UserName           "
-        android:drawableLeft="@drawable/username_vector"
-        android:paddingStart="15dp"
         android:padding="10dp"
+        android:paddingStart="15dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="25sp"
+
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintVertical_bias="0.351" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="12dp"
+        android:padding="5dp"
+        android:text="* You can change your UserName Later."
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/UserConfirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="61dp"
+        android:padding="5dp"
+        android:text="* Make Sure you Enter a valid UserName , As it will be used for making your UserID."
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/UserConfirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coderUserName" />
 
     <Button
         android:id="@+id/UserConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:textStyle="italic"
         android:backgroundTint="@color/green_light"
+        android:fontFamily="sans-serif-black"
+        android:text="Confirm"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coderUserName"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintVertical_bias="0.399" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

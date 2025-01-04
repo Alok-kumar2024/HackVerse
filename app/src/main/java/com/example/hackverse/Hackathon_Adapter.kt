@@ -3,6 +3,7 @@ package com.example.hackverse
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,7 +17,8 @@ class Hackathon_Adapter(
     private val OnBookmarkClickAdd : (Hackathon_Recycler) -> Unit = {} ,
     private val OnBookmarkClickRemove : (Hackathon_Recycler) -> Unit = {} ,
     private val OnLikeClickAdd : (Hackathon_Recycler) -> Unit = {} ,
-    private val OnLikeClickRemove : (Hackathon_Recycler) -> Unit = {}
+    private val OnLikeClickRemove : (Hackathon_Recycler) -> Unit = {} ,
+    private val OnDetailsClick : (Hackathon_Recycler) -> Unit = {}
 
 ) : RecyclerView.Adapter<Hackathon_Adapter.UserHackathonViewHolder>() {
 
@@ -34,6 +36,8 @@ class Hackathon_Adapter(
         val BookmarkRemoveButton : ImageButton = itemView.findViewById(R.id.BookMarkRemoveButton)
         val LikeAddButton : ImageButton = itemView.findViewById(R.id.LikeBeforeClick)
         val LikeRemoveButton : ImageButton = itemView.findViewById(R.id.LikeAfterClick)
+
+        val Details : Button = itemView.findViewById(R.id.ButtonViewDetailsHackathon)
 
     }
 
@@ -123,6 +127,10 @@ class Hackathon_Adapter(
                 holder.LikeAddButton.visibility = View.VISIBLE
                 holder.LikeAddButton.setOnClickListener { OnLikeClickAdd(hackathon) }
             }
+        }
+
+        holder.Details.setOnClickListener {
+            OnDetailsClick(hackathon)
         }
 
 

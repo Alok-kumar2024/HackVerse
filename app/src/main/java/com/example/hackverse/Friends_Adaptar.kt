@@ -19,7 +19,8 @@ class Friends_Adaptar (
     private val onRejectClick : (Friends_Recycler) -> Unit = {} , // when Reject button is clicked
     private val onRemoveClick : (Friends_Recycler) -> Unit = {} , // when Remove buttonis clicked
     private val onAddClick : (Friends_Recycler) -> Unit = {} , // when Add button is clicked
-    private val onCancelClick : (Friends_Recycler) -> Unit = {}
+    private val onCancelClick : (Friends_Recycler) -> Unit = {} ,
+    private val onClickViewProfile : (Friends_Recycler) -> Unit = {}
 
 
 
@@ -38,6 +39,8 @@ class Friends_Adaptar (
         val acceptbutton = itemView.findViewById<Button>(R.id.buttonAccecptFriend)
         val cancelbutton = itemView.findViewById<Button>(R.id.buttonCancelFriend)
         val addbutton = itemView.findViewById<Button>(R.id.buttonAddFriend)
+
+        val viewProfileBtn = itemView.findViewById<Button>(R.id.ButtonViewProfileFriends)
 
     }
 
@@ -108,5 +111,15 @@ class Friends_Adaptar (
             }
         }
 
+        holder.viewProfileBtn.setOnClickListener {
+            onClickViewProfile(user)
+        }
+
+    }
+    fun removeFriend(friend: Friends_Recycler)
+    { val position = FriendsList.indexOf(friend)
+        if (position >= 0)
+        { FriendsList.removeAt(position)
+            notifyItemRemoved(position) }
     }
 }
