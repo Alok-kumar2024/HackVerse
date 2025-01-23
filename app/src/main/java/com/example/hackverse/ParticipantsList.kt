@@ -98,12 +98,13 @@ class ParticipantsList : AppCompatActivity() {
 
                                         val participantsUserName = (snapshot.child("username").value ?: "No UserName").toString()
                                         val participantsprofileURL =(snapshot.child("url").value ?: "No url").toString()
+                                        val participantsemail = (snapshot.child("email").value ?: "No Email").toString()
 
                                         Log.d("PArticipantedUSerSDetails","The userID -> $ParticipantsUserID" +
                                                 "The UserName -> $participantsUserName" +
                                                 "The Profile Url -> $participantsprofileURL")
 
-                                        val participants_data = participants_recycler(ParticipantsUserID,participantsUserName,participantsprofileURL)
+                                        val participants_data = participants_recycler(ParticipantsUserID,participantsUserName,participantsprofileURL,participantsemail)
 
                                         if (!Participants_List_Show.contains(participants_data))
                                         {

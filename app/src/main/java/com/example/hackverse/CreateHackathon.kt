@@ -192,6 +192,8 @@ class CreateHackathon : AppCompatActivity() {
 
                     finish()
 
+
+
                 }
             }
 
@@ -203,5 +205,6 @@ class CreateHackathon : AppCompatActivity() {
 
 
         }
+
     }
 }

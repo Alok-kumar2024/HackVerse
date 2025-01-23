@@ -34,7 +34,7 @@ data class time(
 data class Comments(
     val userIDcomment : String? = null ,
     val commenttext : String? = null ,
-    val times : Long? = 0
+    val times : Long? = null
 )
 
 data class Participants(

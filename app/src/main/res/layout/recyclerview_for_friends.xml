@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/profileedittext"
-    android:backgroundTint="@color/gray_dark">
+    android:backgroundTint="@color/white_New"
+    android:elevation="30dp">
 
 
 
@@ -106,8 +107,8 @@
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/red"
         android:drawableEnd="@drawable/friend_remove_vector"
-        android:text="Remove Friend"
         android:textColor="@color/white"
+        android:text="Remove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -137,8 +138,8 @@
         android:layout_marginStart="16dp"
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/default_image_of_profile"
-        android:text="Cancel Request"
         android:textColor="@color/white"
+        android:text="Cancel"
         app:layout_constraintBottom_toTopOf="@id/LinearLayoutOfStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -146,11 +147,13 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonAddedFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:background="@drawable/profileedittext"
+        android:elevation="30dp"
         android:drawableEnd="@drawable/added_friend_vector"
         android:text="ADDED"
         android:textColor="@color/blue"
@@ -165,17 +168,17 @@
         android:id="@+id/buttonRejectFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/default_image_of_profile"
+        android:padding="10dp"
         android:text="Reject"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewRecycler"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/buttonAccecptFriend"
@@ -196,9 +199,9 @@
         android:id="@+id/LinearLayoutButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Linear_Recycler">
 

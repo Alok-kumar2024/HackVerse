@@ -55,13 +55,14 @@
         android:layout_marginTop="18dp"
         android:layout_marginBottom="61dp"
         android:padding="5dp"
-        android:text="* Make Sure you Enter a valid UserName , As it will be used for making your UserID."
+        android:text="* Make Sure you Enter a valid UserName."
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/UserConfirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coderUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/coderUserName"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/UserConfirm"

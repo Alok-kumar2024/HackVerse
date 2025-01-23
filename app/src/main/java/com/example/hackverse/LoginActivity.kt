@@ -205,8 +205,10 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
             }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
             {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this,"Check your Email Format..",Toast.LENGTH_SHORT).show()
             }
 

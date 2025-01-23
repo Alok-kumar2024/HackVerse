@@ -25,7 +25,7 @@ class participants_adapter (
 
         val viewProfile : Button = itemView.findViewById(R.id.ButtonViewProfileParticipants)
 //        val message : Button = itemView.findViewById(R.id.ButtonMessageParticipants)
-
+        val email : TextView = itemView.findViewById(R.id.ShowEmaiIDParticipants)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolderParticipants {
@@ -43,6 +43,7 @@ class participants_adapter (
 
         holder.userIdPArticipants.text = participants.userIdParticipants.toString()
         holder.userNameParticipants.text = participants.usernameParticipants.toString()
+        holder.email.text = participants.emailID.toString()
 
         Glide.with(holder.itemView.context)
             .load(participants.profileUrl)

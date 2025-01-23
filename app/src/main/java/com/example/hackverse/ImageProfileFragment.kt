@@ -205,5 +205,4 @@ class ImageProfileFragment : Fragment() {
         return  Patterns.WEB_URL.matcher(url).matches()
     }
 
-
 }

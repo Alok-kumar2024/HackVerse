@@ -58,6 +58,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="UserName" />
+        <TextView
+            android:id="@+id/ShowEmaiIDParticipants"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EmailID"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

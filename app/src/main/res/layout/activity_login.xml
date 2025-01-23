@@ -60,6 +60,7 @@
             android:layout_marginTop="276dp"
             android:textColor="@color/white"
             android:background="@drawable/writearea"
+            android:elevation="10dp"
             android:drawableLeft="@drawable/email_vector"
             android:paddingStart="15dp"
             android:fontFamily="sans-serif-condensed"
@@ -104,6 +105,7 @@
                 android:paddingStart="15dp"
                 android:inputType="textPassword"
                 android:padding="8dp"
+                android:elevation="10dp"
                 android:textColorHint="@color/white"
                 android:textSize="20sp" />
 
@@ -137,6 +139,7 @@
             android:layout_marginBottom="32dp"
             android:background="@color/transparent"
             android:fontFamily="sans-serif-condensed"
+            android:elevation="20dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="@string/create_an_account"

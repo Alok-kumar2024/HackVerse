@@ -319,7 +319,7 @@
 
         <EditText
             android:id="@+id/EditTextDescription"
-            android:layout_width="400dp"
+            android:layout_width="350dp"
             android:layout_height="400dp"
             android:layout_marginTop="276dp"
             android:background="@drawable/profileedittext"
@@ -327,6 +327,8 @@
             android:layout_marginBottom="80dp"
             android:hint="Give Description here"
             android:padding="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"

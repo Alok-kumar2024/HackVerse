@@ -74,6 +74,7 @@ class Friends_Adaptar (
         holder.rejectbutton.visibility = View.GONE
         holder.removebutton.visibility = View.GONE
         holder.cancelbutton.visibility = View.GONE
+        holder.viewProfileBtn.visibility = View.GONE
 
         when(user.status){
             "incoming" -> {
@@ -99,6 +100,11 @@ class Friends_Adaptar (
 
                 holder.addedbutton.visibility = View.VISIBLE
                 holder.removebutton.visibility = View.VISIBLE
+                holder.viewProfileBtn.visibility = View.VISIBLE
+
+                holder.viewProfileBtn.setOnClickListener {
+                    onClickViewProfile(user)
+                }
 
                 holder.removebutton.setOnClickListener { onRemoveClick(user) }
 
@@ -111,9 +117,6 @@ class Friends_Adaptar (
             }
         }
 
-        holder.viewProfileBtn.setOnClickListener {
-            onClickViewProfile(user)
-        }
 
     }
     fun removeFriend(friend: Friends_Recycler)

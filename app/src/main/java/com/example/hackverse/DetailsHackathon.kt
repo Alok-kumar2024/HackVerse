@@ -67,11 +67,10 @@ class DetailsHackathon : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists())
                 {
-                    val startDate = snapshot.child("time").child("activeDate").value.toString()
-                    val startTime = snapshot.child("time").child("activeTime").value.toString()
-                    val endDate = snapshot.child("time").child("closedDate").value.toString()
-                    val endTime = snapshot.child("time").child("closeTime").value.toString()
-                    val description = snapshot.child("description").value ?: "No Description"
+                    val startDate = snapshot.child("activeDate").value.toString()
+                    val startTime = snapshot.child("activeTime").value.toString()
+                    val endDate = snapshot.child("closedDate").value.toString()
+                    val endTime = snapshot.child("closeTime").value.toString()
 
                     if (endDate.isNotEmpty() && endTime.isNotEmpty()) {
                         val combinedDateTime = "$endDate $endTime"
@@ -88,30 +87,61 @@ class DetailsHackathon : AppCompatActivity() {
                                     "status" to "Inactive"
                                 )
                                 database.child(HackathonEventId).updateChildren(update)
+
                                 binding.buttonRegisterDetailsHackathon.isEnabled = false
-                            }else if (startTime.isNotEmpty() && startDate.isNotEmpty())
-                            {
-                                val combinedDateTimeStart = "$startDate $startTime"
-
-                                val startDateTime = dateFormat.parse(combinedDateTimeStart)
-                                val startTimestamp = startDateTime?.time ?: 0L
-                                if (System.currentTimeMillis() > startTimestamp)
-                                {
-                                        // Time has passed, update Firebase or UI
-                                        val updates = mapOf(
-                                            "status" to "Active"
-                                        )
-                                        database.child(HackathonEventId).updateChildren(updates)
-                                        binding.buttonRegisterDetailsHackathon.isEnabled = true
-                                }
-
-
+                                Toast.makeText(this@DetailsHackathon,"Registration Already Ended",Toast.LENGTH_SHORT).show()
                             }
                         }catch (e: Exception) {
                             e.printStackTrace()
                         }
 
+                    }else if (startTime.isNotEmpty() && startDate.isNotEmpty())
+                    {
+                        val combinedDateTimeStart = "$startDate $startTime"
+                        val dateFormat = SimpleDateFormat("yyyy-M-d HH:mm", Locale.getDefault())
+                        try {
+                            val startDateTime = dateFormat.parse(combinedDateTimeStart)
+                            val startTimestamp = startDateTime?.time ?: 0L
+                            if (System.currentTimeMillis() > startTimestamp) {
+                                // Time has passed, update Firebase or UI
+                                val updates = mapOf(
+                                    "status" to "Active"
+                                )
+                                database.child(HackathonEventId).updateChildren(updates).addOnSuccessListener {
+                                    Log.d("Changed To Inactive","Successfully done")
+                                }.addOnFailureListener { Log.d("Couldn't Change To Inactive","Coludn't do") }
+                                binding.buttonRegisterDetailsHackathon.isEnabled = true
+                            }
+                        }catch (e : Exception){e.printStackTrace()}
+
+
+                    }else if (startTime.isNotEmpty() && startDate.isNotEmpty()) {
+                    val combinedDateTimeStart = "$startDate $startTime"
+                    val dateFormat = SimpleDateFormat("yyyy-M-d HH:mm", Locale.getDefault())
+                    try {
+                        val startDateTime = dateFormat.parse(combinedDateTimeStart)
+                        val startTimestamp = startDateTime?.time ?: 0L
+                        if (System.currentTimeMillis() < startTimestamp) {
+                            // Time has passed, update Firebase or UI
+                            val updates = mapOf(
+                                "status" to "None"
+                            )
+                            database.child(HackathonEventId).updateChildren(updates)
+                                .addOnSuccessListener {
+                                    Log.d("Changed To None", "Successfully done")
+                                }.addOnFailureListener {
+                                Log.d(
+                                    "Couldn't Change To None.",
+                                    "Coludn't do"
+                                )
+                            }
+                            binding.buttonRegisterDetailsHackathon.isEnabled = false
+                            Toast.makeText(this@DetailsHackathon,"Registration Not Started Yet.",Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
+                }
 
                 }
             }
