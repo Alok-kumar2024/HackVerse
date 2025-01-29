@@ -73,10 +73,13 @@ class PasswordChange : AppCompatActivity() {
 //            confirmbtn.visibility = View.INVISIBLE
 //            binding.forgotpassword.visibility = View.INVISIBLE
 
-            binding.FrameContainerForForgotPassword.visibility = View.VISIBLE
+//            binding.FrameContainerForForgotPassword.visibility = View.VISIBLE
+//
+//            supportFragmentManager.beginTransaction().replace(R.id.Frame_Container_ForForgotPassword,ForgotPassword()).addToBackStack(null)
+//                .commit()
 
-            supportFragmentManager.beginTransaction().replace(R.id.Frame_Container_ForForgotPassword,ForgotPassword()).addToBackStack(null)
-                .commit()
+            val intent = Intent(this,ForgotPasswordActivity::class.java)
+            startActivity(intent)
 
 
         }

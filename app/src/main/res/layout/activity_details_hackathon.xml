@@ -64,6 +64,9 @@
             android:id="@+id/LinearLayoutShowEventIDDetailsHackathon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/profileedittext"
+            android:elevation="20dp"
+            android:padding="3dp"
             app:layout_constraintTop_toBottomOf="@+id/buttonBackDetailsHackathon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:elevation="20dp"
+            android:background="@drawable/profileedittext"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +145,8 @@
             android:id="@+id/LinearLayoutEventHostDetailsHackathon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/profileedittext"
+            android:elevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEventNameDetailsHackathon"
@@ -169,6 +176,8 @@
             android:id="@+id/LinearLayoutPrizeDetailsHackathon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/profileedittext"
+            android:elevation="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEventHostDetailsHackathon"
@@ -195,57 +204,8 @@
                 android:layout_marginStart="45dp"/>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/BookMarkAddDetailsHackathon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="24dp"
-            android:padding="15dp"
-            android:src="@drawable/bookmark_add_vector"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
 
-        <ImageButton
-            android:id="@+id/BookMarkRemoveDetailsHackathon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:padding="15dp"
-            android:src="@drawable/bookmark_remove_vector"
-            app:layout_constraintStart_toEndOf="@+id/BookMarkAddDetailsHackathon"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
-
-        <ImageButton
-            android:id="@+id/ButtonBeforeLikeDetailsHackathon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="20dp"
-            android:padding="16dp"
-            android:src="@drawable/like_outline_vector"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
-
-
-
-        <ImageButton
-            android:id="@+id/ButtonAfterLikeDetailsHackathon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="20dp"
-            android:padding="16dp"
-            android:src="@drawable/like_vector"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon" />
-
-<!--        <TextView-->
+        <!--        <TextView-->
 <!--            android:id="@+id/NumberOfBookMarkedDetailsHackathon"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
@@ -261,6 +221,78 @@
 <!--            app:layout_constraintTop_toTopOf="@id/LinearLayoutPrizeDetailsHackathon"-->
 <!--            app:layout_constraintVertical_bias="0.0" />-->
 
+        <ImageButton
+            android:id="@+id/BookMarkAddDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/buttonshape"
+            android:backgroundTint="@color/gray_light"
+            android:elevation="20dp"
+            android:padding="15dp"
+            android:src="@drawable/bookmark_add_vector"
+            app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartDateTimeDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/BookMarkRemoveDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/buttonshape"
+            android:backgroundTint="@color/gray_light"
+            android:elevation="20dp"
+            android:padding="15dp"
+            android:src="@drawable/bookmark_remove_vector"
+            app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartDateTimeDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/ButtonBeforeLikeDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:background="@drawable/buttonshape"
+            android:backgroundTint="@color/gray_light"
+            android:elevation="20dp"
+            android:src="@drawable/like_outline_vector"
+            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.698"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/ButtonAfterLikeDetailsHackathon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:backgroundTint="@color/gray_light"
+            android:background="@drawable/buttonshape"
+            android:elevation="20dp"
+            android:src="@drawable/like_vector"
+            app:layout_constraintBottom_toTopOf="@+id/NumberOfVotesDetailsHackathon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.698"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
+            app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/NumberOfVotesDetailsHackathon"
             android:layout_width="wrap_content"
@@ -272,10 +304,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartDateTimeDetailsHackathon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.659"
+            app:layout_constraintHorizontal_bias="0.793"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayoutPrizeDetailsHackathon"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
             android:id="@+id/LinearLayoutStartDateTimeDetailsHackathon"
@@ -400,8 +432,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RecyclerViewShowCommentsDetailsHackathon"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ShowDescriptionDetailsHackathon"
+            app:layout_constraintBottom_toTopOf="@+id/RecyclerViewShowCommentsDetailsHackathon"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageButton
@@ -427,7 +459,7 @@
             android:background="@drawable/profileedittext"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ShowDescriptionDetailsHackathon"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextEnterCommentDetailsHackathon"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

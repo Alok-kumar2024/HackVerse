@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.hackverse.HomeFragment"
+        android:label="Home"/>
+
+    <fragment
+        android:id="@+id/bookMarkFragment"
+        android:name="com.example.hackverse.FavouriteFragment"
+        android:label="BookMark" />
+
+    <fragment
+        android:id="@+id/myHackathon"
+        android:name="com.example.hackverse.My_HackathonsFragment"
+        android:label="MyHackathon" />
+
+    <fragment
+        android:id="@+id/friend"
+        android:name="com.example.hackverse.FriendsFragment"
+        android:label="Friend" />
+
+    <fragment
+        android:id="@+id/myProfile"
+        android:name="com.example.hackverse.ProfileFragment"
+        android:label="MyProfile" />
+
+
+</navigation>

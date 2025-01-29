@@ -19,6 +19,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigation : NavigationView
     private lateinit var database : DatabaseReference
 
+//    private lateinit var navController: NavController
+
     private lateinit var HeaderUser : TextView
     private lateinit var HeaderEmail : TextView
     private lateinit var HeaderUserID : TextView
@@ -51,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     val str1 : String = "UserID -> "
     val str2 : String = "UserName -> "
     val str3 : String = "UserEmail -> "
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +117,15 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.Fragment_Container_Main) as NavHostFragment
+//
+//        navController = navHostFragment.navController
+////
+//        NavigationUI.setupWithNavController(navigation, navController)
+
+
+//        setupActionBarWithNavController(navController, AppBarConfiguration(navController.graph))
 
         firebase = FirebaseAuth.getInstance()
 
@@ -294,6 +312,30 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+//    override fun onBackPressed() {
+//        val currentFragment = supportFragmentManager.findFragmentById(R.id.Fragment_Container_Main)
+//        if (currentFragment !is HomeFragment) {
+//            navController.popBackStack(R.id.DrawerHomeFragment, false) // Navigate to Home
+//        } else {
+//            super.onBackPressed() // Exit the app
+//        }
+//    }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
+//
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if (navController.currentDestination?.id == R.id.homeFragment) {
+//            // Close the app if already on HomeFragment
+//            finish()
+//        } else {
+//            // Navigate back to HomeFragment
+//            navController.popBackStack(R.id.homeFragment, false)
+//        }
+//    }
 
 
     private fun replaceFragment(fragment : Fragment, title : String , tags : String) {

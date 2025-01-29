@@ -90,6 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/email"
             app:layout_constraintVertical_bias="0.2"
             app:passwordToggleEnabled="true"
+            android:elevation="20dp"
             app:passwordToggleTint="@color/white"
             app:startIconDrawable="@drawable/password_lock"
             android:gravity="center">
@@ -105,7 +106,6 @@
                 android:paddingStart="15dp"
                 android:inputType="textPassword"
                 android:padding="8dp"
-                android:elevation="10dp"
                 android:textColorHint="@color/white"
                 android:textSize="20sp" />
 
@@ -153,21 +153,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.648" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/TextViewForgotPasswordLogin"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="22dp"-->
-<!--            android:text="Forgot Password ?"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/GoToRegisterActivity"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/GoToRegisterActivity"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/GoToRegisterActivity"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
+        <TextView
+            android:id="@+id/TextViewForgotPasswordLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:text="Forgot Password ?"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/GoToRegisterActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.303"
+            app:layout_constraintStart_toEndOf="@+id/GoToRegisterActivity"
+            app:layout_constraintTop_toTopOf="@+id/GoToRegisterActivity"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ProgressBar
             android:id="@+id/progressBar"

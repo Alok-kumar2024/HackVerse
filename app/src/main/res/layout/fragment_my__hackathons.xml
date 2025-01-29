@@ -36,7 +36,7 @@
             android:background="@drawable/profileedittext"
             android:textColor="@color/black"
             android:padding="5dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:elevation="40dp"
             app:layout_constraintBottom_toBottomOf="@+id/EditViewEnterEventID"
             app:layout_constraintEnd_toEndOf="@+id/EditViewEnterEventID"
@@ -48,21 +48,21 @@
 
         <TextView
             android:id="@+id/EditViewEnterEventID"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:background="@drawable/profileedittext"
-            android:gravity="end"
             android:elevation="30dp"
+            android:gravity="end"
             android:hint="Choose option check box"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/butttonSortEvents"
-            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintHorizontal_bias="0.326"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
+            app:layout_constraintVertical_bias="0.174" />
 
         <ImageButton
             android:id="@+id/buttonSearchHackathon"
@@ -72,15 +72,13 @@
             android:background="@drawable/buttonshape"
             android:backgroundTint="@color/yellow"
             android:padding="15dp"
-            android:visibility="gone"
             android:src="@drawable/search_for_friend_vector"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintHorizontal_bias="0.407"
             app:layout_constraintStart_toEndOf="@+id/butttonSortEvents"
             app:layout_constraintTop_toBottomOf="@+id/buttonCreateEvent"
-            app:layout_constraintVertical_bias="0.017" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/butttonSortEvents"
@@ -92,10 +90,10 @@
             android:src="@drawable/sort_hackathon_vector"
             app:layout_constraintBottom_toBottomOf="@+id/EditViewEnterEventID"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.764"
+            app:layout_constraintHorizontal_bias="0.769"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonCreateEvent"
-            app:layout_constraintVertical_bias="0.9" />
+            app:layout_constraintVertical_bias="0.333" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewEventCreatedOrJoined"

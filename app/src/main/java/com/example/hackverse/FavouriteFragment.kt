@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackverse.databinding.FragmentFavouriteBinding
@@ -43,6 +44,22 @@ class FavouriteFragment : Fragment() {
 
         CurrentuseridforBookMark = arguments?.getString("UserId").toString()
         Log.d("BookMark_GetUserID", "UserId i got from main header is $CurrentuseridforBookMark")
+
+
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner)
+//        {
+////            val intent = Intent(requireActivity(),HomeFragment::class.java)
+////            intent.putExtra("",CurrentuseridforBookMark)
+//            val fragment :Fragment = HomeFragment()
+//            val bundle = Bundle()
+//            bundle.putString("UserId",CurrentuseridforBookMark)
+//            fragment.arguments = bundle
+//
+//
+//            parentFragmentManager.beginTransaction().replace(R.id.Fragment_Container_Main,fragment)
+//                .commit()
+//        }
+
 
         database = FirebaseDatabase.getInstance().getReference("USERS")
 

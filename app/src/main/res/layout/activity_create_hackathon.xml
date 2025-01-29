@@ -81,6 +81,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="124dp"
+            android:elevation="30dp"
             android:background="@drawable/profileedittext"
             android:hint="Enter Banner URL"
             android:padding="10dp"
@@ -115,6 +116,7 @@
             android:background="@drawable/profileedittext"
             android:hint="Enter Name Of Event"
             android:padding="10dp"
+            android:elevation="30dp"
             android:textColorHint="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -146,6 +148,7 @@
             android:background="@drawable/profileedittext"
             android:hint="Host Name"
             android:padding="10dp"
+            android:elevation="30dp"
             android:textColorHint="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -178,6 +181,7 @@
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="20sp"
+            android:elevation="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.28"
             app:layout_constraintStart_toStartOf="parent"
@@ -208,10 +212,10 @@
                 android:id="@+id/TextViewSelectStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Selected Date*"
+                android:hint="Start Date*"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginStart="30dp"/>
 
         </LinearLayout>
@@ -241,10 +245,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:hint="Selected Time*"
+                android:hint="Start Time*"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
@@ -273,10 +277,10 @@
                 android:id="@+id/TextViewSelectEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Select Date*"
+                android:hint="End Date*"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginStart="38dp"
                 android:layout_marginTop="10dp"/>
 
@@ -307,10 +311,10 @@
                 android:id="@+id/TextViewSelectEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Selected Time*"
+                android:hint="End Time*"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"/>
 
@@ -325,6 +329,7 @@
             android:background="@drawable/profileedittext"
             android:gravity="start"
             android:layout_marginBottom="80dp"
+            android:elevation="30dp"
             android:hint="Give Description here"
             android:padding="10dp"
             android:layout_marginEnd="10dp"

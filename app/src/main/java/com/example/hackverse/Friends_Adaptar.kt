@@ -33,7 +33,7 @@ class Friends_Adaptar (
         val  userNameRecycyler : TextView =  itemView.findViewById(R.id.UserNameRecyclerShow)
         val statusConditon : TextView = itemView.findViewById(R.id.ShowStatusCondition)
 
-        val addedbutton = itemView.findViewById<Button>(R.id.buttonAddedFriend)
+        val addedbutton = itemView.findViewById<TextView>(R.id.buttonAddedFriend)
         val removebutton = itemView.findViewById<Button>(R.id.buttonRemoveFriend)
         val rejectbutton = itemView.findViewById<Button>(R.id.buttonRejectFriend)
         val acceptbutton = itemView.findViewById<Button>(R.id.buttonAccecptFriend)

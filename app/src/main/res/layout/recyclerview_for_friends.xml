@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/profileedittext"
-    android:backgroundTint="@color/white_New"
+    android:backgroundTint="#E2E1E1"
     android:elevation="30dp">
 
 
@@ -185,7 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
-        android:drawableEnd="@drawable/added_friend_vector"
+        android:drawableLeft="@drawable/added_friend_vector"
         android:text="Accecpt"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

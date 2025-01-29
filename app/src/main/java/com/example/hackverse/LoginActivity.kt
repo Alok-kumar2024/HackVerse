@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
 //            supportFragmentManager.beginTransaction().replace(R.id.FrameLayoutForgotPassword,fragment).addToBackStack(null).commit()
 //        }
 
+
         database = FirebaseDatabase.getInstance().reference.child("USERS")
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -82,119 +83,16 @@ class LoginActivity : AppCompatActivity() {
 //        val str3 : String = "UserEmail -> "
 
 
+        binding.TextViewForgotPasswordLogin.setOnClickListener {
+
+            val intent = Intent(this,ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         binding.Login.setOnClickListener{
 
-
-//            val email = binding.email.text.toString().lowercase().trim()
-//            val password =binding.password.editText?.text.toString().trimStart().trimEnd()
-//
-//
-//            if(email.isEmpty() || password.isEmpty()) {
-//                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
-//            }
-//            else {
-//
-//
-//                val querydata = database.child("USERS").orderByChild("email").equalTo(email)
-//
-//                querydata.get().addOnSuccessListener{ snapshot ->
-//
-//                        if(snapshot.exists())
-//                        {
-//                            Log.d("Firebase", "Data exists: ${snapshot.value}")
-//
-//                            //loop through the results if email matches
-//                            for(userSnapshot in snapshot.children) {
-//
-//                                // This is the snapshot of the user with the matching email
-//                                val user = userSnapshot.getValue(coders::class.java)
-//
-//                                // The user object now contains the data for that user
-//                                UserID = userSnapshot.key.toString()
-//
-//                                Username = user?.name.toString()
-//                                EmailId = user?.email.toString()
-//                            }
-//
-//                            val headerUser : TextView = headerfile.findViewById(R.id.headerUser)
-//                            val headerEmail : TextView = headerfile.findViewById(R.id.headerEmail)
-//                            val headerUserID : TextView = headerfile.findViewById(R.id.headerUserID)
-//
-//                            val str1 : String = "UserID -> "
-//                            val str2 : String = "UserName -> "
-//                            val str3 : String = "UserEmail -> "
-//
-//
-//                            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-//                                if (it.isSuccessful) {
-//
-//                                    binding.progressBar.visibility = View.VISIBLE
-//
-//                                    if(UserID.isEmpty()) {
-//
-//                                        headerUser.text = "N/A"
-//                                        headerEmail.text = "N/A"
-//                                        headerUserID.text = "Not found"
-//
-//                                    }
-//                                    else {
-//                                        headerUser.text = "$str2$Username"
-//                                        headerEmail.text = "$str3$EmailId"
-//                                        headerUserID.text = "$str1$UserID"
-//                                    }
-//
-//                                   val intent = Intent(this@LoginActivity,MainActivity::class.java)
-//                                    startActivity(intent)
-//                                    finish()
-//                                } else {
-//                                    Toast.makeText(this@LoginActivity, "Authentication Failed.", Toast.LENGTH_SHORT).show()
-//                                }
-//                            }
-//
-//
-//
-//                        } else  {
-//                            Log.d("Firebase", "No user found")
-//
-//                            Toast.makeText(this@LoginActivity,"User of Email $email Not found",Toast.LENGTH_SHORT).show()
-//                        }
-//
-//
-//                    }.addOnFailureListener {
-//
-//                        Toast.makeText(applicationContext, "User not found with email: $email", Toast.LENGTH_SHORT).show()
-//
-//                    }
-//
-//
-//
-////                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-////                    if (it.isSuccessful) {
-////
-////                        binding.progressBar.visibility = View.VISIBLE
-////
-////                        if(UserID.isEmpty()) {
-////
-////                            headerUser.text = "N/A"
-////                            headerEmail.text = "N/A"
-////                            headerUserID.text = "Not found"
-////
-////                        }
-////                        else {
-////                            headerUser.text = "$str2$Username"
-////                            headerEmail.text = "$str3$EmailId"
-////                            headerUserID.text = "$str1$UserID"
-////                        }
-////
-////                        val intent = Intent(this, MainActivity::class.java)
-////                        startActivity(intent)
-////                        finish()
-////                    } else {
-////                        Toast.makeText(this, "User Not found in database or some Error occurred while fetching your data.", Toast.LENGTH_SHORT).show()
-////                    }
-////                }
-//            }
 
             binding.progressBar.visibility = View.VISIBLE
 
@@ -225,6 +123,7 @@ class LoginActivity : AppCompatActivity() {
                             var userID: String = ""
                             var username: String = ""
                             var emailId: String = ""
+                            var passwordmatch: String = ""
 
                             for (userSnapshot in snapshot.children) {
                                 val user = userSnapshot.getValue(coders::class.java)
@@ -232,6 +131,7 @@ class LoginActivity : AppCompatActivity() {
                                 userID = userSnapshot.key.toString()
                                 username = user?.name ?: "N/A"
                                 emailId = user?.email ?: "N/A"
+                                passwordmatch = user?.password ?: "N?A"
                             }
 
                             Log.d("LoginActivity", "User ID: $userID, Username: $username, Email: $emailId")
@@ -239,6 +139,14 @@ class LoginActivity : AppCompatActivity() {
 //                            val headerUser: TextView = headerfile.findViewById(R.id.headerUser)
 //                            val headerEmail: TextView = headerfile.findViewById(R.id.headerEmail)
 //                            val headerUserID: TextView = headerfile.findViewById(R.id.headerUserID)
+
+                            if(password != passwordmatch)
+                            {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this@LoginActivity,"Password Not Matched...",Toast.LENGTH_SHORT).show()
+                                binding.Login.isEnabled = true
+
+                            }
 
                             val startTime = System.currentTimeMillis()
                             binding.Login.isEnabled = false
@@ -262,6 +170,7 @@ class LoginActivity : AppCompatActivity() {
 
                                     val sharedLoggedIn = getSharedPreferences("LoggedIN",
                                         MODE_PRIVATE)
+                                    
                                     val editorLoggedIn = sharedLoggedIn.edit()
                                     editorLoggedIn.putBoolean("isLoggedIn",true)
                                     editorLoggedIn.putString("ShareLoginToMain","SourceLogin")
@@ -291,10 +200,12 @@ class LoginActivity : AppCompatActivity() {
                                     Toast.makeText(this@LoginActivity,"Welcome $username !!",Toast.LENGTH_SHORT).show()
                                     finish()
                                 } else {
+                                    binding.progressBar.visibility = View.INVISIBLE
                                     Toast.makeText(this@LoginActivity, "Authentication Failed.", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         } else {
+                            binding.progressBar.visibility = View.GONE
                             Log.d("Firebase", "No user found for email: $email")
                             Toast.makeText(this@LoginActivity, "User of Email $email Not found", Toast.LENGTH_SHORT).show()
                         }
