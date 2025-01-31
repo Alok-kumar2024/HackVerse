@@ -33,6 +33,10 @@ class My_HackathonsFragment : Fragment() {
     private lateinit var recyclerViewHackathons_adapterAll : Hackathon_Adapter
     private var Hackathons_listAll = arrayListOf<Hackathon_Recycler>()
 
+    private var Hackathons_listSearchAll = arrayListOf<Hackathon_Recycler>()
+//    private var Hackathons_listSearchCreated = arrayListOf<Hackathon_Recycler>()
+//    private var Hackathons_listSearchRegistered = arrayListOf<Hackathon_Recycler>()
+
    // private lateinit var recyclerViewHackathonsCreated : Hackathon_Recycler
 //    private lateinit var recyclerViewHackathons_adapterCreated : Hackathon_Adapter
     private var Hackathons_listCreated = arrayListOf<Hackathon_Recycler>()
@@ -52,6 +56,9 @@ class My_HackathonsFragment : Fragment() {
 
     private var Created_Hackathon_list = mutableListOf<String>()
     private var Registered_Hackathon_list = mutableListOf<String>()
+
+    private var EventIDS = mutableListOf<String>()
+    private lateinit var Status : String
 
 //    var createdDataFetched = false
 //    var registeredDataFetched = false
@@ -109,7 +116,10 @@ class My_HackathonsFragment : Fragment() {
                         binding.TagOfEnterEventID.text = SelectItemText
 //                        ItemTitle(SelectItemText)
                         LoadEvent(SelectItemText)
-                        Log.d("SelectItmText","The SelectItem Text is $SelectItemText")
+
+
+                        Log.d("SelectItmText", "The SelectItem Text is $SelectItemText")
+
                         true
                     }
 
@@ -120,6 +130,7 @@ class My_HackathonsFragment : Fragment() {
                         LoadEvent(SelectItemText)
                         Log.d("SelectItmText","The SelectItem Text is $SelectItemText")
 
+
                         true
                     }
 
@@ -129,6 +140,9 @@ class My_HackathonsFragment : Fragment() {
 //                        ItemTitle(SelectItemText)
                         LoadEvent(SelectItemText)
                         Log.d("SelectItmText","The SelectItem Text is $SelectItemText")
+
+
+
                         true
                     }
                     else -> false
@@ -159,6 +173,8 @@ class My_HackathonsFragment : Fragment() {
                            Log.d("AddToarray","Successfully added $hackathonId to Added Hackathon list")
                        }
                    }
+                   Hackathons_listAll.clear()
+                   Hackathons_listCreated.clear()
 
                    if (Created_Hackathon_list.isEmpty())
                    {
@@ -175,7 +191,7 @@ class My_HackathonsFragment : Fragment() {
 
                            val SearchCreateDatabase = FirebaseDatabase.getInstance()
 
-                           SearchCreateDatabase.getReference("HACKATHON").child(createdHackathonId).addListenerForSingleValueEvent(object : ValueEventListener{
+                           SearchCreateDatabase.getReference("HACKATHON").child(createdHackathonId).addValueEventListener(object : ValueEventListener{
                                @SuppressLint("NotifyDataSetChanged")
                                override fun onDataChange(snapshot: DataSnapshot) {
                                    if (snapshot.exists())
@@ -250,6 +266,7 @@ class My_HackathonsFragment : Fragment() {
                             Log.d("AddToarray","Successfully added $HackathonID to Added friend list")
                         }
                     }
+                    Hackathons_listRegistered.clear()
 
                     if (Registered_Hackathon_list.isEmpty())
                     {
@@ -267,7 +284,7 @@ class My_HackathonsFragment : Fragment() {
                             val SearchRegisteredDatabase = FirebaseDatabase.getInstance()
 
                             SearchRegisteredDatabase.getReference("HACKATHON").child(RegisteredHackathonID)
-                                .addListenerForSingleValueEvent(object : ValueEventListener{
+                                .addValueEventListener(object : ValueEventListener{
                                     @SuppressLint("NotifyDataSetChanged")
                                     override fun onDataChange(snapshot: DataSnapshot) {
                                         if (snapshot.exists())
@@ -334,6 +351,146 @@ class My_HackathonsFragment : Fragment() {
             }
 
         })
+
+
+//        binding.buttonSearchHackathon.setOnClickListener {
+//
+//            val EnteredID = binding.EditViewEnterEventID.text.toString()
+//
+//            val DataBase = FirebaseDatabase.getInstance()
+//
+//            DataBase.getReference("USERS").child(CurrentuseridforMyHackathon)
+//                .child("hackathons")
+//                .orderByChild("EventStatus").equalTo(SelectItemText)
+//                .addListenerForSingleValueEvent(object : ValueEventListener {
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        if (snapshot.exists()) {
+//                            snapshot.children.forEach { hackathon ->
+//                                val IDs = (hackathon.key ?: "Not Got").toString()
+//                                Log.d(
+//                                    "SearchEventID",
+//                                    "The Event ID searched is : IDS"
+//                                )
+//
+//                                if (IDs != "Not Got") {
+//                                    EventIDS.add(IDs)
+//                                    Log.d("IDs Added", "Added In list..")
+//                                }
+//
+//                            }
+//
+//                            if (EventIDS.isEmpty()) {
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    "No Event With This Event ID is recorded here.",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            } else {
+//
+//                                val FoundID = EventIDS.filter { it.contains(EnteredID) }
+//                                for (index in FoundID.indices) {
+//
+//                                    DataBase.getReference("HACKATHON")
+//                                        .child(FoundID[index])
+//                                        .addListenerForSingleValueEvent(object :
+//                                            ValueEventListener {
+//                                            override fun onDataChange(snapshot: DataSnapshot) {
+//                                                if (snapshot.exists()) {
+//                                                    val eventname =
+//                                                        snapshot.child("eventName").value.toString()
+//                                                    val bannerURL =
+//                                                        snapshot.child("bannerUrl").value.toString()
+//                                                    val host =
+//                                                        snapshot.child("hostedBy").value.toString()
+//                                                    val prize =
+//                                                        snapshot.child("prize").value.toString()
+//
+//                                                    val bookmark =
+//                                                        snapshot.child("BookMark")
+//                                                            .child(
+//                                                                CurrentuseridforMyHackathon
+//                                                            )
+//                                                            .getValue(String::class.java)
+//                                                            ?: "None"
+//
+//                                                    val VotedText =
+//                                                        snapshot.child("votes")
+//                                                            .child("upvoted").child(
+//                                                                CurrentuseridforMyHackathon
+//                                                            )
+//                                                            .getValue(String::class.java)
+//                                                            ?: "none"
+//
+//                                                    val status =
+//                                                        snapshot.child("status").value.toString()
+//
+//                                                    Log.d(
+//                                                        "ValueStatus",
+//                                                        "Value of status for event is $status"
+//                                                    )
+//                                                    val information_event =
+//                                                        Hackathon_Recycler(
+//                                                            bannerURL,
+//                                                            FoundID[index],
+//                                                            eventname,
+//                                                            host,
+//                                                            prize,
+//                                                            bookmark,
+//                                                            VotedText,
+//                                                            status
+//                                                        )
+//                                                    Log.d(
+//                                                        "HackathonIDData",
+//                                                        "EventName -> $eventname" +
+//                                                                "bannerurl -> $bannerURL" +
+//                                                                "host -> $host" +
+//                                                                "Prize -> $prize" +
+//                                                                "bookmark -> $bookmark" +
+//                                                                "Voted -> $VotedText"
+//                                                    )
+//
+//                                                    if (!Hackathons_listSearchAll.contains(
+//                                                            information_event
+//                                                        )
+//                                                    ) {
+//                                                        Hackathons_listSearchAll.add(
+//                                                            information_event
+//                                                        )
+//                                                    }
+//
+//                                                }
+//                                            }
+//
+//                                            override fun onCancelled(error: DatabaseError) {
+//                                                TODO("Not yet implemented")
+//                                            }
+//                                        })
+//                                }
+//
+//                                recyclerViewHackathonsAll = binding.RecyclerViewEventCreatedOrJoined
+//                                recyclerViewHackathonsAll.layoutManager = LinearLayoutManager(context)
+//
+//                                recyclerViewHackathons_adapterAll = Hackathon_Adapter(
+//                                    Hackathons_listSearchAll ,
+//                                    OnBookmarkClickAdd = { hackathon -> BookMarkAdded(hackathon) } ,
+//                                    OnBookmarkClickRemove = { hackathon -> BookMarkRemove(hackathon) } ,
+//                                    OnLikeClickAdd = { hackathon -> UpvoteAdd(hackathon) } ,
+//                                    OnLikeClickRemove = { hackathon -> UpvoteRemove(hackathon) } ,
+//                                    OnDetailsClick = { hackathon -> GoToDetailsActivity(hackathon)}
+//                                )
+//                                recyclerViewHackathonsAll.adapter = recyclerViewHackathons_adapterAll
+//
+//
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onCancelled(error: DatabaseError) {
+//                        TODO("Not yet implemented")
+//                    }
+//                })
+//        }
+
 
 
         return binding.root
@@ -410,6 +567,90 @@ class My_HackathonsFragment : Fragment() {
         return selectItemText
 
     }
+
+//    private fun SearchEvent(user : String , status : String ,searchedID :String)
+//    {
+//
+//        val DataBase = FirebaseDatabase.getInstance()
+//
+//        DataBase.getReference("USERS").child(user).child("hackathons")
+//            .orderByChild("EventStatus").equalTo(status).addListenerForSingleValueEvent( object : ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if(snapshot.exists())
+//                    {
+//                        snapshot.children.forEach { hackathon ->
+//                             val IDs= (hackathon.key ?:"Not Got").toString()
+//                            Log.d("SearchEventID","The Event ID searched is : IDS")
+//
+//                            if (IDs != "Not Got")
+//                            {
+//                                EventIDS.add(IDs)
+//                                Log.d("IDs Added","Added In list..")
+//                            }
+//
+//                        }
+//
+//                        if (EventIDS.isEmpty())
+//                        {
+//                            Toast.makeText(requireContext(),"No Event With This Event ID is recorded here.",Toast.LENGTH_SHORT).show()
+//                        }else{
+//
+//                            val FoundID = EventIDS.filter { it.contains(searchedID) }
+//                            for (index in FoundID.indices) {
+//
+//                                DataBase.getReference("HACKATHON").child(FoundID[index])
+//                                    .addListenerForSingleValueEvent(object : ValueEventListener{
+//                                        override fun onDataChange(snapshot: DataSnapshot) {
+//                                            if (snapshot.exists())
+//                                            {
+//                                                val eventname = snapshot.child("eventName").value.toString()
+//                                                val bannerURL = snapshot.child("bannerUrl").value.toString()
+//                                                val host = snapshot.child("hostedBy").value.toString()
+//                                                val prize = snapshot.child("prize").value.toString()
+//
+//                                                val bookmark = snapshot.child("BookMark").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "None"
+//
+//                                                val VotedText = snapshot.child("votes").child("upvoted").child(CurrentuseridforMyHackathon).getValue(String::class.java) ?: "none"
+//
+//                                                val status = snapshot.child("status").value.toString()
+//
+//                                                Log.d("ValueStatus","Value of status for event is $status")
+//                                                val information_event = Hackathon_Recycler(bannerURL,FoundID[index],eventname,host,prize,bookmark,VotedText,status)
+//                                                Log.d("HackathonIDData","EventName -> $eventname" +
+//                                                        "bannerurl -> $bannerURL" +
+//                                                        "host -> $host" +
+//                                                        "Prize -> $prize" +
+//                                                        "bookmark -> $bookmark" +
+//                                                        "Voted -> $VotedText")
+//
+//                                                if(!Hackathons_listSearch.contains(information_event))
+//                                                {
+//                                                    Hackathons_listSearch.add(information_event)
+//                                                }
+//
+//                                            }
+//                                        }
+//
+//                                        override fun onCancelled(error: DatabaseError) {
+//                                            TODO("Not yet implemented")
+//                                        }
+//                                    })
+//                            }
+//
+//
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+//
+//
+//
+//
+//    }
 
     private fun BookMarkRemove(hackathon: Hackathon_Recycler) {
 

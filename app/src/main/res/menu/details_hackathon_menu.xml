@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+
+    <item
+        android:id="@+id/Edit_DetailsHackathon"
+        android:title="Edit"
+        android:icon="@drawable/edit_data"/>
+
+
+    <item
+        android:id="@+id/Participants_DetailsHackathon"
+        android:title="Participants"
+        android:icon="@drawable/friends_menu"/>
+
+<!--    <item-->
+<!--        android:id="@+id/Delete_DetailsHackathons"-->
+<!--        android:title="Delete Event"-->
+<!--        android:icon="@drawable/delete_vector"/>-->
+
+
+</menu>

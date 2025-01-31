@@ -32,6 +32,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.026" />
 
+            <ImageButton
+                android:id="@+id/buttonSettingProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/profileedittext"
+                android:elevation="20dp"
+                android:padding="10dp"
+                android:src="@drawable/setting_vector"
+                app:layout_constraintBottom_toTopOf="@+id/UserID_show"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.857"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.182" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview"
                 android:layout_width="120dp"
@@ -202,6 +217,7 @@
                 android:drawableLeft="@drawable/reset_password_vector"
                 android:text="Reset Password"
                 android:textSize="15sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.023"
@@ -234,6 +250,7 @@
                 android:drawableLeft="@drawable/edit_photo"
                 android:text="Edit Profile"
                 android:textSize="15sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

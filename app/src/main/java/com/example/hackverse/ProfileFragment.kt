@@ -2,6 +2,7 @@ package com.example.hackverse
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
@@ -33,12 +35,12 @@ class ProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val editbutton = view.findViewById<Button>(R.id.Edit_button)
+//        val editbutton = view.findViewById<Button>(R.id.Edit_button)
 
-        editbutton.setOnClickListener {
-            edit()
-
-        }
+//        editbutton.setOnClickListener {
+//            edit()
+//
+//        }
 
         val userid = view.findViewById<TextView>(R.id.UserId)
         val useridShow = view.findViewById<TextView>(R.id.UserID_show)
@@ -122,14 +124,56 @@ class ProfileFragment : Fragment() {
 
         }
 
-            val changepassbtn = view.findViewById<Button>(R.id.profile_changepassword)
+        val settingsbutton : ImageButton= view.findViewById(R.id.buttonSettingProfile)
 
-            changepassbtn.setOnClickListener {
+        settingsbutton.setOnClickListener { view->
 
-                val intent = Intent(activity,PasswordChange::class.java)
-                intent.putExtra("UserIDFromProfile",getuserid)
-                startActivity(intent)
+            val popup = PopupMenu(requireContext(),view)
+            popup.menuInflater.inflate(R.menu.profile_menu,popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+
+                when(item.itemId)
+                {
+                    R.id.Edit_Profile -> {
+
+                        val shareuserid = requireActivity().getSharedPreferences("SharingToEditActivity", MODE_PRIVATE)
+                        val editor = shareuserid.edit()
+                        editor.putString("UseridFromProfileToEditProfile",getuserid).apply()
+
+                        val intent= Intent(requireContext(),EditProfile::class.java)
+                        startActivity(intent)
+
+
+                        true
+                    }
+
+                    R.id.ResetPassword_profile -> {
+
+                        val intent = Intent(activity,PasswordChange::class.java)
+                        intent.putExtra("UserIDFromProfile",getuserid)
+                        startActivity(intent)
+
+                        true
+
+                    }
+
+                    else->false
+                }
+
+
             }
+            popup.show()
+
+        }
+
+//            val changepassbtn = view.findViewById<Button>(R.id.profile_changepassword)
+//
+//            changepassbtn.setOnClickListener {
+//
+//                val intent = Intent(activity,PasswordChange::class.java)
+//                intent.putExtra("UserIDFromProfile",getuserid)
+//                startActivity(intent)
+//            }
 
 
 
@@ -137,15 +181,15 @@ class ProfileFragment : Fragment() {
         return view
     }
 
-    private fun edit(){
-
-        val shareuserid = requireActivity().getSharedPreferences("SharingToEditActivity", MODE_PRIVATE)
-        val editor = shareuserid.edit()
-        editor.putString("UseridFromProfileToEditProfile",getuserid).apply()
-
-        val intent= Intent(requireContext(),EditProfile::class.java)
-        startActivity(intent)
-    }
+//    private fun edit(){
+//
+//        val shareuserid = requireActivity().getSharedPreferences("SharingToEditActivity", MODE_PRIVATE)
+//        val editor = shareuserid.edit()
+//        editor.putString("UseridFromProfileToEditProfile",getuserid).apply()
+//
+//        val intent= Intent(requireContext(),EditProfile::class.java)
+//        startActivity(intent)
+//    }
 
 
 }

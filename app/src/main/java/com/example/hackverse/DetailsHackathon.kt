@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,46 @@ class DetailsHackathon : AppCompatActivity() {
         binding.buttonBackDetailsHackathon.setOnClickListener {
             finish()
         }
+
+//        FirebaseDatabase.getInstance().getReference("USERS").child(CurrentUserID).child("hackathons").child(HackathonEventId)
+//            .addListenerForSingleValueEvent(object : ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if(snapshot.exists())
+//                    {
+//                        val eventstatus = snapshot.child("EventStatus").value.toString()
+//
+//                        if(eventstatus=="Created")
+//                        {
+//                            binding.buttonSetting.setOnClickListener { view->
+//
+//                                val popup = PopupMenu(this@DetailsHackathon,view)
+//                                popup.menuInflater.inflate(R.menu.details_hackathon_menu,popup.menu)
+//                                popup.setOnMenuItemClickListener { item ->
+//
+//                                    when(item.itemId)
+//                                    {
+//                                        R.id.Edit_DetailsHackathon -> {
+//                                            Toast.makeText(this@DetailsHackathon,"Clicked Edit",Toast.LENGTH_SHORT).show()
+//                                            true
+//                                        }
+//
+//                                        R.id.Participants_DetailsHackathon -> {
+//
+//                                        }
+//                                    }
+//
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+
 
         database.child(HackathonEventId).child("time").addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -219,13 +260,65 @@ class DetailsHackathon : AppCompatActivity() {
 
                     if (creator == CurrentUserID)
                     {
-                        binding.ButtonParticipantsDetailsHackathon.visibility = View.VISIBLE
-                        binding.ButtonParticipantsDetailsHackathon.setOnClickListener {
-                            val intent = Intent(this@DetailsHackathon,ParticipantsList::class.java)
-                            intent.putExtra("HackathonID",HackathonEventId)
-                            intent.putExtra("currentuserid",CurrentUserID)
-                            startActivity(intent)
+                        binding.buttonSetting.visibility = View.VISIBLE
+                        binding.buttonSetting.setOnClickListener { view->
+
+                            val popup = PopupMenu(this@DetailsHackathon,view)
+                            popup.menuInflater.inflate(R.menu.details_hackathon_menu,popup.menu)
+                            popup.setOnMenuItemClickListener { item ->
+
+                                when(item.itemId)
+                                {
+                                    R.id.Edit_DetailsHackathon -> {
+                                        val intent = Intent(this@DetailsHackathon,Edit_Hackathon::class.java)
+                                        intent.putExtra("HackathonID",HackathonEventId)
+                                        intent.putExtra("currentuserid",CurrentUserID)
+                                        startActivity(intent)
+                                        true
+                                    }
+
+                                    R.id.Participants_DetailsHackathon -> {
+
+                                        val intent = Intent(this@DetailsHackathon,ParticipantsList::class.java)
+                                        intent.putExtra("HackathonID",HackathonEventId)
+                                        intent.putExtra("currentuserid",CurrentUserID)
+                                        startActivity(intent)
+
+                                        true
+
+                                    }
+
+//                                    R.id.Delete_DetailsHackathons -> {
+//                                        val frag = deletehackathon()
+//
+//                                        val bundle = Bundle()
+//                                        bundle.putString("UserId",CurrentUserID)
+//                                        bundle.putString("HackathonID",HackathonEventId)
+//                                        frag.arguments = bundle
+//
+//                                        val Frame = binding.FrameContainerDeleteHackathon
+//
+//                                        supportFragmentManager.beginTransaction().replace(R.id.Frame_container_DeleteHackathon,frag)
+//                                            .addToBackStack(null).commit()
+//
+//                                        Frame.visibility = View.VISIBLE
+//
+//                                        true
+//                                    }
+                                    else->false
+                                }
+
+
+                            }
+                            popup.show()
                         }
+//                        binding.ButtonParticipantsDetailsHackathon.visibility = View.VISIBLE
+//                        binding.ButtonParticipantsDetailsHackathon.setOnClickListener {
+//                            val intent = Intent(this@DetailsHackathon,ParticipantsList::class.java)
+//                            intent.putExtra("HackathonID",HackathonEventId)
+//                            intent.putExtra("currentuserid",CurrentUserID)
+//                            startActivity(intent)
+//                        }
                     }
                 }
             }

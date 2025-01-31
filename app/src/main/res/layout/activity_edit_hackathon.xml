@@ -8,58 +8,58 @@
     tools:context=".CreateHackathon"
     android:background="#500AC0">
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/transparent"-->
-<!--        android:padding="20dp"-->
-<!--        android:src="@drawable/back_arrow_black_vector"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/ConstraintLayout_Containing_Views"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/imageButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/transparent"-->
+    <!--        android:padding="20dp"-->
+    <!--        android:src="@drawable/back_arrow_black_vector"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/ConstraintLayout_Containing_Views"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout_Containing_Views"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/profilebox"
-       android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp">
 
 
         <Button
-            android:id="@+id/buttonCancelHackathon"
+            android:id="@+id/buttonCancelEditHackathon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
             android:backgroundTint="@color/red"
             android:text="Cancel"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonCreateHackathon"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@+id/buttonconfirmEditHackathon"
+            app:layout_constraintHorizontal_bias="0.161"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.021" />
+            app:layout_constraintVertical_bias="0.024" />
 
         <Button
-            android:id="@+id/buttonCreateHackathon"
+            android:id="@+id/buttonconfirmEditHackathon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
-            android:text="Create"
+            android:text="confirm"
+            android:drawableLeft="@drawable/edit_profile_save_vector"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.871"
+            app:layout_constraintHorizontal_bias="0.804"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.022" />
+            app:layout_constraintVertical_bias="0.02" />
 
         <TextView
             android:id="@+id/TextViewBannerURL"
@@ -70,20 +70,20 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/EditTextBannerURL"
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowBannerURL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.133"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCancelHackathon" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonCancelEditHackathon" />
 
         <EditText
-            android:id="@+id/EditTextBannerURL"
+            android:id="@+id/EditTextShowBannerURL"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="124dp"
             android:elevation="30dp"
             android:background="@drawable/profileedittext"
-            android:hint="Enter Banner URL"
+            android:hint="No URL"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="20sp"
@@ -102,20 +102,20 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/EditTextEventName"
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowEventName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.133"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextBannerURL"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowBannerURL"
             app:layout_constraintVertical_bias="1.0" />
 
         <EditText
-            android:id="@+id/EditTextEventName"
+            android:id="@+id/EditTextShowEventName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:background="@drawable/profileedittext"
-            android:hint="Enter Name Of Event"
+            android:hint="Show Name Of Event"
             android:padding="10dp"
             android:elevation="30dp"
             android:textColor="@color/black"
@@ -124,7 +124,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.28"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextBannerURL" />
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowBannerURL" />
 
         <TextView
             android:id="@+id/TextViewHostName"
@@ -135,20 +135,20 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/EditTextHostName"
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowHostName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextEventName"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowEventName"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/EditTextHostName"
+            android:id="@+id/EditTextShowHostName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:background="@drawable/profileedittext"
-            android:hint="Host Name"
+            android:hint="Show Host Name"
             android:padding="10dp"
             android:textColor="@color/black"
             android:elevation="30dp"
@@ -157,7 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.28"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextEventName" />
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowEventName" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,20 +167,20 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/EditTextPrize"
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowPrize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.114"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextHostName"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowHostName"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/EditTextPrize"
+            android:id="@+id/EditTextShowPrize"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:background="@drawable/profileedittext"
-            android:hint="Prize"
+            android:hint="Show Prize"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="20sp"
@@ -190,7 +190,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.28"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextHostName" />
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowHostName" />
 
         <LinearLayout
             android:id="@+id/LinearLayoutStartDate"
@@ -200,7 +200,7 @@
             app:layout_constraintHorizontal_bias="0.482"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/EditTextPrize"
+            app:layout_constraintTop_toBottomOf="@id/EditTextShowPrize"
             app:layout_constraintBottom_toTopOf="@+id/LinearLayoutStartTime">
 
             <Button
@@ -214,7 +214,7 @@
                 android:layout_marginStart="20dp" />
 
             <TextView
-                android:id="@+id/TextViewSelectStartDate"
+                android:id="@+id/TextViewShowSelectStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Start Date*"
@@ -246,7 +246,7 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/TextViewSelectStartTime"
+                android:id="@+id/TextViewSelectShowStartTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -279,7 +279,7 @@
                 android:layout_marginStart="20dp"/>
 
             <TextView
-                android:id="@+id/TextViewSelectEndDate"
+                android:id="@+id/TextViewSelectShowEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="End Date*"
@@ -299,7 +299,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEndDate"
-            app:layout_constraintBottom_toTopOf="@+id/EditTextDescription">
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowDescription">
 
             <Button
                 android:id="@+id/ButtonSelectEndTime"
@@ -313,7 +313,7 @@
                 android:layout_marginStart="20dp"/>
 
             <TextView
-                android:id="@+id/TextViewSelectEndTime"
+                android:id="@+id/TextViewSelectShowEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="End Time*"
@@ -327,7 +327,7 @@
 
 
         <EditText
-            android:id="@+id/EditTextDescription"
+            android:id="@+id/EditTextShowDescription"
             android:layout_width="350dp"
             android:layout_height="400dp"
             android:layout_marginTop="276dp"
@@ -346,7 +346,7 @@
             app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextPrize" />
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShowPrize" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

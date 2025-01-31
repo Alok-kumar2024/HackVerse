@@ -20,6 +20,6 @@ data class FriendID(
 
 data class HackathonID(
     val EventStatus : String? = null ,
-    val bookmark : String? = null
+    val bookmark : String? = null ,
 )
 
