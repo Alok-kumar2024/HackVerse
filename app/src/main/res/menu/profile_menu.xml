@@ -14,9 +14,9 @@
         android:title="Reset Password"
         android:icon="@drawable/reset_password_vector"/>
 
-        <item
-            android:id="@+id/Delete_profile"
-            android:title="Delete ID"
-            android:icon="@drawable/delete_vector"/>
+<!--        <item-->
+<!--            android:id="@+id/Delete_profile"-->
+<!--            android:title="Delete ID"-->
+<!--            android:icon="@drawable/delete_vector"/>-->
 
 </menu>

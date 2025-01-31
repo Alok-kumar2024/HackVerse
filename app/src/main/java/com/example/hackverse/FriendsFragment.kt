@@ -311,8 +311,6 @@ class FriendsFragment : Fragment() {
                             }
 
 
-
-
                         }else{
                             (binding.RecyclerViewForShowingUsersSearch.adapter as? Friends_Adaptar)?.notifyDataSetChanged()
                             binding.RecyclerViewForShowingUsersSearch.visibility = View.GONE

@@ -325,6 +325,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/TextViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Description*"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayoutEndTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/EditTextShowDescription"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <EditText
             android:id="@+id/EditTextShowDescription"
@@ -333,7 +347,6 @@
             android:layout_marginTop="276dp"
             android:background="@drawable/profileedittext"
             android:gravity="start"
-            android:layout_marginBottom="80dp"
             android:elevation="30dp"
             android:hint="Give Description here"
             android:padding="10dp"

@@ -6,6 +6,7 @@ import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -197,6 +198,12 @@ class Edit_Hackathon : AppCompatActivity() {
                 Toast.makeText(this, "Star Fields Cannot Be Empty..", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if(binding.EditTextShowBannerURL.text.toString().isNotEmpty()) {
+                if (!isValidURL(binding.EditTextShowBannerURL.text.toString())) {
+                    Toast.makeText(this, "Not a Valid URL..", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
 
             val startDateText = binding.TextViewShowSelectStartDate.text.toString().trim()
             val startTimeText = binding.TextViewSelectShowStartTime.text.toString().trim()
@@ -216,7 +223,7 @@ class Edit_Hackathon : AppCompatActivity() {
                 if (endTimestamp < System.currentTimeMillis()) {
                     Toast.makeText(
                         this,
-                        "Start/End Date-Time can't be before the current time...",
+                        "End Date-Time can't be before the current time...",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@setOnClickListener // **Fix: Stop execution**
@@ -294,5 +301,10 @@ class Edit_Hackathon : AppCompatActivity() {
 
 
 
+    }
+
+    private fun isValidURL(url :String) : Boolean {
+
+        return  Patterns.WEB_URL.matcher(url).matches()
     }
 }

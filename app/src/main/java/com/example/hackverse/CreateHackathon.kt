@@ -7,6 +7,7 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.Locale
 
 class CreateHackathon : AppCompatActivity() {
     private lateinit var binding : ActivityCreateHackathonBinding
@@ -81,6 +83,8 @@ class CreateHackathon : AppCompatActivity() {
 
         binding.buttonCreateHackathon.setOnClickListener {
 
+            val dateFormat = SimpleDateFormat("yyyy-M-d HH:mm", Locale.getDefault())
+
             val EventName = binding.EditTextEventName.text.toString()
             val bannerURL = binding.EditTextBannerURL.text.toString()
             val HostName = binding.EditTextHostName.text.toString()
@@ -94,6 +98,40 @@ class CreateHackathon : AppCompatActivity() {
 
             Log.d("Time","Start -> Date - $startDate , Time - $startTime" +
                     "End -> Date - $endDate , Time - $endTime")
+            if(bannerURL.isNotEmpty()) {
+                if (!isValidURL(bannerURL)) {
+                    Toast.makeText(this, "Not a Valid URL..", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
+            try {
+                val startDate = dateFormat.parse("$startDate $startTime")
+                val endDate = dateFormat.parse("$endDate $endTime")
+
+                val startTimestamp = startDate?.time ?: 0L
+                val endTimestamp = endDate?.time ?: 0L
+
+                // **Fix: Validate both start and end times**
+                if (startTimestamp<System.currentTimeMillis() || endTimestamp < System.currentTimeMillis()) {
+                    Toast.makeText(
+                        this,
+                        "Start/End Date-Time can't be before the current time...",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener // **Fix: Stop execution**
+                }
+                if (endTimestamp < startTimestamp) {
+                    Toast.makeText(
+                        this,
+                        "End time cannot be before start time!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this, "Invalid Date-Time Format!", Toast.LENGTH_SHORT).show()
+            }
 
 
             fun generateHackathonKey(storeName : String , callback : (String) -> Unit){
@@ -150,7 +188,7 @@ class CreateHackathon : AppCompatActivity() {
                 Log.d("CREATEDTIME","The Created Time of Event is $CreatedTime")
 
             if (EventName.isEmpty() || HostName.isEmpty() || prize.isEmpty() || startDate.isEmpty() || startTime.isEmpty()
-                || endDate.isEmpty() || endTime.isEmpty())
+                || endDate.isEmpty() || endTime.isEmpty() || description.isEmpty())
             {
                 Toast.makeText(this,"Star Fields are compulsory to Fill.",Toast.LENGTH_SHORT).show()
             }else{
@@ -206,5 +244,9 @@ class CreateHackathon : AppCompatActivity() {
 
         }
 
+    }
+    private fun isValidURL(url :String) : Boolean {
+
+        return  Patterns.WEB_URL.matcher(url).matches()
     }
 }

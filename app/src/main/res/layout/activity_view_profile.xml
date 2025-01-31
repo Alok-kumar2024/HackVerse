@@ -51,7 +51,7 @@
 
         <LinearLayout
             android:id="@+id/LinearLAyoutViewProfile"
-            android:layout_width="177dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_marginTop="152dp"
@@ -62,23 +62,51 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ButtonMessageViewProfile">
 
-            <TextView
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/USERIDViewProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="USERID : "
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
                 android:id="@+id/ShowUSERIDViewProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USERID"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/ShowUSERNameViewProfile"
+                android:id="@+id/USERNameViewProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UserName"
+                android:text="UserName : "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ShowUSERNameViewProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UserName"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+        </LinearLayout>
 
         </LinearLayout>
 

@@ -660,7 +660,7 @@ class DetailsHackathon : AppCompatActivity() {
 
                                                     if (check == CommentKey_List.size)
                                                     {
-                                                        comment_TempList.sortBy { it.TimeStamp }
+                                                        comment_TempList.sortByDescending { it.TimeStamp }
                                                         Comment_List.clear()
                                                         Comment_List.addAll(comment_TempList)
                                                         recyclerviewcomment_adapter.notifyDataSetChanged()

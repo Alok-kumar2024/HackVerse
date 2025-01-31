@@ -87,15 +87,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            android:layout_marginTop="24dp"
             android:backgroundTint="@color/blue"
             android:src="@drawable/sort_hackathon_vector"
             app:layout_constraintBottom_toBottomOf="@+id/EditViewEnterEventID"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.809"
+            app:layout_constraintHorizontal_bias="0.806"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCreateEvent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/EditViewEnterEventID"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewEventCreatedOrJoined"
